@@ -24,6 +24,6 @@ echo $PYTHONPATH
 cd /home/b.weinstein/DeepLidar
 which python
 
-python site_grid.py
+python cross_site_training_grid.py
 
 cat analysis/site_grid.csv
