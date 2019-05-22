@@ -89,7 +89,7 @@ def load_lidar(laz_path, normalize=True):
             return None
     
     #Quick filter for unreasonable points.
-    pc.filter(min = -1, max = 100 , dim = "z")    
+    #pc.filter(min = -1, max = 100 , dim = "z")    
     
     #Check dim
     assert (not pc.data.points.shape[0] == 0), "Lidar tile is empty!"
