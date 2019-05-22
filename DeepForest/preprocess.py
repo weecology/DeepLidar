@@ -326,7 +326,7 @@ def create_windows(data, DeepForest_config, base_dir):
     base_dir: Location of the RGB image data
     """
     #Compute list of sliding windows, assumed that all objects are the same extent and resolution     
-    sample_tile = data.rgb_path[0]
+    sample_tile = data.rgb_path.iloc[0]
     image_path=os.path.join(base_dir, sample_tile)
     windows=compute_windows(image=image_path, pixels=DeepForest_config["patch_size"], overlap=DeepForest_config["patch_overlap"])
     

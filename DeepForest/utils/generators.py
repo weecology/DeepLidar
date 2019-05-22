@@ -38,7 +38,7 @@ def load_retraining_data(DeepForest_config):
                 full_xml_path = os.path.join(annotation_dir, annotation_xmls )
                 
                 print("Generating h5 for hand annotated data from tile {}".format(tilename))                
-                Generate.run(tile_xml = full_xml_path, mode="retrain", site = site)
+                Generate.run(tile_xml = full_xml_path, mode="retrain", site = site, DeepForest_config=DeepForest_config)
         
     #combine data across sites        
     dataframes = []

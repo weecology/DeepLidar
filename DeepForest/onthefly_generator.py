@@ -193,7 +193,7 @@ class OnTheFlyGenerator(Generator):
         else:
             return None
 
-    def load_lidar_tile(self, normalize = True):
+    def load_lidar_tile(self, normalize = False):
         '''Load a point cloud into memory from file
         '''
         self.lidar_filepath=self.fetch_lidar_filename()
@@ -252,10 +252,7 @@ class OnTheFlyGenerator(Generator):
         except:
             return None
         
-        #subtract lidar model from RGB
-        subtracted_image = self.subtract_lidar(self.image, self.CHM)
-        
-        four_channel_image = self.bind_array(subtracted_image, self.CHM)
+        four_channel_image = self.bind_array(self.image, self.CHM)
         
         return four_channel_image
         
