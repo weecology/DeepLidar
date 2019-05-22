@@ -1,7 +1,7 @@
 #Config file for DeepLidar
 
 #Data generation - the number of workers for dask session
-num_hipergator_workers: 40
+num_hipergator_workers: 30
 training_csvs:
   - SJER
   - TEAK
