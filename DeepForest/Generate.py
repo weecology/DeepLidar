@@ -121,7 +121,7 @@ def run(tile_csv=None, tile_xml = None, mode="train", site=None, DeepForest_conf
                 
         #Check if there is lidar density
         if check_lidar:
-            bounds = Lidar.get_window_extent()
+            bounds = generator.get_window_extent()
             density = Lidar.check_density(generator.lidar_tile, bounds)
                     
             if density < generator.DeepForest_config["min_density"]:
