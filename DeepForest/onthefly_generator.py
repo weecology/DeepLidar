@@ -171,6 +171,27 @@ class OnTheFlyGenerator(Generator):
         bounds = Lidar.get_window_extent(annotations=self.annotation_list, row=self.row, windows=self.windows, rgb_res=self.rgb_res)
         return bounds
     
+    def utm_from_window(self):
+        """Given the current window crop, get the utm position from the rasterio metadata
+        returns: utm bounds"""
+        x,y,h,w = self.windows[self.row["window"]].getRect()
+        x = x * self.rgb_res
+        y = y * self.rgb_res
+        
+        base_dir = self.DeepForest_config[self.row["site"]][self.name]["RGB"]        
+        filename = os.path.join(base_dir, self.row["tile"])
+        
+        with rasterio.open(filename) as dataset:
+            self.utm_bounds = dataset.bounds   
+        
+        utm_xmin = self.utm_bounds.left + x
+        utm_xmax = self.utm_bounds.left + x + (self.DeepForest_config["patch_size"] * self.rgb_res)
+        
+        utm_ymax = self.utm_bounds.top - y
+        utm_ymin = self.utm_bounds.top - y - (self.DeepForest_config["patch_size"] * self.rgb_res)
+        
+        return (utm_xmin, utm_xmax, utm_ymin, utm_ymax)
+    
     def crop_CHM(self):
         index = self.row["window"]
         crop = self.CHM[self.windows[index].indices()]  
