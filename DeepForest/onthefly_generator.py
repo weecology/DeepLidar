@@ -143,13 +143,6 @@ class OnTheFlyGenerator(Generator):
         """
         return self.labels[label]
     
-    def image_aspect_ratio(self, image_index):
-        """ Compute the aspect ratio for an image with image_index.
-        """
-        # PIL is fast for metadata
-        image = Image.open(self.image_path(image_index))
-        return float(image.width) / float(image.height)
-    
     def compute_windows(self):
         ''''
         Create a sliding window object
@@ -173,16 +166,10 @@ class OnTheFlyGenerator(Generator):
         crop = self.numpy_image[self.windows[index].indices()]
         return(crop)
     
-    def get_window_extent(self):
-        """Inherit LIDAR methods for Class"""
-        bounds = Lidar.get_window_extent(annotations=self.annotation_list, row=self.row, windows=self.windows, rgb_res=self.rgb_res)
-        return bounds
-    
-    def clip_las(self):
-        '''' Inherit LIDAR methods for Class
-        '''
-        self.clipped_las = Lidar.clip_las(lidar_tile=self.lidar_tile, annotations=self.annotation_list, row=self.row, windows=self.windows, rgb_res=self.rgb_res)
-        return self.clipped_las
+    def crop_CHM(self):
+        index = self.row["window"]
+        crop = self.CHM[self.windows[index].indices()]  
+        return crop
     
     def fetch_lidar_filename(self):           
         lidar_path = self.DeepForest_config[self.row["site"]][self.name]["LIDAR"]        
@@ -193,7 +180,7 @@ class OnTheFlyGenerator(Generator):
         else:
             return None
 
-    def load_lidar_tile(self, normalize = False):
+    def load_lidar_tile(self, normalize = True):
         '''Load a point cloud into memory from file
         '''
         self.lidar_filepath=self.fetch_lidar_filename()
@@ -214,12 +201,6 @@ class OnTheFlyGenerator(Generator):
         self.numpy_image = np.array(im)    
         
         return self.numpy_image
-        
-    def compute_CHM(self):
-        '''' Compute a canopy height model on loaded point cloud
-        '''
-        self.CHM  = Lidar.compute_chm(self.clipped_las)
-        return self.CHM
     
     def bind_array(self, image, CHM):
         """ Bind RGB and LIDAR arrays
@@ -239,20 +220,11 @@ class OnTheFlyGenerator(Generator):
         #BGR order
         self.image = image[:,:,::-1]
     
-        #Crop Las
-        self.clipped_las = self.clip_las()
+        #Crop CHM
+        self.cropped_chm = self.crop_CHM()
         
-        #If empty, return None
-        if self.clipped_las is None:
-            return None
-        
-        #Compute height model and return as numpy array
-        try:
-            one_channel_array = self.compute_CHM()
-        except:
-            return None
-        
-        four_channel_image = self.bind_array(self.image, self.CHM)
+        #Bind array
+        four_channel_image = self.bind_array(self.image, self.cropped_chm)
         
         return four_channel_image
         
@@ -276,6 +248,9 @@ class OnTheFlyGenerator(Generator):
             if self.lidar_tile == None:
                 print("image annotations have no corresponding crop, exiting.")
                 return False
+            
+            #Compute new canopy height model
+            self.CHM = Lidar.compute_chm(self.lidar_tile)
         
         #Load a new crop from self
         four_channel_image = self.load_new_crop()
@@ -376,27 +351,6 @@ class OnTheFlyGenerator(Generator):
             boxes=boxes.astype("float64")
         
         return boxes
-
-    def utm_from_window(self):
-        """Given the current window crop, get the utm position from the rasterio metadata
-        returns: utm bounds"""
-        x,y,h,w = self.windows[self.row["window"]].getRect()
-        x = x * self.rgb_res
-        y = y * self.rgb_res
-        
-        base_dir = self.DeepForest_config[self.row["site"]][self.name]["RGB"]        
-        filename = os.path.join(base_dir, self.row["tile"])
-        
-        with rasterio.open(filename) as dataset:
-            self.utm_bounds = dataset.bounds   
-        
-        utm_xmin = self.utm_bounds.left + x
-        utm_xmax = self.utm_bounds.left + x + (self.DeepForest_config["patch_size"] * self.rgb_res)
-        
-        utm_ymax = self.utm_bounds.top - y
-        utm_ymin = self.utm_bounds.top - y - (self.DeepForest_config["patch_size"] * self.rgb_res)
-        
-        return (utm_xmin, utm_xmax, utm_ymin, utm_ymax)
    
     
 

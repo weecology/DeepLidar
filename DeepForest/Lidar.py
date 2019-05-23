@@ -89,7 +89,7 @@ def load_lidar(laz_path, normalize=True):
             return None
     
     #Quick filter for unreasonable points.
-    #pc.filter(min = -1, max = 100 , dim = "z")    
+    pc.filter(min = -1, max = 100 , dim = "z")    
     
     #Check dim
     assert (not pc.data.points.shape[0] == 0), "Lidar tile is empty!"
@@ -134,6 +134,11 @@ def get_window_extent(annotations, row, windows, rgb_res):
     window_utm_ymin= tile_ymax - ((y+h) * rgb_res)
     
     return(window_utm_xmin, window_utm_xmax, window_utm_ymin, window_utm_ymax)
+
+def crop_CHM(CHM, xmin,xmax,ymin,ymax):
+    index = self.row["window"]
+    crop = self.numpy_image[self.windows[index].indices()]    
+    
 
 def clip_las(lidar_tile, annotations, row, windows, rgb_res):
     

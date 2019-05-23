@@ -75,8 +75,8 @@ TEAK:
     RGB: /Users/Ben/Documents/DeepLidar/data/TEAK/training/
     LIDAR: /Users/Ben/Documents/DeepLidar/data/TEAK/training/
   evaluation:
-    RGB: /Users/Ben/Documents/DeepLidar/data/TEAK/samples/
-    LIDAR: /Users/Ben/Documents/DeepLidar/data/TEAK/samples/
+    RGB: /Users/Ben/Documents/DeepLidar/data/TEAK/plots/
+    LIDAR: /Users/Ben/Documents/DeepLidar/data/TEAK/plots/
 NIWO:
   h5: /Users/Ben/Downloads/fourchannel/NIWO/
   hand_annotations:
