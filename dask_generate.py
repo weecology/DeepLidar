@@ -91,8 +91,8 @@ def run_HPC(data_paths):
         processes=1,
         queue='hpg2-compute',
         cores=1, 
-        memory='14GB', 
-        walltime='48:00:00',
+        memory='20GB', 
+        walltime='24:00:00',
         job_extra=extra_args,
         local_directory="/home/b.weinstein/logs/", death_timeout=300)
     
