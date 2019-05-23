@@ -165,6 +165,11 @@ class OnTheFlyGenerator(Generator):
         index = self.row["window"]
         crop = self.numpy_image[self.windows[index].indices()]
         return(crop)
+   
+    def get_window_extent(self):
+        """Inherit LIDAR methods for Class"""
+        bounds = Lidar.get_window_extent(annotations=self.annotation_list, row=self.row, windows=self.windows, rgb_res=self.rgb_res)
+        return bounds
     
     def crop_CHM(self):
         index = self.row["window"]
