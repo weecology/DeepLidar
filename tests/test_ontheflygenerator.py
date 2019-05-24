@@ -4,9 +4,9 @@ import sys
 from memory_profiler import profile
 import matplotlib.pyplot as plt
 
-precision = 10
+precision = 8
 
-fp = open('memory_profiler_basic_mean.log', 'w+')
+fp = open('onthefly_memory.log', 'w+')
 
 #Path hack
 dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -45,7 +45,6 @@ def test_OnTheFlyGenerator_small(data,windows, DeepForest_config):
         plt.show()
 
 #test_OnTheFlyGenerator_small(data, windows, DeepForest_config)
-
 
 base_dir = DeepForest_config[site]["hand_annotations"]["RGB"]
 tile_xml = "../data/TEAK/annotations/2018_TEAK_3_315000_4094000_image_crop.xml"

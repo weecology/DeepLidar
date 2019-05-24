@@ -129,7 +129,7 @@ def run(tile_csv=None, tile_xml = None, mode="train", site=None, DeepForest_conf
                 continue
             
             #Check for a patchy chm, get proportion NA
-            propNA = image_utils.proportion_NA(generator.lidar_tile)
+            propNA = image_utils.proportion_NA(generator.CHM)
             if propNA > DeepForest_config["min_coverage"]:
                 print("Point density is too patchy ({}%) for window {}, skipping".format(propNA, tilename))
                 continue 

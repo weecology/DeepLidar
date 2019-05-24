@@ -25,10 +25,9 @@ from DeepForest import postprocessing
 
 #Utility functions
 
-def proportion_NA(pc):
+def proportion_NA(chm):
     """Returns the proportion (%) of cells that are nan in a canopy raster array"""
-    chm=pc.chm(cell_size=1)
-    proportionNA = np.count_nonzero(np.isnan(chm.array))/chm.array.size
+    proportionNA = np.count_nonzero(np.isnan(chm))/chm.size
     return proportionNA * 100
     
 def normalize(image):
