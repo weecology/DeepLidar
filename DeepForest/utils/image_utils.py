@@ -55,16 +55,12 @@ def normalize(image):
     image[..., 1] -= 116.779
     image[..., 2] -= 123.68
     
-    #Height model - normalize?
-    image[:,:,3] = (image[:,:,3]/image[:,:,3].max())*255
-    image[:,:,3] = image[:,:,3] - 5 
-    
     return image
 
 def preprocess(image):
     
     #equalize histogram
-    image = equalize(image)
+    #image = equalize(image)
     
     #mean normalize
     image = normalize(image)

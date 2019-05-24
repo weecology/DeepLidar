@@ -41,7 +41,6 @@ def test_OnTheFlyGenerator_small(data,windows, DeepForest_config):
         fig = plt.figure()
         rgb_image = four_channel_image[:,:,:3]
         plt.imshow(rgb_image[:,:,::-1], origin="upper")
-        plt.matshow(four_channel_image[:,:,3], fignum=False,alpha=0.2)
         plt.show()
 
 #test_OnTheFlyGenerator_small(data, windows, DeepForest_config)

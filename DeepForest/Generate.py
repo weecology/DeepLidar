@@ -50,7 +50,7 @@ def run(site, tile_csv=None, tile_xml = None, mode="train", DeepForest_config=No
         windows = preprocess.create_windows(data, DeepForest_config, base_dir)   
         
         #Check lidar  for point density
-        check_lidar = True
+        check_lidar = False
         name = "training"
         
         #Destination dir
@@ -62,7 +62,6 @@ def run(site, tile_csv=None, tile_xml = None, mode="train", DeepForest_config=No
         
         #Load xml annotations
         data = preprocess.load_xml(path=tile_xml, dirname=base_dir, res=DeepForest_config["rgb_res"])
-                    
         data["site"] = site
         tilename = os.path.splitext(os.path.basename(tile_xml))[0] 
 
@@ -70,7 +69,7 @@ def run(site, tile_csv=None, tile_xml = None, mode="train", DeepForest_config=No
         windows = preprocess.create_windows(data, DeepForest_config, base_dir) 
 
         #Don't check lidar for density, annotations are made directly on RGB
-        check_lidar = True
+        check_lidar = False
         name = "hand_annotations"
         
         #destination dir
