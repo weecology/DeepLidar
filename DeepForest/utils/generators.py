@@ -2,7 +2,7 @@ import os
 import glob
 import pandas as pd
 from DeepForest.onthefly_generator import OnTheFlyGenerator
-from DeepForest.preprocess import NEON_annotations, load_csvs
+from DeepForest.preprocess import NEON_annotations, load_csvs, split_training
 from DeepForest import Generate
 from DeepForest.utils import image_utils
 
@@ -91,7 +91,7 @@ def create_h5_generators(args, data, DeepForest_config):
     """ Create generators for training and validation.
     """
     #Split training and test data
-    train, test = preprocess.split_training(data, DeepForest_config, experiment=None)
+    train, test = split_training(data, DeepForest_config, experiment=None)
 
     #Write out for debug
     if args.save_path:
