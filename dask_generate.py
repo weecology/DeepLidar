@@ -49,13 +49,13 @@ def find_csvs(overwrite=True):
 def run_test(data_paths):
     DeepForest_config = config.load_config()    
     site=DeepForest_config['training_csvs'][0]
-    Generate.run(tile_csv= data_paths[site][0], DeepForest_config=DeepForest_config,site=site)
+    Generate.run(tile_csv = data_paths[site][0], DeepForest_config=DeepForest_config,site=site)
     
 def run_local(data_paths):
     DeepForest_config = config.load_config()    
     for site in DeepForest_config['training_csvs']:
         for path in data_paths[site]:
-            Generate.run(tile_csv = path, DeepForest_config=DeepForest_config,site=site)
+            Generate.run(tile_csv = path, DeepForest_config=DeepForest_config, site=site)
     
 def start_tunnel():
     """
@@ -105,7 +105,7 @@ def run_HPC(data_paths):
     dask_client.run_on_scheduler(start_tunnel)  
     
     for site in data_paths:
-        futures = dask_client.map(Generate.run, tile_csv = data_paths[site], site=site, DeepForest_config=DeepForest_config)
+        futures = dask_client.map(Generate.run, data_paths[site], site=site, DeepForest_config=DeepForest_config)
         wait(futures)
     
     #TODO print futures in such a way to see result.

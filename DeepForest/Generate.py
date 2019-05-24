@@ -25,7 +25,7 @@ def parse_args():
     
     return args
 
-def run(site, tile_csv=None, tile_xml = None, mode="train", DeepForest_config=None):
+def run(tile_csv=None, tile_xml = None, mode="train", DeepForest_config=None, site=None):
     
     """Crop 4 channel arrays from RGB and LIDAR CHM
     tile_csv: the CSV training file containing the tree detections
