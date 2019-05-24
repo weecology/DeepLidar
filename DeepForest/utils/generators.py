@@ -82,7 +82,36 @@ def create_NEON_generator(batch_size, DeepForest_config, name="evaluation"):
         DeepForest_config = DeepForest_config,
         group_method="none",
         name=name,
-        preprocess_image=image_utils.normalize
+        preprocess_image=image_utils.preprocess
     )
     
     return(generator)
+
+def create_h5_generators(args, data, DeepForest_config):
+    """ Create generators for training and validation.
+    """
+    #Split training and test data
+    train, test = preprocess.split_training(data, DeepForest_config, experiment=None)
+
+    #Write out for debug
+    if args.save_path:
+        train.to_csv(os.path.join(args.save_path,'training_dict.csv'), header=False)         
+        
+    #Training Generator
+    train_generator = H5Generator(train, 
+                                  batch_size = args.batch_size, 
+                                  DeepForest_config = DeepForest_config, 
+                                  name = "training",
+                                  preprocess_image=image_utils.preprocess)
+
+    #Validation Generator, check that it exists
+    if test is not None:
+        validation_generator = H5Generator(test, 
+                                           batch_size = args.batch_size, 
+                                           DeepForest_config = DeepForest_config, 
+                                           name = "training",
+                                           preprocess_image=image_utils.preprocess)
+    else:
+        validation_generator = None
+        
+    return train_generator, validation_generator

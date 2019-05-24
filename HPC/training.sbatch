@@ -22,4 +22,4 @@ export PYTHONPATH=${PYTHONPATH}:/home/b.weinstein/miniconda/envs/DeepLidar/lib/p
 echo $PYTHONPATH
 
 /home/b.weinstein/DeepLidar
-python train.py
+python train.py --mode train

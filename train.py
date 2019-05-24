@@ -39,7 +39,7 @@ from keras_retinanet .utils.model import freeze as freeze_model
 from DeepForest.h5_generator import H5Generator
 from DeepForest.config import load_config
 from DeepForest import preprocess
-from DeepForest.utils.generators import create_NEON_generator, load_training_data, load_retraining_data
+from DeepForest.utils.generators import create_NEON_generator, load_training_data, load_retraining_data, create_h5_generators
 from DeepForest.utils import image_utils
 
 #Custom Callbacks
@@ -55,14 +55,12 @@ def makedirs(path):
         if not os.path.isdir(path):
             raise
 
-
 def get_session():
     """ Construct a modified tf session.
     """
     config = tf.ConfigProto()
     config.gpu_options.allow_growth = True
     return tf.Session(config=config)
-
 
 def model_with_weights(model, weights, skip_mismatch):
     """ Load weights for model.
@@ -201,36 +199,6 @@ def create_callbacks(model, training_model, prediction_model, train_generator, v
     return callbacks
 
 
-def create_generators(args, data, DeepForest_config):
-    """ Create generators for training and validation.
-    """
-    #Split training and test data
-    train, test = preprocess.split_training(data, DeepForest_config, experiment=None)
-
-    #Write out for debug
-    if args.save_path:
-        train.to_csv(os.path.join(args.save_path,'training_dict.csv'), header=False)         
-        
-    #Training Generator
-    train_generator = H5Generator(train, 
-                                  batch_size = args.batch_size, 
-                                  DeepForest_config = DeepForest_config, 
-                                  name = "training",
-                                  preprocess_image=image_utils.normalize)
-
-    #Validation Generator, check that it exists
-    if test is not None:
-        validation_generator = H5Generator(test, 
-                                           batch_size = args.batch_size, 
-                                           DeepForest_config = DeepForest_config, 
-                                           name = "training",
-                                           preprocess_image=image_utils.normalize)
-    else:
-        validation_generator = None
-        
-    return train_generator, validation_generator
-
-
 def check_args(parsed_args):
     """ Function to check for inherent contradictions within parsed arguments.
     For example, batch_size < num_gpus
@@ -321,7 +289,7 @@ def main(args=None, data=None, DeepForest_config=None, experiment=None):
 
     # create the generators
     print("Creating generators")
-    train_generator, validation_generator = create_generators(args, data, DeepForest_config=DeepForest_config)
+    train_generator, validation_generator = create_h5_generators(args, data, DeepForest_config=DeepForest_config)
     
     #Log number of trees trained on
     if experiment:

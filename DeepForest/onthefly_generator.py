@@ -20,7 +20,6 @@ import slidingwindow as sw
 from DeepForest import Lidar, postprocessing
 from DeepForest.utils import image_utils
 from keras_retinanet.preprocessing.generator import Generator
-from keras_retinanet.utils.image import preprocess_image, resize_image
 from keras_retinanet import models
 
 class OnTheFlyGenerator(Generator):

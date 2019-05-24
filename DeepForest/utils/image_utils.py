@@ -13,6 +13,7 @@ import tensorflow as tf
 import rtree
 import argparse
 import glob
+import cv2
 
 from keras_retinanet import models
 from keras_retinanet.utils.image import read_image_bgr, preprocess_image, resize_image
@@ -29,20 +30,47 @@ def proportion_NA(chm):
     """Returns the proportion (%) of cells that are nan in a canopy raster array"""
     proportionNA = np.count_nonzero(np.isnan(chm))/chm.size
     return proportionNA * 100
+
+def equalize(img):
+    
+    # CLAHE (Contrast Limited Adaptive Histogram Equalization)
+    clahe = cv2.createCLAHE(clipLimit=3., tileGridSize=(8,8))
+    
+    lab = cv2.cvtColor(img, cv2.COLOR_BGR2LAB)  # convert from BGR to LAB color space
+    l, a, b = cv2.split(lab)  # split on 3 different channels
+    
+    l2 = clahe.apply(l)  # apply CLAHE to the L-channel
+    
+    lab = cv2.merge((l2,a,b))  # merge channels
+    img_equalized = cv2.cvtColor(lab, cv2.COLOR_LAB2BGR)
+    
+    return img_equalized
     
 def normalize(image):
     """Mean normalization across dataset"""
+    
     #RGB - Imagenet means
     image = image.astype(keras.backend.floatx())    
     image[..., 0] -= 103.939
     image[..., 1] -= 116.779
     image[..., 2] -= 123.68
     
-    #Height model
-    image[:,:,3] = image[:,:,3]
+    #Height model - normalize?
+    image[:,:,3] = (image[:,:,3]/image[:,:,3].max())*255
+    image[:,:,3] = image[:,:,3] - 5 
     
     return image
 
+def preprocess(image):
+    
+    #equalize histogram
+    image = equalize(image)
+    
+    #mean normalize
+    image = normalize(image)
+    
+    return image
+    
 def image_is_blank(image):
     
     is_zero=image.sum(2)==0
