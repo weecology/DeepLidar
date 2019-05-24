@@ -34,6 +34,12 @@ def proportion_NA(chm):
 def equalize(img):
     
     print("image type is {}".format(img.dtype))
+    print("image min is {}".format(img.min()))
+    print("image max is {}".format(img.max()))
+    
+    img = img.astype(np.unit8)
+    print("image min is now {}".format(img.min()))
+    print("image max is now {}".format(img.max()))    
     
     # CLAHE (Contrast Limited Adaptive Histogram Equalization)
     clahe = cv2.createCLAHE(clipLimit=3., tileGridSize=(8,8))
