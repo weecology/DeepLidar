@@ -51,10 +51,6 @@ def test_OnTheFlyGenerator_small(data,windows, DeepForest_config):
     plt.imshow(equalized_image)
     plt.show()
     
-    #batch     
-    batch = generator.__getitem__(0)
-    assert len(batch) ==2 
-    
 test_OnTheFlyGenerator_small(data, windows, DeepForest_config)
 
 base_dir = DeepForest_config[site]["hand_annotations"]["RGB"]
@@ -70,11 +66,12 @@ windows = preprocess.create_windows(data, DeepForest_config, base_dir)
 @profile(precision=precision, stream=fp)
 def test_OnTheFlyGenerator_large(data, windows, DeepForest_config):
     #Create generate
-    generator = onthefly_generator.OnTheFlyGenerator(data, windows, DeepForest_config)
+    generator = onthefly_generator.OnTheFlyGenerator(data, windows, DeepForest_config, preprocess_image=image_utils.preprocess)
     
     assert generator.size() == 256, "Generate does not have the correct number of images"
-    for i in range(256):
-        image = generator.load_image(i)
-        print("Image shape of index {} is {}".format(i,image.shape))
-
-#test_OnTheFlyGenerator_large(data, windows, DeepForest_config)
+    for i in range(3):
+        batch = generator.__getitem__(i)
+        
+    assert len(batch) == 2
+    
+test_OnTheFlyGenerator_large(data, windows, DeepForest_config)
