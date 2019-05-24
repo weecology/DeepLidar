@@ -37,7 +37,7 @@ def equalize(img):
     print("image min is {}".format(img.min()))
     print("image max is {}".format(img.max()))
     
-    img = img.astype(np.unit8)
+    img = img.astype(np.uint8)
     print("image min is now {}".format(img.min()))
     print("image max is now {}".format(img.max()))    
     
