@@ -84,10 +84,10 @@ for model in models:
         '--convert-model'
     ]
         
-    stem_recall, mAP = eval_main(data=data, DeepForest_config=DeepForest_config, experiment=experiment, args=retinanet_args)
+    mAP = eval_main(data=data, DeepForest_config=DeepForest_config, experiment=experiment, args=retinanet_args)
     
     model_name = os.path.splitext(os.path.basename(model))[0]    
-    results.append({"Model": model_name, "Stem Recall": stem_recall, "mAP": mAP})
+    results.append({"Model": model_name, "mAP": mAP})
 
 results = pd.DataFrame(results)
 print(results)
