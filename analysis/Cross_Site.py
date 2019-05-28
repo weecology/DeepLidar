@@ -112,27 +112,28 @@ if __name__ == '__main__':
     DeepForest_config = load_config("..")
 
     results = []
-    sites = ["TEAK","SJER"]
-    for site in sites:
+    for training_site in models:
+        sites = ["TEAK","SJER"]
+        for eval_site in sites:
+            
+            model  = models[training_site]
+            #pass an args object instead of using command line        
+            args = [
+                "--batch-size", str(DeepForest_config['batch_size']),
+                '--score-threshold', str(DeepForest_config['score_threshold']),
+                '--suppression-threshold','0.15', 
+                '--save-path', '../snapshots/images/', 
+                '--model', model, 
+                '--convert-model'
+            ]
+               
+            #Run eval
+            DeepForest_config["evaluation_site"] = eval_site
+            precision = main(DeepForest_config, args)
+            results.append({"Training Site":training_site, "Evaluation Site": eval_site, "Precision": precision}) 
+            
+        results = pd.DataFrame(results)
+        #model name
+        model_name = os.path.splitext(os.path.basename(model))[0]
         
-        model  = models[site]
-        #pass an args object instead of using command line        
-        args = [
-            "--batch-size", str(DeepForest_config['batch_size']),
-            '--score-threshold', str(DeepForest_config['score_threshold']),
-            '--suppression-threshold','0.15', 
-            '--save-path', '../snapshots/images/', 
-            '--model', model, 
-            '--convert-model'
-        ]
-           
-        #Run eval
-        DeepForest_config["evaluation_site"] = site
-        precision = main(DeepForest_config, args)
-        results.append({"Model": model, "Site": site, "Precision": precision}) 
-        
-    results = pd.DataFrame(results)
-    #model name
-    model_name = os.path.splitext(os.path.basename(model))[0]
-    
-    results.to_csv("cross_site_" + model_name + ".csv")
+        results.to_csv("cross_site.csv")
