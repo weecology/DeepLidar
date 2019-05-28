@@ -22,7 +22,8 @@ export PYTHONPATH=${PYTHONPATH}:/home/b.weinstein/miniconda/envs/DeepLidar/lib/p
 echo $PYTHONPATH
     
 #No cross training - figure 2
-python /home/b.weinstein/DeepLidar/analysis/Cross_Site.py
+cd /home/b.weinstein/DeepLidar/analysis
+python Cross_Site.py
 
 
 
