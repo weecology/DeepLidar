@@ -130,7 +130,7 @@ if __name__ == '__main__':
                
             #Run eval
             DeepForest_config["evaluation_site"] = eval_site
-            average_precision = main(DeepForest_config, args)
+            average_precisions = main(DeepForest_config, args)
             
             # print evaluation
             ## print evaluation
