@@ -113,7 +113,8 @@ if __name__ == '__main__':
 
     results = []
     for training_site in models:
-        sites = ["TEAK","SJER"]
+        #Sites are passed as list object.
+        sites = [["TEAK"],["SJER"]]
         for eval_site in sites:
             
             model  = models[training_site]
