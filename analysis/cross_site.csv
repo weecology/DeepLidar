@@ -1,5 +1,5 @@
-,Evaluation Site,Precision,Training Site
-0,['TEAK'],"[{0: (0.09236749087052025, 747.0)}]",SJER
-1,['SJER'],"[{0: (0.5083533870728735, 285.0)}]",SJER
-2,['TEAK'],"[{0: (0.5461209998676962, 747.0)}]",TEAK
-3,['SJER'],"[{0: (0.11689251920423903, 285.0)}]",TEAK
+,Evaluation Site,Training Site,mAP
+0,['TEAK'],SJER,0.092
+1,['SJER'],SJER,0.508
+2,['TEAK'],TEAK,0.546
+3,['SJER'],TEAK,0.117
