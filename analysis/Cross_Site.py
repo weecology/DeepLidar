@@ -130,8 +130,21 @@ if __name__ == '__main__':
                
             #Run eval
             DeepForest_config["evaluation_site"] = eval_site
-            precision = main(DeepForest_config, args)
-            results.append({"Training Site":training_site, "Evaluation Site": eval_site, "Precision": precision}) 
+            average_precision = main(DeepForest_config, args)
+            
+            # print evaluation
+            ## print evaluation
+            present_classes = 0
+            precision = 0
+            for label, (average_precision, num_annotations) in average_precisions.items():
+                print('{:.0f} instances of class'.format(num_annotations),
+                      NEON_generator.label_to_name(label), 'with average precision: {:.3f}'.format(average_precision))
+                if num_annotations > 0:
+                    present_classes += 1
+                    precision       += average_precision
+            NEON_map = round(precision / present_classes,3)
+            
+            results.append({"Training Site":training_site, "Evaluation Site": eval_site, "mAP": NEON_map}) 
             
     results = pd.DataFrame(results)
     #model name
