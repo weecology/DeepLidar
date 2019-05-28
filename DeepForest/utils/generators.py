@@ -4,7 +4,7 @@ import pandas as pd
 from DeepForest.onthefly_generator import OnTheFlyGenerator
 from DeepForest.preprocess import NEON_annotations, load_csvs, split_training
 from DeepForest import Generate
-from Deepforest.h5_generator import H5Generator
+from DeepForest.h5_generator import H5Generator
 from DeepForest.utils import image_utils
 
 def load_retraining_data(DeepForest_config):
