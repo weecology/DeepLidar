@@ -169,7 +169,7 @@ def main(data, DeepForest_config, experiment, args=None):
     print('Neon mAP: {:.3f}'.format(NEON_map))
     experiment.log_metric("Neon mAP", NEON_map)       
     
-    return [recall, NEON_map]
+    return [NEON_map]
     
 if __name__ == '__main__':
     

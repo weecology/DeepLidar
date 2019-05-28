@@ -21,7 +21,11 @@ import copy
 original_DeepForest_config = load_config()
 
 #find models
-models = glob.glob("/orange/ewhite/b.weinstein/retinanet/20190329_193840/*.h5")
+#SJER
+#models = glob.glob("/orange/ewhite/b.weinstein/retinanet/20190524_165645/*.h5")
+#TEAK
+models = glob.glob("/orange/ewhite/b.weinstein/retinanet/20190524_164937/*.h5")
+	
 #models = glob.glob("/Users/Ben/Documents/DeepLidar/snapshots/*.h5")
 
 #For each model, match the hand annotations with the pretraining model
@@ -84,10 +88,10 @@ for model in models:
         '--convert-model'
     ]
         
-    stem_recall, mAP = eval_main(data=data, DeepForest_config=DeepForest_config, experiment=experiment, args=retinanet_args)
+    mAP = eval_main(data=data, DeepForest_config=DeepForest_config, experiment=experiment, args=retinanet_args)
     
     model_name = os.path.splitext(os.path.basename(model))[0]    
-    results.append({"Model": model_name, "Stem Recall": stem_recall, "mAP": mAP})
+    results.append({"Model": model_name, "mAP": mAP})
 
 results = pd.DataFrame(results)
 print(results)

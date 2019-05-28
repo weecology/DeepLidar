@@ -56,7 +56,7 @@ class OnTheFlyGenerator(Generator):
         self.verbose = True
         
         #Switch for prediction with lidar
-        self.with_lidar = True
+        self.with_lidar = False
         
         #Tensorflow prediction session
         self.session_exists = False
@@ -244,14 +244,8 @@ class OnTheFlyGenerator(Generator):
     
         #BGR order
         self.image = image[:,:,::-1]
-    
-        #Crop CHM
-        self.cropped_chm = self.crop_CHM()
-        
-        #Bind array
-        four_channel_image = self.bind_array(self.image, self.cropped_chm)
-        
-        return four_channel_image
+
+        return self.image
         
     def load_image(self, image_index):
         """ Load an image at the image_index.
@@ -267,23 +261,14 @@ class OnTheFlyGenerator(Generator):
                 
             #Load RGB
             self.load_rgb_tile()
-            
-            #Load lidar
-            self.lidar_tile  = self.load_lidar_tile()            
-            if self.lidar_tile == None:
-                print("image annotations have no corresponding crop, exiting.")
-                return False
-            
-            #Compute new canopy height model
-            self.CHM = Lidar.compute_chm(self.lidar_tile)
-        
+
         #Load a new crop from self
-        four_channel_image = self.load_new_crop()
+        three_channel_image = self.load_new_crop()
         
-        if four_channel_image is None:
+        if three_channel_image is None:
             return False
         else: 
-            return four_channel_image
+            return three_channel_image
     
     def fetch_annotations(self):
         '''
