@@ -112,7 +112,7 @@ if __name__ == '__main__':
     DeepForest_config = load_config("..")
 
     results = []
-    for training_site in models:
+    for training_site in trained_models:
         #Sites are passed as list object.
         sites = [["TEAK"],["SJER"]]
         for eval_site in sites:
