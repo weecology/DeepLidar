@@ -85,7 +85,7 @@ def main(DeepForest_config, args=None):
     #print(model.summary())
         
     #NEON plot mAP
-    precision = evaluate(
+    average_precisions = evaluate(
         NEON_generator,
         model,
         iou_threshold=args.iou_threshold,
@@ -95,7 +95,7 @@ def main(DeepForest_config, args=None):
         experiment=None
     )
     
-    return [precision]
+    return average_precisions
     
 if __name__ == '__main__':
     
