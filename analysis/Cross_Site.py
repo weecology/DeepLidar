@@ -103,7 +103,7 @@ if __name__ == '__main__':
     sys.path.insert(0, os.path.abspath('..'))
     
     #Model list
-    models = {"SJER":"/orange/ewhite/b.weinstein/retinanet/20190525_173445/resnet50_30.h5",
+    trained_models = {"SJER":"/orange/ewhite/b.weinstein/retinanet/20190525_173445/resnet50_30.h5",
                           "TEAK":"/orange/ewhite/b.weinstein/retinanet/20190525_115939/resnet50_40.h5"}
     import pandas as pd
     import numpy as np
@@ -117,7 +117,7 @@ if __name__ == '__main__':
         sites = [["TEAK"],["SJER"]]
         for eval_site in sites:
             
-            model  = models[training_site]
+            model  = trained_models[training_site]
             #pass an args object instead of using command line        
             args = [
                 "--batch-size", str(DeepForest_config['batch_size']),
