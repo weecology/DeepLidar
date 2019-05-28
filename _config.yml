@@ -11,13 +11,13 @@ min_density: 2
 min_coverage: 30
 
 #Keras
-workers: 1
+workers: 2
 use_multiprocessing: False
 max_queue_size: 20
-num_GPUs: 1
+num_GPUs: 2
 save_image_path: /orange/ewhite/b.weinstein/retinanet/
 save_snapshot_path: /orange/ewhite/b.weinstein/retinanet/
-input_channels: 4
+input_channels: 3
 
 #Sliding Window Size and Ovelap
 patch_size: 400
@@ -31,23 +31,26 @@ preprocess:
 #Select sites
 hand_annotation_site:
   - TEAK
+  - SJER
 pretraining_site:
   - TEAK
+  - SJER
 evaluation_site:
   - TEAK
+  - SJER
 
 #Training
 training_images: All
 weights: None
 imagenet_weights: True
 batch_size: 20
-epochs: 40
+epochs: 5
 backbone: resnet50
 shuffle_training: False
 score_threshold: 0.2
 
 #Evaluation
-evaluation_images: 0
+evaluation_images: 50
 shuffle_evaluation: False
 validation_percent: 90 #For hand annotation neon_MAP
 
