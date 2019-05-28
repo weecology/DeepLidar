@@ -19,7 +19,7 @@ from keras_retinanet.utils.keras_version import check_keras_version
 sys.path.insert(0, os.path.abspath('..'))
 from DeepForest.onthefly_generator import OnTheFlyGenerator
 from DeepForest.evaluation import neonRecall
-from DeepForest.evalmAP import evaluate_pr
+from DeepForest.evalmAP import evaluate
 from DeepForest import preprocess
 from DeepForest.utils.generators import create_NEON_generator
 
@@ -85,7 +85,7 @@ def main(DeepForest_config, args=None):
     #print(model.summary())
         
     #NEON plot mAP
-    precision = evaluate_pr(
+    precision = evaluate(
         NEON_generator,
         model,
         iou_threshold=args.iou_threshold,
