@@ -19,10 +19,8 @@ from eval import main as eval_main
 #load config - clean
 original_DeepForest_config = load_config()       
 
-pretraining_models = {"SJER":"/orange/ewhite/b.weinstein/retinanet/20190318_144257/resnet50_02.h5",
-                   "TEAK":"/orange/ewhite/b.weinstein/retinanet/20190315_150652/resnet50_02.h5",
-                  "All": "/orange/ewhite/b.weinstein/retinanet/20190314_150323/resnet50_03.h5"}
-#pretraining_models = {"SJER" : "/Users/ben/Documents/DeepLidar/snapshots/TEAK_20190125_125012_fullmodel.h5"}
+pretraining_models = {"SJER":"/orange/ewhite/b.weinstein/retinanet/20190525_173445/resnet50_30.h5",
+                   "TEAK":"/orange/ewhite/b.weinstein/retinanet/20190525_115939/resnet50_40.h5"}
 
 sites = [["SJER"],["TEAK"],["SJER","TEAK"]]
 
@@ -87,14 +85,14 @@ for pretraining_site in pretraining_models:
         args = [
             "--batch-size", str(DeepForest_config['batch_size']),
             '--score-threshold', str(DeepForest_config['score_threshold']),
-            '--suppression-threshold', '0.1', 
+            '--suppression-threshold', '0.15', 
             '--save-path', 'snapshots/images/', 
             '--model', model, 
             '--convert-model'
         ]
                    
-        stem_recall, mAP = eval_main(data = data, DeepForest_config = DeepForest_config, experiment = experiment, args = args)
-        results.append({"Evaluation Site" : site, "Pretraining Site": pretraining_site, "Stem Recall": stem_recall, "mAP": mAP})
+        mAP = eval_main(data = data, DeepForest_config = DeepForest_config, experiment = experiment, args = args)
+        results.append({"Evaluation Site" : site, "Pretraining Site": pretraining_site, "mAP": mAP})
         
 results = pd.DataFrame(results)
 

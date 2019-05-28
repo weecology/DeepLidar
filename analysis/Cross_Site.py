@@ -85,7 +85,7 @@ def main(DeepForest_config, args=None):
     #print(model.summary())
         
     #NEON plot mAP
-    recall, precision = evaluate_pr(
+    precision = evaluate_pr(
         NEON_generator,
         model,
         iou_threshold=args.iou_threshold,
@@ -95,20 +95,16 @@ def main(DeepForest_config, args=None):
         experiment=None
     )
     
-    return [recall, precision]
+    return [precision]
     
 if __name__ == '__main__':
     
     import sys, os
     sys.path.insert(0, os.path.abspath('..'))
     
-    import argparse
-    
-    #Set training or training
-    mode_parser     = argparse.ArgumentParser()
-    mode_parser.add_argument('--saved_model')    
-    mode = mode_parser.parse_args()
-    
+    #Model list
+    models = {"SJER":"/orange/ewhite/b.weinstein/retinanet/20190525_173445/resnet50_30.h5",
+                          "TEAK":"/orange/ewhite/b.weinstein/retinanet/20190525_115939/resnet50_40.h5"}
     import pandas as pd
     import numpy as np
     from DeepForest.config import load_config
@@ -118,23 +114,25 @@ if __name__ == '__main__':
     results = []
     sites = ["TEAK","SJER"]
     for site in sites:
+        
+        model  = models[site]
         #pass an args object instead of using command line        
         args = [
             "--batch-size", str(DeepForest_config['batch_size']),
             '--score-threshold', str(DeepForest_config['score_threshold']),
-            '--suppression-threshold','0.1', 
+            '--suppression-threshold','0.15', 
             '--save-path', '../snapshots/images/', 
-            '--model', mode.saved_model, 
+            '--model', model, 
             '--convert-model'
         ]
            
         #Run eval
         DeepForest_config["evaluation_site"] = site
-        recall, precision = main(DeepForest_config, args)
-        results.append({"Model": mode.saved_model, "Site": site, "Recall": recall, "Precision": precision}) 
+        precision = main(DeepForest_config, args)
+        results.append({"Model": model, "Site": site, "Precision": precision}) 
         
     results = pd.DataFrame(results)
     #model name
-    model_name = os.path.splitext(os.path.basename(mode.saved_model))[0]
+    model_name = os.path.splitext(os.path.basename(model))[0]
     
     results.to_csv("cross_site_" + model_name + ".csv")
