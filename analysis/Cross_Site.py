@@ -131,10 +131,10 @@ if __name__ == '__main__':
             #Run eval
             DeepForest_config["evaluation_site"] = eval_site
             precision = main(DeepForest_config, args)
-            results.append({"Training Site":training_site, "Evaluation Site": eval_site, "Precision": precision},ignore_index=True) 
+            results.append({"Training Site":training_site, "Evaluation Site": eval_site, "Precision": precision}) 
             
-        results = pd.DataFrame(results)
-        #model name
-        model_name = os.path.splitext(os.path.basename(model))[0]
-        
-        results.to_csv("cross_site.csv")
+    results = pd.DataFrame(results)
+    #model name
+    model_name = os.path.splitext(os.path.basename(model))[0]
+    
+    results.to_csv("cross_site.csv")
