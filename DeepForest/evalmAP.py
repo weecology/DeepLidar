@@ -129,8 +129,9 @@ def _get_detections(generator, model, score_threshold=0.05, max_detections=100, 
         
         if generator.with_lidar:
             #Load tile
-            generator.load_lidar_tile()
-            density = Lidar.check_density(generator.lidar_tile, bounds=bounds)
+            if not generator.row["tile"] == generator.previous_image_path:
+                generator.load_lidar_tile()
+            #density = Lidar.check_density(generator.lidar_tile, bounds=bounds)
                             
             if postprocess:
                 #find window utm coordinates

@@ -48,10 +48,10 @@ def drape_boxes(boxes, pc, bounds=[]):
         tree_counter +=1 
         
     #remove ground points 
-    pc.data.points.loc[pc.data.points.classification == 2, "user_data"] = np.nan
+    #pc.data.points.loc[pc.data.points.classification == 2, "user_data"] = np.nan
     
     #remove points under half meter
-    pc.data.points.loc[pc.data.points.z < 4, "user_data"] = np.nan
+    pc.data.points.loc[pc.data.points.z < 1, "user_data"] = np.nan
     
     #TODO
     #Pass a window over the image 
