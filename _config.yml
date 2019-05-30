@@ -44,7 +44,7 @@ batch_size: 20
 epochs: 5
 backbone: resnet50
 shuffle_training: False
-score_threshold: 0.05
+score_threshold: 0.1
 
 #Evaluation
 evaluation_images: 50
@@ -52,7 +52,7 @@ shuffle_evaluation: False
 validation_percent: 5  #For hand annotation neon_MAP
 
 #Non-max suppression, threshold for the IoU value to determine when a box should be suppressed. Higher allows more overlap.
-nms_threshold: 0.01
+nms_threshold: 0.1
 
 #Data Paths
 SJER:
