@@ -44,7 +44,7 @@ def _compute_ap(recall, precision):
     return ap
 
 
-def _get_detections(generator, model, score_threshold=0.05, max_detections=100, save_path=None, experiment=None):
+def _get_detections(generator, model, score_threshold=0.05, max_detections=100, save_path=None, experiment=None, postprocess= False):
     """ Get the detections from the model using the generator.
 
     The result is a list of lists such that the size is:
@@ -130,7 +130,7 @@ def _get_detections(generator, model, score_threshold=0.05, max_detections=100, 
         if generator.with_lidar:
             density = Lidar.check_density(generator.lidar_tile, bounds=bounds)
                             
-            if density > 100:
+            if postprocess:
                 #find window utm coordinates
                 #print("Bounds for image {}, window {}, are {}".format(generator.row["tile"], generator.row["window"], bounds))
                 pc = postprocessing.drape_boxes(boxes=image_boxes, pc = generator.lidar_tile, bounds=bounds)     

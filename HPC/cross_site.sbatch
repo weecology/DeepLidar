@@ -23,7 +23,7 @@ echo $PYTHONPATH
     
 #No cross training - figure 2
 cd /home/b.weinstein/DeepLidar/analysis
-python eval.py --saved_model /orange/ewhite/b.weinstein/retinanet/20190525_173445/resnet50_30.h5
+python Cross_Site.py
 
 
 

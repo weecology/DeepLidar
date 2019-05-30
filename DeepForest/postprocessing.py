@@ -10,6 +10,21 @@ import geopandas as gp
 from shapely import geometry
 from DeepForest import Lidar 
 
+def marker_watershed(image_boxes, pc , bounds=[]):
+    
+    #drape  boxes
+    
+    #find highest point
+    markers = find_highest_point()
+    
+    #Compute CHM
+    CHM = Lidar.compute_chm()
+    
+    #marker controlled watershed
+    
+    #return polygons
+    
+
 def drape_boxes(boxes, pc, bounds=[]):
     '''
     boxes: predictions from retinanet
