@@ -51,14 +51,7 @@ def drape_boxes(boxes, pc, bounds=[]):
     #pc.data.points.loc[pc.data.points.classification == 2, "user_data"] = np.nan
     
     #remove points under half meter
-    pc.data.points.loc[pc.data.points.z < 1, "user_data"] = np.nan
-    
-    #TODO
-    #Pass a window over the image 
-    #Following 1. Xu, S.; Ye, N.; Xu, S.; Zhu, F. A supervoxel approach to the segmentation of individual trees from LiDAR point clouds. Remote Sens. Lett. 2018, 9, 515–523.
-    #If there there are labeled points
-    #1. Find highest point in each tree cluster
-    #2. Find mean and sd of cluster elevation
+    pc.data.points.loc[pc.data.points.z < 2, "user_data"] = np.nan
     
     return pc    
     
