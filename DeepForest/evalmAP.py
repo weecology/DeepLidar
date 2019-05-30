@@ -132,6 +132,7 @@ def _get_detections(generator, model, score_threshold=0.05, max_detections=100, 
                             
             if postprocess:
                 #find window utm coordinates
+                print("draping")
                 #print("Bounds for image {}, window {}, are {}".format(generator.row["tile"], generator.row["window"], bounds))
                 pc = postprocessing.drape_boxes(boxes=image_boxes, pc = generator.lidar_tile, bounds=bounds)     
                 
