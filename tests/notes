@@ -1,0 +1,5 @@
+#profiling notes
+
+ontheflygenerator with full time normalization takes 302 seconds to loop through 20 images. The total memory is 1465.48 MiB
+
+without normalize it takes 51.4 seconds, but takes same amount of memory.

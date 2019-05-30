@@ -51,6 +51,11 @@ def test_OnTheFlyGenerator_small(data,windows, DeepForest_config):
     plt.imshow(equalized_image)
     plt.show()
     
+    #Check annotations
+    labels = generator.load_annotations(i)
+    print("Labels have shape {}".format(labels.shape))
+    assert labels.shape[0] !=0,"Labels are empty"
+    
 test_OnTheFlyGenerator_small(data, windows, DeepForest_config)
 
 base_dir = DeepForest_config[site]["hand_annotations"]["RGB"]
