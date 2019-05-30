@@ -51,7 +51,7 @@ def drape_boxes(boxes, pc, bounds=[]):
     #pc.data.points.loc[pc.data.points.classification == 2, "user_data"] = np.nan
     
     #remove points under half meter
-    pc.data.points.loc[pc.data.points.z < 3, "user_data"] = np.nan
+    pc.data.points.loc[pc.data.points.z < 2.5, "user_data"] = np.nan
     
     return pc    
     
