@@ -16,7 +16,7 @@ sys.path.append(parent_path)
 from DeepForest import Generate, preprocess, config
 DeepForest_config = config.load_config(dir="..")
 
-site = "TEAK"
+site = "NIWO"
 
 def test_Generate_xml_small(tile_xml, DeepForest_config, site):
     #Create generate
@@ -37,7 +37,7 @@ def test_Generate_xml_small(tile_xml, DeepForest_config, site):
     assert  len(hf["train_imgs"]) == 256, "Images have the incorrect length"
     
 tile_xml = "../data/TEAK/annotations/TEAK_044.xml"
-test_Generate_xml_small(site=site, tile_xml=tile_xml, DeepForest_config=DeepForest_config)
+#test_Generate_xml_small(site=site, tile_xml=tile_xml, DeepForest_config=DeepForest_config)
 
 @profile(precision=precision, stream=fp)
 def test_Generate_xml_large(tile_xml, DeepForest_config, site):
@@ -58,7 +58,7 @@ def test_Generate_xml_large(tile_xml, DeepForest_config, site):
     #Check h5 has correct length
     assert  len(hf["train_imgs"]) == 256, "Images have the incorrect length"
     
-tile_xml = "../data/TEAK/annotations/2018_TEAK_3_315000_4094000_image_crop.xml"
+tile_xml = "../data/NIWO/annotations/2018_NIWO_2_450000_4426000_image_crop.xml"
 test_Generate_xml_large(site=site, tile_xml=tile_xml, DeepForest_config=DeepForest_config)
 
 tile_csv = "/Users/ben/Documents/DeepLidar/data/TEAK/training/NEON_D17_TEAK_DP1_324000_4104000_classified_point_cloud_colorized.csv"
