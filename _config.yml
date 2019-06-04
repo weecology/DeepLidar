@@ -47,7 +47,7 @@ shuffle_training: False
 score_threshold: 0.1
 
 #Evaluation
-evaluation_images: 50
+evaluation_images: 0
 shuffle_evaluation: False
 validation_percent: 5  #For hand annotation neon_MAP
 
