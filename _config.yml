@@ -30,11 +30,11 @@ preprocess:
 
 #Select sites
 hand_annotation_site:
-  - SJER
+  - NIWO
 pretraining_site:
-  - SJER
+  - NIWO
 evaluation_site:
-  - SJER
+  - NIWO
 
 #Training
 training_images: All
