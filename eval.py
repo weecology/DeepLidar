@@ -213,7 +213,7 @@ if __name__ == '__main__':
     args = [
         "--batch-size", str(DeepForest_config['batch_size']),
         '--score-threshold', str(DeepForest_config['score_threshold']),
-        '--suppression-threshold', '0.05', 
+        '--suppression-threshold', '0.1', 
         '--save-path', 'snapshots/images/', 
         '--model', mode.saved_model, 
         '--convert-model'
