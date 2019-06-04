@@ -257,5 +257,33 @@ def check_density(pc, bounds=[]):
     density = n_points / area
     
     return density
-     
-     
+
+def hillshade(array,azimuth=225,angle_altitude=45):
+    azimuth = 360.0 - azimuth 
+
+    x, y =  np.gradient(array)
+    slope = np.pi/2. - np.arctan(np.sqrt(x*x + y*y))
+    aspect = np.arctan2(-x, y)
+    azimuthrad = azimuth*np.pi/180.
+    altituderad = angle_altitude*np.pi/180.
+
+    shaded = np.sin(altituderad)*np.sin(slope) + np.cos(altituderad)*np.cos(slope)*np.cos((azimuthrad - np.pi/2.) - aspect)
+
+    return 255*(shaded + 1)/2
+
+def calculate_hillshade(image, chm):
+    """Multiply the RGB image by the CHM"""
+
+    padded_chm = pad_array(image.shape, chm)
+    hillshage_image = hillshade(padded_chm)
+    
+    #mean subtract
+    padded_chm[padded_chm < 3] = 0
+    padded_chm = padded_chm/padded_chm.max() * 255
+  
+    #Blend
+    alpha = 0.3
+    hillshage_image = hillshage_image.astype(np.uint8)
+    three_channel_hillshade = cv2.cvtColor(padded_chm.astype(np.uint8),cv2.COLOR_GRAY2BGR)
+    hillshage_rgb =image * (1.0 - alpha) + three_channel_hillshade * alpha
+    return hillshage_rgb

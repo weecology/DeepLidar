@@ -5,7 +5,9 @@
 ##################################################################
 [project attributes]
 proj.file-list = [loc('tests/test_generate.py'),
-                  loc('tests/test_onthefly_generator.py')]
+                  loc('tests/test_generators.py'),
+                  loc('tests/test_onthefly_generator.py'),
+                  loc('tests/test_train.py')]
 proj.file-type = 'shared'
 proj.launch-config = {loc('../DeepForest/predict.py'): ('project',
         (u'--model /Users/ben/Documents/DeepForest/snapshots/fullmodel.h5 --image /Users/ben/Documents/DeepForest/data/SJER/SJER_053.tif --single_image',
