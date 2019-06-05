@@ -22,7 +22,7 @@ export PYTHONPATH=${PYTHONPATH}:/home/b.weinstein/miniconda/envs/DeepLidar/lib/p
 echo $PYTHONPATH
     
 cd /home/b.weinstein/DeepLidar/
-python eval.py --saved_model /orange/ewhite/b.weinstein/retinanet/20190605_010354/resnet50_30.h5 --mode retrain
+python eval.py --saved_model /orange/ewhite/b.weinstein/retinanet/20190605_085411/resnet50_30.h5 --mode retrain
 
 
 
