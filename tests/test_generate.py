@@ -36,8 +36,8 @@ def test_Generate_xml_small(tile_xml, DeepForest_config, site):
     #Check h5 has correct length
     assert  len(hf["train_imgs"]) == 256, "Images have the incorrect length"
     
-tile_xml = "../data/TEAK/annotations/TEAK_044.xml"
-#test_Generate_xml_small(site=site, tile_xml=tile_xml, DeepForest_config=DeepForest_config)
+tile_xml = "../data/NIWO/annotations/NIWO_002.xml"
+test_Generate_xml_small(site=site, tile_xml=tile_xml, DeepForest_config=DeepForest_config)
 
 @profile(precision=precision, stream=fp)
 def test_Generate_xml_large(tile_xml, DeepForest_config, site):
