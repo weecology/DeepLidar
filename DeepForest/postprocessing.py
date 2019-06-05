@@ -44,7 +44,7 @@ def drape_boxes(boxes, pc, bounds=[]):
         #Get max height of tree box
         box_points  = pc.data.points.loc[(pc.data.points.x > xmin) & (pc.data.points.x < xmax)  & (pc.data.points.y > ymin)   & (pc.data.points.y < ymax)]
         
-        max_height = box_points.data.points.z.max() 
+        max_height = box_points.z.max() 
         
         #Skip if under 3 meters
         if max_height < 3:
