@@ -257,5 +257,22 @@ def check_density(pc, bounds=[]):
     density = n_points / area
     
     return density
-     
-     
+
+def calculate_hillshade(image, chm):
+    """Multiply the RGB image by the CHM"""
+
+    padded_chm = pad_array(image.shape, chm)
+    
+    #mean subtract
+    padded_chm[padded_chm < 3] = 0
+    padded_chm = padded_chm/padded_chm.max() * 255
+  
+    if padded_chm.shape != image[:,:,0].shape:
+        print("Padding failed for image")
+        return image
+    
+    #Blend
+    alpha = 0.3
+    three_channel_hillshade = cv2.cvtColor(padded_chm.astype(np.uint8),cv2.COLOR_GRAY2BGR)
+    hillshage_rgb =image * (1.0 - alpha) + three_channel_hillshade * alpha
+    return hillshage_rgb

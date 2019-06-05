@@ -18,8 +18,8 @@ from DeepForest.utils import image_utils
 
 DeepForest_config = config.load_config(dir="..")
 
-site = "TEAK"
-tile_xml = "../data/TEAK/annotations/TEAK_044.xml"
+site = "SJER"
+tile_xml = "../data/SJER/annotations/SJER_062.xml"
 base_dir = DeepForest_config[site]["evaluation"]["RGB"]
 
 #Load xml annotations

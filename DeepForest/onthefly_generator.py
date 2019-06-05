@@ -233,6 +233,11 @@ class OnTheFlyGenerator(Generator):
         four_channel_image=Lidar.bind_array(image, CHM) 
         return four_channel_image
     
+    def crop_CHM(self):
+        index = self.row["window"]
+        crop = self.CHM[self.windows[index].indices()]  
+        return crop
+    
     def load_new_crop(self):
         ''''Read a new pair of RGB and LIDAR crop
         '''
@@ -244,7 +249,14 @@ class OnTheFlyGenerator(Generator):
     
         #BGR order
         self.image = image[:,:,::-1]
-
+        
+        #Hillshade CHM
+        #crop CHM
+        self.CHM_crop = self.crop_CHM()
+        
+        #blend image if possible
+        self.image = Lidar.calculate_hillshade(self.image,self.CHM_crop)
+        
         return self.image
         
     def load_image(self, image_index):
@@ -261,6 +273,11 @@ class OnTheFlyGenerator(Generator):
                 
             #Load RGB
             self.load_rgb_tile()
+            
+            #Load Lidar and compute CHM
+            self.load_lidar_tile()
+            
+            self.CHM = Lidar.compute_chm(self.lidar_tile)
 
         #Load a new crop from self
         three_channel_image = self.load_new_crop()

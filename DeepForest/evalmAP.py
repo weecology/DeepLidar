@@ -44,7 +44,7 @@ def _compute_ap(recall, precision):
     return ap
 
 
-def _get_detections(generator, model, score_threshold=0.05, max_detections=100, save_path=None, experiment=None, postprocess= False):
+def _get_detections(generator, model, score_threshold=0.05, max_detections=100, save_path=None, experiment=None, postprocess= True):
     """ Get the detections from the model using the generator.
 
     The result is a list of lists such that the size is:
@@ -112,44 +112,44 @@ def _get_detections(generator, model, score_threshold=0.05, max_detections=100, 
         row = generator.image_data[image_name]             
         fname = os.path.splitext(row["tile"])[0] + "_" + str(row["window"])
         
-        #drape boxes
-        #get lidar cloud if a new tile, or if not the same tile as previous image.
-        if generator.with_lidar:
-            if i == 0:
-                generator.load_lidar_tile()
-            elif not generator.image_data[i]["tile"] == generator.image_data[i-1]["tile"]:
-                generator.load_lidar_tile()
-        
-        #The tile could be the full tile, so let's check just the 400 pixel crop we are interested    
-        #Not the best structure, but the on-the-fly generator always has 0 bounds
-        if hasattr(generator, 'hf'):
-            bounds = generator.hf["utm_coords"][generator.row["window"]]    
-        else:
-            bounds=[]
-        
-        if generator.with_lidar:
-            #Load tile
-            if not generator.row["tile"] == generator.previous_image_path:
-                generator.load_lidar_tile()
-            #density = Lidar.check_density(generator.lidar_tile, bounds=bounds)
-                            
-            if postprocess:
-                #find window utm coordinates
-                print("draping")
-                #print("Bounds for image {}, window {}, are {}".format(generator.row["tile"], generator.row["window"], bounds))
-                pc = postprocessing.drape_boxes(boxes=image_boxes, pc = generator.lidar_tile, bounds=bounds)     
-                
-                #Get new bounding boxes
-                image_boxes = postprocessing.cloud_to_box(pc, bounds)    
-                image_scores = image_scores[:image_boxes.shape[0]]
-                image_labels = image_labels[:image_boxes.shape[0]]          
-                image_detections = np.concatenate([image_boxes, np.expand_dims(image_scores, axis=1), np.expand_dims(image_labels, axis=1)], axis=1)
+        #drape boxes if they exist
+        if len(image_boxes) > 0:
+            #get lidar cloud if a new tile, or if not the same tile as previous image.
+            if generator.with_lidar:
+                if i == 0:
+                    generator.load_lidar_tile()
+                elif not generator.image_data[i]["tile"] == generator.image_data[i-1]["tile"]:
+                    generator.load_lidar_tile()
+            
+            #The tile could be the full tile, so let's check just the 400 pixel crop we are interested    
+            #Not the best structure, but the on-the-fly generator always has 0 bounds
+            if hasattr(generator, 'hf'):
+                bounds = generator.hf["utm_coords"][generator.row["window"]]    
             else:
-                pass
-                #print("Point density of {:.2f} is too low, skipping image {}".format(density, generator.row["tile"]))        
+                bounds=[]
+            
+            if generator.with_lidar:
+                #Load tile
+                if not generator.row["tile"] == generator.previous_image_path:
+                    generator.load_lidar_tile()
+                #density = Lidar.check_density(generator.lidar_tile, bounds=bounds)
+                                
+                if postprocess:
+                    #find window utm coordinates
+                    print("Postprocessing {} predictions".format(len(image_boxes)))
+                    #print("Bounds for image {}, window {}, are {}".format(generator.row["tile"], generator.row["window"], bounds))
+                    pc = postprocessing.drape_boxes(boxes=image_boxes, pc = generator.lidar_tile, bounds=bounds)     
+                    
+                    #Get new bounding boxes
+                    image_boxes = postprocessing.cloud_to_box(pc, bounds)    
+                    image_scores = image_scores[:image_boxes.shape[0]]
+                    image_labels = image_labels[:image_boxes.shape[0]] 
+                    image_detections = np.concatenate([image_boxes, np.expand_dims(image_scores, axis=1), np.expand_dims(image_labels, axis=1)], axis=1)
+                else:
+                    pass
+                    #print("Point density of {:.2f} is too low, skipping image {}".format(density, generator.row["tile"]))        
 
         if save_path is not None:
-            
             draw_annotations(plot_rgb, generator.load_annotations(i), label_to_name=generator.label_to_name)
             draw_detections(plot_rgb, image_boxes, image_scores, image_labels, label_to_name=generator.label_to_name,score_threshold=score_threshold)
         
@@ -286,6 +286,9 @@ def evaluate_pr(
         
         if len(recall) > 0:
             print(f"At score threshold {score_threshold}, the IoU recall is {recall[-1]} and precision is {precision[-1]}")
+            experiment.log_metric("IoU_Recall",recall[-1])
+            experiment.log_metric("IoU_Precision",precision[-1])
+            
         else:
             print("None of the annotations exceeded score threshold")
             recall = [0]

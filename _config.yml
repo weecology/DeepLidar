@@ -5,6 +5,7 @@ num_hipergator_workers: 40
 training_csvs:
   - SJER
   - TEAK
+  - NIWO
 
 #LIDAR settings
 min_density: 2
@@ -14,7 +15,7 @@ min_coverage: 30
 workers: 2
 use_multiprocessing: False
 max_queue_size: 20
-num_GPUs: 1
+num_GPUs: 2
 save_image_path: /orange/ewhite/b.weinstein/retinanet/
 save_snapshot_path: /orange/ewhite/b.weinstein/retinanet/
 input_channels: 3
@@ -30,21 +31,20 @@ preprocess:
 
 #Select sites
 hand_annotation_site:
-  - NIWO
+  - SJER
 pretraining_site:
-  - NIWO
+  - SJER
 evaluation_site:
-  - NIWO
-
+  - SJER
 #Training
 training_images: All
 weights: None
 imagenet_weights: True
 batch_size: 20
-epochs: 5
+epochs: 4
 backbone: resnet50
 shuffle_training: False
-score_threshold: 0.1
+score_threshold: 0.15
 
 #Evaluation
 evaluation_images: 50
@@ -56,7 +56,7 @@ nms_threshold: 0.1
 
 #Data Paths
 SJER:
-  h5: /orange/ewhite/b.weinstein/training_h5s/threechannel/SJER/
+  h5: /orange/ewhite/b.weinstein/training_h5s/blending/SJER/
   hand_annotations:
     RGB: /home/b.weinstein/DeepLidar/data/SJER/training/
     LIDAR: /home/b.weinstein/DeepLidar/data/SJER/training/
@@ -68,7 +68,7 @@ SJER:
     RGB: /home/b.weinstein/DeepLidar/data/SJER/plots/
     LIDAR: /home/b.weinstein/DeepLidar/data/SJER/plots/
 TEAK:
-  h5: /orange/ewhite/b.weinstein/training_h5s/threechannel/TEAK/
+  h5: /orange/ewhite/b.weinstein/training_h5s/blending/TEAK/
   training_csvs: /home/b.weinstein/TreeSegmentation/analysis/Results/detection_boxes/TEAK/2018/
   hand_annotations:
     RGB: /home/b.weinstein/DeepLidar/data/TEAK/training/
@@ -80,7 +80,7 @@ TEAK:
     RGB: /home/b.weinstein/DeepLidar/data/TEAK/plots/
     LIDAR: /home/b.weinstein/DeepLidar/data/TEAK/plots/
 NIWO:
-  h5: /orange/ewhite/b.weinstein/training_h5s/threechannel/NIWO/
+  h5: /orange/ewhite/b.weinstein/training_h5s/blending/NIWO/
   training_csvs: /home/b.weinstein/TreeSegmentation/analysis/Results/detection_boxes/NIWO/2018/
   hand_annotations:
     RGB: /home/b.weinstein/DeepLidar/data/NIWO/training/
