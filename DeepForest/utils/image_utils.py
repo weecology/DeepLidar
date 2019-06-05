@@ -62,7 +62,7 @@ def normalize(image):
 def preprocess(image):
     
     #equalize histogram
-    #image = equalize(image)
+    image = equalize(image)
     
     #mean normalize
     image = normalize(image)
