@@ -33,8 +33,8 @@ def drape_boxes(boxes, pc, bounds=[]):
         max_height = box_points.z.max() 
         
         
-        #Skip if under 3 meters
-        if max_height < 3:
+        #Skip if under 2 meters
+        if max_height < 2:
             continue
         else:
             #Update points

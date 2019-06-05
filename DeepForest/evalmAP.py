@@ -44,7 +44,7 @@ def _compute_ap(recall, precision):
     return ap
 
 
-def _get_detections(generator, model, score_threshold=0.05, max_detections=200, save_path=None, experiment=None, postprocess= False):
+def _get_detections(generator, model, score_threshold=0.05, max_detections=200, save_path=None, experiment=None, postprocess= True):
     """ Get the detections from the model using the generator.
 
     The result is a list of lists such that the size is:
@@ -162,7 +162,7 @@ def _get_detections(generator, model, score_threshold=0.05, max_detections=200, 
             cv2.imwrite(os.path.join(save_path, '{}.png'.format(fname)), plot_rgb)
             
             if experiment:
-                experiment.log_image(os.path.join(save_path, '{}.png'.format(fname)),file_name=fname)      
+                experiment.log_image(os.path.join(save_path, '{}.png'.format(fname)),name=fname)      
 
         # copy detections to all_detections
         for label in range(generator.num_classes()):

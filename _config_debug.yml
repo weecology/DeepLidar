@@ -29,11 +29,11 @@ preprocess:
 
 #Select sites
 hand_annotation_site:
-  - TEAK
+  - NIWO
 pretraining_site:
-  - TEAK
+  - NIWO
 evaluation_site:
-  - TEAK
+  - NIWO
 
 #Training
 training_images: 10
