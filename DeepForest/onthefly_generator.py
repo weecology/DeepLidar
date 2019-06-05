@@ -253,6 +253,8 @@ class OnTheFlyGenerator(Generator):
         #Hillshade CHM
         #crop CHM
         self.CHM_crop = self.crop_CHM()
+        
+        #blend image if possible
         self.image = Lidar.calculate_hillshade(self.image,self.CHM_crop)
         
         return self.image
