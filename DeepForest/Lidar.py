@@ -267,7 +267,7 @@ def calculate_hillshade(image, chm):
     padded_chm[padded_chm < 3] = 0
     padded_chm = padded_chm/padded_chm.max() * 255
   
-    if padded_chm.shape != image.shape[:,:,0]:
+    if padded_chm.shape != image[:,:,0].shape:
         print("Padding failed for image")
         return image
     
