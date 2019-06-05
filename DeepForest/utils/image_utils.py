@@ -117,7 +117,7 @@ def box_overlap(row, window):
     
     assert window['x1'] < window['x2']
     assert window['y1'] < window['y2']
-    assert box['x1'] < box['x2']
+    assert box['x1'] < box['x2'], "Box {} is invalid".format(row)
     assert box['y1'] < box['y2']
 
     # determine the coordinates of the intersection rectangle

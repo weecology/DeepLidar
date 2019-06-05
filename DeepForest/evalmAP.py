@@ -44,7 +44,7 @@ def _compute_ap(recall, precision):
     return ap
 
 
-def _get_detections(generator, model, score_threshold=0.05, max_detections=100, save_path=None, experiment=None, postprocess= False):
+def _get_detections(generator, model, score_threshold=0.05, max_detections=100, save_path=None, experiment=None, postprocess= True):
     """ Get the detections from the model using the generator.
 
     The result is a list of lists such that the size is:
@@ -286,6 +286,9 @@ def evaluate_pr(
         
         if len(recall) > 0:
             print(f"At score threshold {score_threshold}, the IoU recall is {recall[-1]} and precision is {precision[-1]}")
+            experiment.log_metric("IoU_Recall",recall[-1])
+            experiment.log_metric("IoU_Precision",precision[-1])
+            
         else:
             print("None of the annotations exceeded score threshold")
             recall = [0]

@@ -5,6 +5,7 @@ num_hipergator_workers: 40
 training_csvs:
   - SJER
   - TEAK
+  - NIWO
 
 #LIDAR settings
 min_density: 2
@@ -35,7 +36,6 @@ pretraining_site:
   - TEAK
 evaluation_site:
   - TEAK
-
 #Training
 training_images: All
 weights: None

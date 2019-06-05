@@ -41,18 +41,21 @@ def drape_boxes(boxes, pc, bounds=[]):
         #Find utm coordinates
         xmin, xmax, ymin, ymax = find_utm_coords(box=box, pc=pc, bounds=bounds)
         
-        #Update points
-        pc.data.points.loc[(pc.data.points.x > xmin) & (pc.data.points.x < xmax)  & (pc.data.points.y > ymin)   & (pc.data.points.y < ymax),"user_data"] = tree_counter
+        #Get max height of tree box
+        box_points  = pc.data.points.loc[(pc.data.points.x > xmin) & (pc.data.points.x < xmax)  & (pc.data.points.y > ymin)   & (pc.data.points.y < ymax)]
         
-        #update counter
-        tree_counter +=1 
+        max_height = box_points.data.points.z.max() 
         
-    #remove ground points 
-    #pc.data.points.loc[pc.data.points.classification == 2, "user_data"] = np.nan
-    
-    #remove points under half meter
-    pc.data.points.loc[pc.data.points.z < 2.5, "user_data"] = np.nan
-    
+        #Skip if under 3 meters
+        if max_height < 3:
+            continue
+        else:
+            #Update points
+            pc.data.points.loc[(pc.data.points.x > xmin) & (pc.data.points.x < xmax)  & (pc.data.points.y > ymin)   & (pc.data.points.y < ymax),"user_data"] = tree_counter
+            
+            #update counter
+            tree_counter +=1 
+
     return pc    
     
 def find_utm_coords(box, pc, rgb_res = 0.1, bounds = []):
