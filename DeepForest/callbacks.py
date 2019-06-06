@@ -9,7 +9,7 @@ class Evaluate(keras.callbacks.Callback):
     """ Evaluation callback for arbitrary datasets.
     """
 
-    def __init__(self, generator, iou_threshold=0.5, score_threshold=0.05, max_detections=100, suppression_threshold=0.2,save_path=None, weighted_average=False, verbose=1,experiment=None,DeepForest_config=None):
+    def __init__(self, generator, iou_threshold=0.5, score_threshold=0.05, max_detections=300, suppression_threshold=0.2,save_path=None, weighted_average=False, verbose=1,experiment=None,DeepForest_config=None):
         """ Evaluate a given dataset using a given model at the end of every epoch during training.
 
         # Arguments
@@ -74,7 +74,7 @@ class Evaluate(keras.callbacks.Callback):
 class recallCallback(keras.callbacks.Callback):
     """ Evaluation callback for NEON stem maps
     """
-    def __init__(self, generator=None, score_threshold=0.05, max_detections=100, suppression_threshold=0.2,save_path=None, weighted_average=False, verbose=1,experiment=None, sites=None):
+    def __init__(self, generator=None, score_threshold=0.05, max_detections=300, suppression_threshold=0.2,save_path=None, weighted_average=False, verbose=1,experiment=None, sites=None):
         """ Evaluate a given dataset using a given model at the end of every epoch during training.
 
         # Arguments
@@ -121,7 +121,7 @@ class NEONmAP(keras.callbacks.Callback):
     """ Evaluation callback for arbitrary datasets.
     """
 
-    def __init__(self, generator, iou_threshold=0.5, score_threshold=0.05, max_detections=100, save_path=None, weighted_average=False, verbose=1, experiment=None, DeepForest_config=None):
+    def __init__(self, generator, iou_threshold=0.5, score_threshold=0.05, max_detections=300, save_path=None, weighted_average=False, verbose=1, experiment=None, DeepForest_config=None):
         """ Evaluate a given dataset using a given model at the end of every epoch during training.
 
         # Arguments
