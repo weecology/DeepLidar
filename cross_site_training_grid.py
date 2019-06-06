@@ -93,8 +93,8 @@ for pretraining_site in pretraining_models:
             '--convert-model'
         ]
                    
-        stem_recall, mAP = eval_main(data = data, DeepForest_config = DeepForest_config, experiment = experiment, args = args)
-        results.append({"Evaluation Site" : site, "Pretraining Site": pretraining_site, "Stem Recall": stem_recall, "mAP": mAP})
+        mAP = eval_main(data = data, DeepForest_config = DeepForest_config, experiment = experiment, args = args)
+        results.append({"Evaluation Site" : site, "Pretraining Site": pretraining_site, "mAP": mAP})
         
 results = pd.DataFrame(results)
 
