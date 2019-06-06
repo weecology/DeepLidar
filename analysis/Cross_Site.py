@@ -103,8 +103,9 @@ if __name__ == '__main__':
     sys.path.insert(0, os.path.abspath('..'))
     
     #Model list
-    trained_models = {"SJER":"/orange/ewhite/b.weinstein/retinanet/20190525_173445/resnet50_30.h5",
-                          "TEAK":"/orange/ewhite/b.weinstein/retinanet/20190525_115939/resnet50_40.h5"}
+    trained_models = {"SJER":"/orange/ewhite/b.weinstein/retinanet/20190605_010354/resnet50_30.h5",
+                          "TEAK":"/orange/ewhite/b.weinstein/retinanet/20190605_085411/resnet50_30.h5",
+                          "NIWO":"/orange/ewhite/b.weinstein/retinanet/20190606_120905/resnet50_50.h5"}
     import pandas as pd
     import numpy as np
     from DeepForest.config import load_config
@@ -114,7 +115,7 @@ if __name__ == '__main__':
     results = []
     for training_site in trained_models:
         #Sites are passed as list object.
-        sites = [["TEAK"],["SJER"]]
+        sites = [["TEAK"],["SJER"],["NIWO"]]
         for eval_site in sites:
             
             model  = trained_models[training_site]
