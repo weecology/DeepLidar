@@ -3,8 +3,6 @@
 #Data generation - the number of workers for dask session
 num_hipergator_workers: 40
 training_csvs:
-  - SJER
-  - TEAK
   - NIWO
 
 #LIDAR settings
@@ -15,7 +13,7 @@ min_coverage: 30
 workers: 2
 use_multiprocessing: False
 max_queue_size: 20
-num_GPUs: 2
+num_GPUs: 1
 save_image_path: /orange/ewhite/b.weinstein/retinanet/
 save_snapshot_path: /orange/ewhite/b.weinstein/retinanet/
 input_channels: 3
@@ -31,17 +29,23 @@ preprocess:
 
 #Select sites
 hand_annotation_site:
+  - NIWO
   - SJER
+  - TEAK
 pretraining_site:
+  - NIWO
   - SJER
+  - TEAK
 evaluation_site:
+  - NIWO
   - SJER
+  - TEAK
 #Training
 training_images: All
-weights: None
+weights: /orange/ewhite/b.weinstein/retinanet/20190605_181458/resnet50_05.h5
 imagenet_weights: True
 batch_size: 20
-epochs: 4
+epochs: 5
 backbone: resnet50
 shuffle_training: False
 score_threshold: 0.15
