@@ -13,7 +13,7 @@ min_coverage: 30
 workers: 2
 use_multiprocessing: False
 max_queue_size: 20
-num_GPUs: 2
+num_GPUs: 3
 save_image_path: /orange/ewhite/b.weinstein/retinanet/
 save_snapshot_path: /orange/ewhite/b.weinstein/retinanet/
 input_channels: 3
@@ -47,7 +47,7 @@ imagenet_weights: True
 batch_size: 20
 epochs: 5
 backbone: resnet50
-shuffle_training: False
+shuffle_training: True
 score_threshold: 0.15
 
 #Evaluation
