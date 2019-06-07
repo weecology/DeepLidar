@@ -125,6 +125,13 @@ class OnTheFlyGenerator(Generator):
         for index, row in uclasses.iterrows():
             classes[row.label] = row.numeric_label
         print("There are {} classes: {}".format(len(classes),classes))
+        
+        #Sanity check
+        if len(classes) > 1:
+            print(windowdf[windowdf!="Tree"])
+            print("There are too many classes")
+            raise ValueError
+        
         return(classes)
     
     def num_classes(self):
