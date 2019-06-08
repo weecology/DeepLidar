@@ -128,7 +128,7 @@ class OnTheFlyGenerator(Generator):
         
         #Sanity check
         if len(classes) > 1:
-            print(self.windowdf[self.windowdf!="Tree"])
+            print(self.windowdf[self.windowdf.label!="Tree"])
             print("There are too many classes")
             raise ValueError
         
