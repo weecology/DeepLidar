@@ -128,7 +128,7 @@ class OnTheFlyGenerator(Generator):
         
         #Sanity check
         if len(classes) > 1:
-            print(self.data[self.data.label!="Tree"])
+            print(self.annotation_list[self.annotation_list.label!="Tree"])
             print("There are too many classes")
             raise ValueError
         
