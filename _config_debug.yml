@@ -30,6 +30,7 @@ preprocess:
 #Select sites
 hand_annotation_site:
   - NIWO
+  - TEAK
 pretraining_site:
   - NIWO
 evaluation_site:
