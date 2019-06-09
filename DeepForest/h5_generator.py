@@ -141,7 +141,9 @@ class H5Generator(Generator):
             random.shuffle(groups)
         
         #Bring pandas frame back together
-        newdf = pd.concat(groups,sort=False).reset_index(drop=True)
+        newdf = pd.concat(groups,sort=False,ignore_index=True)
+        print("h5 order is")
+        print(newdf.tile.unique()[0:5])        
         image_data = newdf.to_dict("index")
         image_names = list(image_data.keys())
         
