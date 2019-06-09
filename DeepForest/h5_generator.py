@@ -131,6 +131,8 @@ class H5Generator(Generator):
         Define image data and names based on grouping of tiles for computational efficiency 
         '''
         #group by tile
+        print("Before split")
+        print(self.windowdf.tile.unique()[0:5])        
         groups = [df for _, df in self.windowdf.groupby('tile')]
         
         if shuffle:
@@ -142,7 +144,7 @@ class H5Generator(Generator):
         
         #Bring pandas frame back together
         newdf = pd.concat(groups,sort=False,ignore_index=True)
-        print("h5 order is")
+        print("After split")
         print(newdf.tile.unique()[0:5])        
         image_data = newdf.to_dict("index")
         image_names = list(image_data.keys())
