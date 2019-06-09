@@ -253,7 +253,7 @@ def split_training(data, DeepForest_config, experiment):
             groups = [df for _, df in training.groupby('tile')]
             random.shuffle(groups)    
             training = pd.concat(groups,sort=False).reset_index(drop=True)
-            print(training.head())
+            print(training.tile.unique()[0:5])
         
     #evaluation samples
     if not DeepForest_config["evaluation_images"] in ["All",0]:
