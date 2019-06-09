@@ -133,17 +133,20 @@ class H5Generator(Generator):
         #group by tile
         print("Before split")
         print(self.windowdf.tile.unique()[0:5])        
-        groups = [df for _, df in self.windowdf.groupby('tile')]
         
         if shuffle:
+            groups = [df for _, df in self.windowdf.groupby('tile')]
+            
             #Shuffle order of windows within a tile
             groups = [x.sample(frac=1) for x in groups]      
             
             #Shuffle order of tiles
             random.shuffle(groups)
+            newdf = pd.concat(groups,sort=False,ignore_index=True)
+        else:
+            newdf = self.windowdf
         
         #Bring pandas frame back together
-        newdf = pd.concat(groups,sort=False,ignore_index=True)
         print("After split")
         print(newdf.tile.unique()[0:5])        
         image_data = newdf.to_dict("index")
