@@ -67,7 +67,7 @@ def load_training_data(DeepForest_config):
         dataframes.append(df)
         
     #Create a dict assigning the tiles to the h5 dir
-    data = pd.concat(dataframes, sort=False, ignore_index=True)         
+    data = pd.concat(dataframes, sort=False).reset_index(drop=True)         
     return data
     
     
