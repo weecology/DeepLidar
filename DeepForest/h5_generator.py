@@ -64,7 +64,7 @@ class H5Generator(Generator):
             self.labels[value] = key        
         
         #Set groups at first order.
-        self.define_groups(shuffle=False)
+        self.define_groups(shuffle=True)
         
         #report total number of annotations
         self.total_trees = self.total_annotations()
