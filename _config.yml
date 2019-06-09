@@ -10,9 +10,9 @@ min_density: 2
 min_coverage: 30
 
 #Keras
-workers: 2
-use_multiprocessing: False
-max_queue_size: 20
+workers: 3
+use_multiprocessing: True
+max_queue_size: 25
 num_GPUs: 3
 save_image_path: /orange/ewhite/b.weinstein/retinanet/
 save_snapshot_path: /orange/ewhite/b.weinstein/retinanet/
