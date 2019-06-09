@@ -38,7 +38,6 @@ from keras_retinanet .utils.model import freeze as freeze_model
 #Custom Generator
 from DeepForest.h5_generator import H5Generator
 from DeepForest.config import load_config
-from DeepForest import preprocess
 from DeepForest.utils.generators import create_NEON_generator, load_training_data, load_retraining_data, create_h5_generators
 from DeepForest.utils import image_utils
 
