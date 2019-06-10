@@ -6,7 +6,6 @@ from DeepForest.preprocess import NEON_annotations, load_csvs, split_training
 from DeepForest import Generate
 from DeepForest.h5_generator import H5Generator
 from DeepForest.utils import image_utils
-from DeepForest.h5_generator import H5Generator
 
 def load_retraining_data(DeepForest_config):
     """

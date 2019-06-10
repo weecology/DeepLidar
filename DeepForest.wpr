@@ -6,6 +6,7 @@
 [project attributes]
 proj.file-list = [loc('tests/test_generate.py'),
                   loc('tests/test_generators.py'),
+                  loc('tests/test_h5_generator.py'),
                   loc('tests/test_onthefly_generator.py'),
                   loc('tests/test_train.py')]
 proj.file-type = 'shared'
@@ -47,6 +48,9 @@ proj.launch-config = {loc('../DeepForest/predict.py'): ('project',
          '')),
                       loc('tests/test_generate.py'): ('project',
         (u'-m cProfile -o generator_profile.prof',
+         '')),
+                      loc('tests/test_h5_generator.py'): ('project',
+        (u' -m cProfile -o profile.prof',
          '')),
                       loc('tests/test_ontheflygenerator.py'): ('project',
         (u' -m cProfile -o profile.prof',

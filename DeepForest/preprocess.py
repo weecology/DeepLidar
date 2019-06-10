@@ -246,6 +246,12 @@ def split_training(data, DeepForest_config, experiment):
         
         #Ensure training is sorted by image
         training.sort_values(by="tile", inplace=True)    
+        
+        #Shuffle tile order is needed
+        groups = [df for _, df in training.groupby('tile')]
+        random.shuffle(groups)    
+        training = pd.concat(groups,sort=False).reset_index(drop=True)
+        
     else:
         if DeepForest_config["shuffle_training"]:
             #Shuffle tile order is needed

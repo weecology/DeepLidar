@@ -21,7 +21,6 @@ import cv2
 import slidingwindow as sw
 import itertools
 
-from DeepForest import Lidar
 from DeepForest.utils import image_utils
 
 class H5Generator(Generator):
@@ -147,8 +146,6 @@ class H5Generator(Generator):
             newdf = self.windowdf
         
         #Bring pandas frame back together
-        print("After split")
-        print(newdf.tile.unique()[0:5])        
         image_data = newdf.to_dict("index")
         image_names = list(image_data.keys())
         
