@@ -95,3 +95,15 @@ NIWO:
   evaluation:
     RGB: /home/b.weinstein/DeepLidar/data/NIWO/plots/
     LIDAR: /home/b.weinstein/DeepLidar/data/NIWO/plots/
+MLBS:
+  h5: /orange/ewhite/b.weinstein/training_h5s/blending/MLBS/
+  training_csvs: /home/b.weinstein/TreeSegmentation/analysis/Results/detection_boxes/MLBS/2018/
+  hand_annotations:
+    RGB: /home/b.weinstein/DeepLidar/data/MLBS/training/
+    LIDAR: /home/b.weinstein/DeepLidar/data/MLBS/training/
+  training:
+    RGB: /orange/ewhite/NeonData/MLBS/DP3.30010.001/2018/FullSite/D07/2018_MLBS_3/L3/Camera/Mosaic/V01/
+    LIDAR: /orange/ewhite/NeonData/MLBS/DP1.30003.001/2018/FullSite/D07/2018_MLBS_3/L1/DiscreteLidar/ClassifiedPointCloud/
+  evaluation:
+    RGB: /home/b.weinstein/DeepLidar/data/MLBS/plots/
+    LIDAR: /home/b.weinstein/DeepLidar/data/MLBS/plots/

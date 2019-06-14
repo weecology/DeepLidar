@@ -116,7 +116,7 @@ if __name__ == '__main__':
     results = []
     for training_site in trained_models:
         #Sites are passed as list object.
-        sites = [["TEAK"],["SJER"],["NIWO"]]
+        sites = [["TEAK"],["SJER"],["NIWO"],["MLBS"]]
         for eval_site in sites:
             
             model  = trained_models[training_site]
