@@ -45,7 +45,7 @@ training_images: All
 weights: None
 imagenet_weights: True
 batch_size: 20
-epochs: 5
+epochs: 30
 backbone: resnet50
 shuffle_training: True
 score_threshold: 0.15
