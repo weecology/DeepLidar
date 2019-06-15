@@ -111,7 +111,7 @@ def load_xml(path, dirname, res):
     try:
         tile_xml=doc["annotation"]["object"]
     except Exception as e:
-        raise Exception("error {} for path {}".format(e,path))
+        raise Exception("error {} for path {} with doc{}".format(e,path, doc))
         
     xmin=[]
     xmax=[]
