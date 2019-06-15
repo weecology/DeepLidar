@@ -103,6 +103,7 @@ def load_xml(path, dirname, res):
     """
     Load a single .xml annotations
     """
+    print(path)
     #parse
     with open(path) as fd:
         doc = xmltodict.parse(fd.read())
@@ -111,7 +112,7 @@ def load_xml(path, dirname, res):
     try:
         tile_xml=doc["annotation"]["object"]
     except Exception as e:
-        raise Exception("error {} for path {} with doc{}".format(e,path, doc))
+        raise Exception("error {} for path {} with doc annotation{}".format(e,path, doc["annotation"]))
         
     xmin=[]
     xmax=[]
