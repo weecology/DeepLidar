@@ -3,7 +3,7 @@
 #Data generation - the number of workers for dask session
 num_hipergator_workers: 40
 training_csvs:
-  - NIWO
+  - MLBS
 
 #LIDAR settings
 min_density: 2
@@ -29,23 +29,17 @@ preprocess:
 
 #Select sites
 hand_annotation_site:
-  - NIWO
-  - SJER
-  - TEAK
+  - MLBS
 pretraining_site:
-  - NIWO
-  - SJER
-  - TEAK
+  - MLBS
 evaluation_site:
-  - NIWO
-  - SJER
-  - TEAK
+  - MLBS
 #Training
 training_images: All
 weights: None
 imagenet_weights: True
 batch_size: 20
-epochs: 30
+epochs: 5
 backbone: resnet50
 shuffle_training: True
 score_threshold: 0.15
