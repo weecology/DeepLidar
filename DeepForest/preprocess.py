@@ -108,7 +108,11 @@ def load_xml(path, dirname, res):
         doc = xmltodict.parse(fd.read())
     
     #grab xml objects
-    tile_xml=doc["annotation"]["object"]
+    try:
+        tile_xml=doc["annotation"]["object"]
+    except Exception as e:
+        print("error {} for path {}".format(e,path))
+        
     
     xmin=[]
     xmax=[]
