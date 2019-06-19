@@ -89,3 +89,15 @@ NIWO:
   evaluation:
     RGB: /Users/Ben/Documents/DeepLidar/data/NIWO/plots/
     LIDAR: /Users/Ben/Documents/DeepLidar/data/NIWO/plots/
+MLBS:
+  h5: /Users/Ben/Downloads/fourchannel/MLBS/
+  hand_annotations:
+    RGB: /Users/Ben/Documents/DeepLidar/data/MLBS/training/
+    LIDAR: /Users/Ben/Documents/DeepLidar/data/MLBS/training/
+  training_csvs: /Users/Ben/Documents/DeepLidar/data/MLBS/training/
+  training:
+    RGB: /Users/Ben/Documents/DeepLidar/data/MLBS/training/
+    LIDAR: /Users/Ben/Documents/DeepLidar/data/MLBS/training/
+  evaluation:
+    RGB: /Users/Ben/Documents/DeepLidar/data/MLBS/plots/
+    LIDAR: /Users/Ben/Documents/DeepLidar/data/MLBS/plots/

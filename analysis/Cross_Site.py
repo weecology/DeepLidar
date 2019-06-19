@@ -106,7 +106,8 @@ if __name__ == '__main__':
     trained_models = {"SJER":"/orange/ewhite/b.weinstein/retinanet/20190605_010354/resnet50_30.h5",
                           "TEAK":"/orange/ewhite/b.weinstein/retinanet/20190605_085411/resnet50_30.h5",
                           "NIWO":"/orange/ewhite/b.weinstein/retinanet/20190606_120905/resnet50_50.h5",
-                          "All":"/orange/ewhite/b.weinstein/retinanet/20190614_020934/resnet50_30.h5"}
+                          "MLBS": "/orange/ewhite/b.weinstein/retinanet/20190616_163321/resnet50_50.h5",
+                          "All":"/orange/ewhite/b.weinstein/retinanet/20190616_173913/resnet50_30.h5"}
     import pandas as pd
     import numpy as np
     from DeepForest.config import load_config
