@@ -21,10 +21,10 @@ original_DeepForest_config = load_config()
 
 pretraining_models = {"SJER":"/orange/ewhite/b.weinstein/retinanet/20190604_201407/resnet50_04.h5",
                    "TEAK":"/orange/ewhite/b.weinstein/retinanet/20190604_201042/resnet50_04.h5",
-                   "NIWO":"/orange/ewhite/b.weinstein/retinanet/20190605_181458/resnet50_05.h5"}
-#pretraining_models = {"SJER" : "/Users/ben/Documents/DeepLidar/snapshots/TEAK_20190125_125012_fullmodel.h5"}
+                   "NIWO":"/orange/ewhite/b.weinstein/retinanet/20190605_181458/resnet50_05.h5",
+                   "MLBS":"/orange/ewhite/b.weinstein/retinanet/20190616_163321/resnet50_05.h5"}
 
-sites = [["NIWO"],["SJER"],["TEAK"],["SJER","TEAK","NIWO"]]
+sites = [["NIWO"],["SJER"],["TEAK"],["MLBS"],["SJER","TEAK","NIWO","MLBS"]]
 
 #For each site, match the hand annotations with the pretraining model
 results = []
