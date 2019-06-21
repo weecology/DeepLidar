@@ -54,12 +54,13 @@ python eval.py
 
 ## Published articles
 
-Our first article is in review at *Remote Sensing*. The prepint can be found [here](https://www.biorxiv.org/content/10.1101/532952v1). 
+Our first article was published in *Remote Sensing* and can be found [here](https://www.mdpi.com/2072-4292/11/11/1309). 
 
-The results of the full model can be found on our [comet page](https://www.comet.ml/bw4sz/deeplidar/2645e41bf83b47e68a313f3c933aff8a). To recreate this analysis, make sure to turn lidar post-processing off by setting min_density to a very high value (e.g 100) in the _config.yml file.
+This codebase is constantly evolving and improving. To access the code at the time of publication, see Releases.
+The results of the full model can be found on our [comet page](https://www.comet.ml/bw4sz/deeplidar/2645e41bf83b47e68a313f3c933aff8a).
 
 ## Data
 
 See the data repo: https://github.com/weecology/NeonTreeEvaluation
 * With the exception of the two hand annotated tiles that are too big to fit on github. See README of that repo.
-Data from [SJER](https://www.neonscience.org/field-sites/field-sites-map/SJER) were used in the first publication.
+Data from [SJER](https://www.neonscience.org/field-sites/field-sites-map/SJER) were used in the first publication. We are happy to share any data, any time.
