@@ -289,8 +289,9 @@ def evaluate_pr(
         
         if len(recall) > 0:
             print(f"At score threshold {score_threshold}, the IoU recall is {recall[-1]} and precision is {precision[-1]}")
-            experiment.log_metric("IoU_Recall",recall[-1])
-            experiment.log_metric("IoU_Precision",precision[-1])
+            if experiment:
+                experiment.log_metric("IoU_Recall",recall[-1])
+                experiment.log_metric("IoU_Precision",precision[-1])
             
         else:
             print("None of the annotations exceeded score threshold")
