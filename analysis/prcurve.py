@@ -100,7 +100,7 @@ if __name__ == '__main__':
                 '--score-threshold', str(score_threshold),
                 '--suppression-threshold','0.1', 
                 '--save-path', 'snapshots/images/', 
-                '--model', mode.saved_model, 
+                '--model', trained_model, 
                 '--convert-model'
             ]
                
@@ -111,5 +111,4 @@ if __name__ == '__main__':
     results = pd.DataFrame(results)
     
     #model name
-    model_name = os.path.splitext(os.path.basename(mode.saved_model))[0]
-    results.to_csv("prcurve_data" + model_name + ".csv")
+    results.to_csv("prcurve_data" + ".csv")
