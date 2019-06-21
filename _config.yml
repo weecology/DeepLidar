@@ -30,10 +30,19 @@ preprocess:
 #Select sites
 hand_annotation_site:
   - MLBS
+  - TEAK
+  - NIWO
+  - SJER
 pretraining_site:
   - MLBS
+  - TEAK
+  - NIWO
+  - SJER
 evaluation_site:
   - MLBS
+  - NIWO
+  - TEAK
+  - SJER
 #Training
 training_images: All
 weights: None
