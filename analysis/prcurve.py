@@ -98,7 +98,7 @@ if __name__ == '__main__':
             args = [
                 "--batch-size", str(DeepForest_config['batch_size']),
                 '--score-threshold', str(score_threshold),
-                '--suppression-threshold','0.1', 
+                '--suppression-threshold','0.15', 
                 '--save-path', 'snapshots/images/', 
                 '--model', trained_model, 
                 '--convert-model'
