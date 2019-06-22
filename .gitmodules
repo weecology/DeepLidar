@@ -4,3 +4,6 @@
 [submodule "data"]
 	path = data
 	url = git@github.com:weecology/NeonTreeEvaluation.git
+[submodule "origin/master"]
+	path = origin/master
+	url = git@github.com:weecology/NeonTreeEvaluation.git
