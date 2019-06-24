@@ -88,7 +88,9 @@ if __name__ == '__main__':
     
     trained_models = {"SJER":"/orange/ewhite/b.weinstein/retinanet/20190605_010354/resnet50_30.h5",
                       "TEAK":"/orange/ewhite/b.weinstein/retinanet/20190605_085411/resnet50_30.h5",
-                          "NIWO":"/orange/ewhite/b.weinstein/retinanet/20190606_120905/resnet50_50.h5"}
+                          "NIWO":"/orange/ewhite/b.weinstein/retinanet/20190606_120905/resnet50_50.h5",
+                          "MLBS":"/orange/ewhite/b.weinstein/retinanet/20190624_122646/resnet50_40.h5",
+                          }
     results = []    
     for training_site in trained_models:
         trained_model = trained_models[training_site]
