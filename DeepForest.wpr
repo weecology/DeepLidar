@@ -62,6 +62,10 @@ proj.launch-config = {loc('../DeepForest/predict.py'): ('project',
         'roject',
         (u'--DATA_PATH gs://api-project-773889352370-ml/Viivi_Fish',
          '')),
+                      loc('../NeonTreeEvaluation/utilities/generate_h5_raster.py'): ('p'\
+        'roject',
+        (u'--rgb_filename /Users/ben/Documents/DeepLidar/data/MLBS/training/2018_MLBS_3_541000_4140000_image_crop2.tif --h5_path /Users/ben/Downloads/2018 2/FullSite/D07/2018_MLBS_3/L3/Spectrometer/Reflectance/NEON_D07_MLBS_DP3_541000_4140000_reflectance.h5 --rgb false_color --save_dir /Users/Ben/Desktop',
+         '')),
                       loc('../keras-retinanet/keras_retinanet/bin/train.py'): ('p'\
         'roject',
         (u'csv /Users/Ben/Documents/keras-retinanet/tests/test-data/annotations.csv /Users/Ben/Documents/keras-retinanet/tests/test-data/classes.csv',

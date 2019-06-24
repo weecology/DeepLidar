@@ -1,0 +1,17 @@
+Filename: test_h5_generator.py
+
+Line #    Mem usage    Increment   Line Contents
+================================================
+    25 252.76953125 MiB 252.76953125 MiB   @profile(precision=precision, stream=fp)
+    26                             def test_h5_generator(train, DeepForest_config):
+    27                                 #Training Generator
+    28 253.84765625 MiB   1.07812500 MiB       generator = h5_generator.H5generator(train)  
+    29                                 
+    30 284.52734375 MiB   0.00390625 MiB       for i in range(len(generator)):
+    31 284.52734375 MiB  15.84375000 MiB           inputs, targets = generator.__getitem__(i)
+    32                                     
+    33 284.52734375 MiB   0.00000000 MiB           assert len(targets)==2, "targets has incorrect length"
+    34                                     
+    35 284.52734375 MiB   0.00000000 MiB           assert inputs.shape == (DeepForest_config["batch_size"], DeepForest_config["patch_size"], DeepForest_config["patch_size"], DeepForest_config["input_channels"] )
+
+
