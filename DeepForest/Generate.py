@@ -87,8 +87,7 @@ def run(tile_csv=None, tile_xml = None, mode="train", DeepForest_config=None, si
     generator = onthefly_generator.OnTheFlyGenerator(data,
                                                      windows,
                                                      DeepForest_config,
-                                                     name=name
-                                                     )
+                                                     name=name)
     
     #Create h5 dataset    
     # open a hdf5 file and create arrays

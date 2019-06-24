@@ -29,11 +29,11 @@ preprocess:
 
 #Select sites
 hand_annotation_site:
-  - TEAK
+  - MLBS
 pretraining_site:
-  - TEAK
+  - MLBS
 evaluation_site:
-  - TEAK
+  - MLBS
 
 #Training
 training_images: All
