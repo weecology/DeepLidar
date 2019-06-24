@@ -24,9 +24,12 @@ def find_lidar_file(image_path, dirname):
     laz_files = glob.glob(dirname + "*.laz")
     
     #extract geoindex
-    pattern = r"(\d+_\d+)_image"
+    pattern = r"_(\d+_\d+_image.*)"
     match = re.findall(pattern, image_path)
     
+    #replace .tif with .laz pattern
+    match = [x.replace("image","classified_point_cloud") for x in match]
+    match = [x.replace(".tif",".laz") for x in match]
     if len(match)>0:
         match = match[0]
     else:
@@ -240,6 +243,7 @@ def check_density(pc, bounds=[]):
         xmin, xmax, ymin, ymax = bounds
         filtered_points = pc.data.points[(pc.data.points.x > xmin) & (pc.data.points.x < xmax)  & (pc.data.points.y > ymin) & (pc.data.points.y < ymax)]
         n_points = filtered_points.shape[0]
+        assert n_points > 0, "No points remain after bounds filter"
         
     else:
         #number of points
