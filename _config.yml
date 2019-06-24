@@ -30,19 +30,10 @@ preprocess:
 #Select sites
 hand_annotation_site:
   - MLBS
-  - TEAK
-  - NIWO
-  - SJER
 pretraining_site:
   - MLBS
-  - TEAK
-  - NIWO
-  - SJER
 evaluation_site:
   - MLBS
-  - NIWO
-  - TEAK
-  - SJER
 #Training
 training_images: All
 weights: None
@@ -54,7 +45,7 @@ shuffle_training: True
 score_threshold: 0.15
 
 #Evaluation
-evaluation_images: 50
+evaluation_images: 0
 shuffle_evaluation: False
 validation_percent: 5  #For hand annotation neon_MAP
 
