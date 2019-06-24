@@ -23,7 +23,7 @@ echo $PYTHONPATH
     
 #No cross training - figure 2
 cd /home/b.weinstein/DeepLidar/analysis
-python Cross_Site.py
+python prcurve.py
 
 
 
