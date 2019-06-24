@@ -1,12 +1,12 @@
 #!/bin/bash
-#SBATCH --job-name=DeepLidar   # Job name
+#SBATCH --job-name=PRCURVE   # Job name
 #SBATCH --mail-type=END               # Mail events (NONE, BEGIN, END, FAIL, AL$
 #SBATCH --mail-user=benweinstein2010@gmail.com  # Where to send mail
 #SBATCH --account=ewhite
 #SBATCH --nodes=1                 # Number of MPI ranks
 #SBATCH --ntasks=1                 # Number of MPI ranks
-#SBATCH --cpus-per-task=4            # Number of cores per MPI rank
-#SBATCH --mem-per-cpu=15GB
+#SBATCH --cpus-per-task=2            # Number of cores per MPI rank
+#SBATCH --mem-per-cpu=10GB
 #SBATCH --time=72:00:00       #Time limit hrs:min:sec
 #SBATCH --output=/home/b.weinstein/logs/DeepLidar.out   # Standard output and error log
 #SBATCH --error=/home/b.weinstein/logs/DeepLidar.err
@@ -23,7 +23,7 @@ echo $PYTHONPATH
     
 #No cross training - figure 2
 cd /home/b.weinstein/DeepLidar/analysis
-python Cross_Site.py
+python prcurve.py
 
 
 
