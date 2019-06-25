@@ -130,7 +130,6 @@ class H5Generator(Generator):
         Define image data and names based on grouping of tiles for computational efficiency 
         '''
         #group by tile
-        print("Before split")
         print(self.windowdf.tile.unique()[0:5])        
         
         if shuffle:
@@ -166,7 +165,6 @@ class H5Generator(Generator):
         #Open image to crop
         ##Check if tile the is same as previous draw from generator, this will save time.
         if not self.row["tile"] == self.previous_image_path:
-            print("Loading new h5: %s" % (self.row["tile"]))
             
             #Set directory based on site
             h5_dir = self.DeepForest_config[self.row["site"]]["h5"]
