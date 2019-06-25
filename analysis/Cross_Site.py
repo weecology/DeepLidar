@@ -135,6 +135,7 @@ if __name__ == '__main__':
             ]
             
             #Run eval
+            DeepForest_config["training_site"] = training_site            
             DeepForest_config["evaluation_site"] = eval_site
             
             #Comet
