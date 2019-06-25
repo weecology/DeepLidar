@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from comet_ml import Experiment
 
 import argparse
 import os
@@ -50,7 +51,7 @@ def parse_args(args):
 
     return parser.parse_args(args)
 
-def main(DeepForest_config, args=None):
+def main(DeepForest_config, args=None, experiment=None):
     # parse arguments
     if args is None:
         args = sys.argv[1:]
@@ -92,7 +93,7 @@ def main(DeepForest_config, args=None):
         score_threshold=args.score_threshold,
         max_detections=args.max_detections,
         save_path=args.save_path + dirname,
-        experiment=None
+        experiment=experiment
     )
     
     return average_precisions
@@ -132,9 +133,15 @@ if __name__ == '__main__':
                 '--model', model, 
                 '--convert-model'
             ]
-               
+            
             #Run eval
             DeepForest_config["evaluation_site"] = eval_site
+            
+            #Comet
+            experiment = Experiment(api_key="ypQZhYfs3nSyKzOfz13iuJpj2", project_name='deeplidar', log_code=False)
+            experiment.log_parameter("mode","cross_site")
+            experiment.log_parameters(DeepForest_config)            
+
             average_precisions = main(DeepForest_config, args)
             
             # print evaluation
@@ -150,6 +157,7 @@ if __name__ == '__main__':
             results.append({"Training Site":training_site, "Evaluation Site": eval_site, "mAP": NEON_map}) 
             
     results = pd.DataFrame(results)
+    
     #model name
     model_name = os.path.splitext(os.path.basename(model))[0]
     
