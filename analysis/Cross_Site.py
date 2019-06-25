@@ -142,7 +142,7 @@ if __name__ == '__main__':
             experiment.log_parameter("mode","cross_site")
             experiment.log_parameters(DeepForest_config)            
 
-            average_precisions = main(DeepForest_config, args)
+            average_precisions = main(DeepForest_config, args, experiment=experiment)
             
             # print evaluation
             ## print evaluation
