@@ -32,14 +32,14 @@ results = []
 for pretraining_site in pretraining_models:
     
     pretrain_model_path = pretraining_models[pretraining_site]
-    print("Running pretraining site {} with hand annotations {}".format(pretraining_site, site))
+    print("Running pretraining for  {}".format(pretraining_site))
     
     #load config - clean
     DeepForest_config = copy.deepcopy(original_DeepForest_config)      
     
     ##Replace config file and experiment
-    DeepForest_config["hand_annotation_site"] = site
-    DeepForest_config["evaluation_site"] = site
+    DeepForest_config["hand_annotation_site"] = pretraining_site
+    DeepForest_config["evaluation_site"] = pretraining_site
     
     experiment = Experiment(api_key="ypQZhYfs3nSyKzOfz13iuJpj2", project_name='deeplidar', log_code=False)
     experiment.log_parameter("mode","training_grid")   
@@ -93,7 +93,7 @@ for pretraining_site in pretraining_models:
     ]
                
     mAP = eval_main(data = data, DeepForest_config = DeepForest_config, experiment = experiment, args = args)
-    results.append({"Evaluation Site" : site, "Pretraining Site": pretraining_site, "mAP": mAP})
+    results.append({"Evaluation Site" : site, "mAP": mAP})
     
 results = pd.DataFrame(results)
 
