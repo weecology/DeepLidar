@@ -60,7 +60,7 @@ for pretraining_site in pretraining_models:
     
     #Load retraining data
     data = load_retraining_data(DeepForest_config)
-    for x in site:
+    for x in [pretraining_site]:
         DeepForest_config[x]["h5"] = os.path.join(DeepForest_config[x]["h5"],"hand_annotations")
         print(DeepForest_config[x]["h5"])
     
@@ -93,7 +93,7 @@ for pretraining_site in pretraining_models:
     ]
                
     mAP = eval_main(data = data, DeepForest_config = DeepForest_config, experiment = experiment, args = args)
-    results.append({"Evaluation Site" : site, "mAP": mAP})
+    results.append({"Evaluation Site" : pretraining_site, "mAP": mAP})
     
 results = pd.DataFrame(results)
 
