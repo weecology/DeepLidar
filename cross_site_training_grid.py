@@ -38,8 +38,8 @@ for pretraining_site in pretraining_models:
     DeepForest_config = copy.deepcopy(original_DeepForest_config)      
     
     ##Replace config file and experiment
-    DeepForest_config["hand_annotation_site"] = pretraining_site
-    DeepForest_config["evaluation_site"] = pretraining_site
+    DeepForest_config["hand_annotation_site"] = [pretraining_site]
+    DeepForest_config["evaluation_site"] = [pretraining_site]
     
     experiment = Experiment(api_key="ypQZhYfs3nSyKzOfz13iuJpj2", project_name='deeplidar', log_code=False)
     experiment.log_parameter("mode","training_grid")   
