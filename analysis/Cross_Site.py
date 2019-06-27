@@ -108,8 +108,7 @@ if __name__ == '__main__':
                           "TEAK":"/orange/ewhite/b.weinstein/retinanet/20190605_085411/resnet50_30.h5",
                           "NIWO":"/orange/ewhite/b.weinstein/retinanet/20190606_120905/resnet50_50.h5",
                           "MLBS":"/orange/ewhite/b.weinstein/retinanet/20190624_122646/resnet50_40.h5",
-                          "All":"/orange/ewhite/b.weinstein/retinanet/20190627_053002/resnet50_30.h5"}
-    
+                          "All":"/orange/ewhite/b.weinstein/retinanet/20190627_123051/resnet50_30.h5"}
     
     import pandas as pd
     import numpy as np
