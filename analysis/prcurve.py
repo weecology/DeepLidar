@@ -92,26 +92,25 @@ if __name__ == '__main__':
                           "MLBS":"/orange/ewhite/b.weinstein/retinanet/20190624_122646/resnet50_40.h5",
                           }
     results = []    
-    for iteration in np.arange(10):
-        for training_site in trained_models:
-            trained_model = trained_models[training_site]
-            DeepForest_config["evaluation_site"] = [training_site]
-            for score_threshold in np.arange(0, 1, 0.1):
-                #pass an args object instead of using command line        
-                args = [
-                    "--batch-size", str(DeepForest_config['batch_size']),
-                    '--score-threshold', str(score_threshold),
-                    '--suppression-threshold','0.15', 
-                    '--save-path', 'snapshots/images/', 
-                    '--model', trained_model, 
-                    '--convert-model'
-                ]
-                   
-                #Run eval
-                recall, precision = main(DeepForest_config, args)
-                results.append({"Site":training_site,"Threshold": score_threshold, "Recall": recall, "Precision": precision})
-            
-        results = pd.DataFrame(results)
+    for training_site in trained_models:
+        trained_model = trained_models[training_site]
+        DeepForest_config["evaluation_site"] = [training_site]
+        for score_threshold in np.arange(0, 1, 0.1):
+            #pass an args object instead of using command line        
+            args = [
+                "--batch-size", str(DeepForest_config['batch_size']),
+                '--score-threshold', str(score_threshold),
+                '--suppression-threshold','0.15', 
+                '--save-path', 'snapshots/images/', 
+                '--model', trained_model, 
+                '--convert-model'
+            ]
+               
+            #Run eval
+            recall, precision = main(DeepForest_config, args)
+            results.append({"Site":training_site,"Threshold": score_threshold, "Recall": recall, "Precision": precision})
+        
+    results = pd.DataFrame(results)
         
     #model name
     results.to_csv("prcurve_data" + ".csv")
