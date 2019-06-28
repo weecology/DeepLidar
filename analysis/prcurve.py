@@ -95,7 +95,7 @@ if __name__ == '__main__':
     for training_site in trained_models:
         trained_model = trained_models[training_site]
         DeepForest_config["evaluation_site"] = [training_site]
-        for score_threshold in np.arange(0, 0.8, 0.1):
+        for score_threshold in np.arange(0, 1, 0.1):
             #pass an args object instead of using command line        
             args = [
                 "--batch-size", str(DeepForest_config['batch_size']),
