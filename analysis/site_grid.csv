@@ -1,13 +1,2 @@
-,Evaluation Site,Pretraining Site,mAP
-0,['NIWO'],SJER,[0.042]
-1,['SJER'],SJER,[0.584]
-2,['TEAK'],SJER,[0.377]
-3,"['SJER', 'TEAK', 'NIWO']",SJER,[0.178]
-4,['NIWO'],TEAK,[0.098]
-5,['SJER'],TEAK,[0.558]
-6,['TEAK'],TEAK,[0.478]
-7,"['SJER', 'TEAK', 'NIWO']",TEAK,[0.27]
-8,['NIWO'],NIWO,[0.061]
-9,['SJER'],NIWO,[0.472]
-10,['TEAK'],NIWO,[0.304]
-11,"['SJER', 'TEAK', 'NIWO']",NIWO,[0.168]
+,Evaluation Site,mAP
+0,MLBS,[0.127]
