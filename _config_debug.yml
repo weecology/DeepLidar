@@ -26,6 +26,7 @@ rgb_res: 0.1
 #Preprocessing routines
 preprocess:
   zero_area: True
+spatial_filter: True
 
 #Select sites
 hand_annotation_site:

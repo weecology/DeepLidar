@@ -42,7 +42,7 @@ from DeepForest.utils.generators import create_NEON_generator, load_training_dat
 from DeepForest.utils import image_utils
 
 #Custom Callbacks
-from DeepForest.callbacks import recallCallback, NEONmAP, Evaluate
+from DeepForest.callbacks import NEONmAP, Evaluate
 
 def makedirs(path):
     # Intended behavior: try to create the directory,
@@ -170,18 +170,6 @@ def create_callbacks(model, training_model, prediction_model, train_generator, v
         cooldown = 0,
         min_lr   = 0
     ))
-   
-    #Neon Callbacks
-    #NEON_recall_generator = create_NEON_generator(args.batch_size, DeepForest_config)
-    #recall = recallCallback(
-        #generator=NEON_recall_generator,
-        #save_path=args.save_path,
-        #score_threshold=args.score_threshold,
-        #experiment=experiment,
-        #sites=DeepForest_config["evaluation_site"])
-    
-    #recall = RedirectModel(recall, prediction_model)
-    #callbacks.append(recall)
     
     #create the NEON generator 
     NEON_generator = create_NEON_generator(args.batch_size, DeepForest_config)

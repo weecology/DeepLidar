@@ -26,6 +26,7 @@ rgb_res: 0.1
 #Preprocessing routines
 preprocess:
   zero_area: True
+spatial_filter: True
 
 #Select sites
 hand_annotation_site:
@@ -43,6 +44,7 @@ evaluation_site:
   - TEAK
   - SJER
   - MLBS
+
 #Training
 training_images: All
 weights: /orange/ewhite/b.weinstein/retinanet/20190625_094806/resnet50_05.h5

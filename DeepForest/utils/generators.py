@@ -97,6 +97,9 @@ def create_h5_generators(args, data, DeepForest_config):
     #Write out for debug
     if args.save_path:
         train.to_csv(os.path.join(args.save_path,'training_dict.csv'), header=False)         
+    
+    if DeepForest_config["spatial_filter"]:
+        train = spatial_filter(train, DeepForest_config)
         
     #Training Generator
     train_generator = H5Generator(train, 
@@ -116,3 +119,33 @@ def create_h5_generators(args, data, DeepForest_config):
         validation_generator = None
         
     return train_generator, validation_generator
+
+def spatial_filter(train, DeepForest_config):
+    """
+    Remove any 1km tiles from pretraining data that contain evaluation plots
+    """
+    
+    print("Train shape before spatial filtering {}".format(train.shape))
+    annotations, windows = NEON_annotations(DeepForest_config)      
+    
+    #load plot data
+    field_data = pd.read_csv("data/field_data.csv")
+    
+    #unique site windows
+    plotID = windows.tile.values
+    plotID = [os.path.splitext(x)[0] for x in plotID ]
+    
+    for plot_name in plotID:
+        plot_data = field_data[field_data.plotID == plot_name][["siteID","plotID","easting","northing"]].drop_duplicates().dropna()
+        
+        #find geoindex
+        easting = int('%.0f' % (plot_data.easting.iloc[0]/1000) )* 1000
+        northing = int('%.0f' % (plot_data.northing.iloc[0]/1000) )* 1000
+        
+        geo_index = "{}_{}".format(easting,northing)
+        
+        #lookup matching tiles by site and remove
+        train = train[~train.tile.str.contains(geo_index)]
+    
+    print("Train shape after spatial filtering {}".format(train.shape))
+    return train
