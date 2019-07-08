@@ -262,7 +262,7 @@ def check_density(pc, bounds=[]):
     
     return density
 
-def calculate_hillshade(image, chm):
+def blend_image(image, chm):
     """Multiply the RGB image by the CHM"""
 
     padded_chm = pad_array(image.shape, chm)
