@@ -103,7 +103,6 @@ def load_xml(path, dirname, res):
     """
     Load a single .xml annotations
     """
-    print(path)
     #parse
     with open(path) as fd:
         doc = xmltodict.parse(fd.read())
@@ -121,7 +120,6 @@ def load_xml(path, dirname, res):
     label=[]
     
     if type(tile_xml) == list:
-        
         treeID=np.arange(len(tile_xml))
         
         #Construct frame if multiple trees

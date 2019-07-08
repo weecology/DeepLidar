@@ -138,6 +138,10 @@ def spatial_filter(train, DeepForest_config):
     for plot_name in plotID:
         plot_data = field_data[field_data.plotID == plot_name][["siteID","plotID","easting","northing"]].drop_duplicates().dropna()
         
+        if plot_data.shape[0] ==0:
+            print("{} has no point records".format(plot_name))
+            continue
+            
         #find geoindex
         easting = int('%.0f' % (plot_data.easting.iloc[0]/1000) )* 1000
         northing = int('%.0f' % (plot_data.northing.iloc[0]/1000) )* 1000
