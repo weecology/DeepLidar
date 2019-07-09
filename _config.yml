@@ -4,6 +4,9 @@
 num_hipergator_workers: 40
 training_csvs:
   - MLBS
+  - NIWO
+  - TEAK
+  - SJER
 
 #LIDAR settings
 min_density: 2
@@ -65,7 +68,7 @@ nms_threshold: 0.1
 
 #Data Paths
 SJER:
-  h5: /orange/ewhite/b.weinstein/training_h5s/blending/SJER/
+  h5: /orange/ewhite/b.weinstein/training_h5s/noblending/SJER/
   hand_annotations:
     RGB: /home/b.weinstein/DeepLidar/data/SJER/training/
     LIDAR: /home/b.weinstein/DeepLidar/data/SJER/training/
@@ -77,7 +80,7 @@ SJER:
     RGB: /home/b.weinstein/DeepLidar/data/SJER/plots/
     LIDAR: /home/b.weinstein/DeepLidar/data/SJER/plots/
 TEAK:
-  h5: /orange/ewhite/b.weinstein/training_h5s/blending/TEAK/
+  h5: /orange/ewhite/b.weinstein/training_h5s/noblending/TEAK/
   training_csvs: /home/b.weinstein/TreeSegmentation/analysis/Results/detection_boxes/TEAK/2018/
   hand_annotations:
     RGB: /home/b.weinstein/DeepLidar/data/TEAK/training/
@@ -89,7 +92,7 @@ TEAK:
     RGB: /home/b.weinstein/DeepLidar/data/TEAK/plots/
     LIDAR: /home/b.weinstein/DeepLidar/data/TEAK/plots/
 NIWO:
-  h5: /orange/ewhite/b.weinstein/training_h5s/blending/NIWO/
+  h5: /orange/ewhite/b.weinstein/training_h5s/noblending/NIWO/
   training_csvs: /home/b.weinstein/TreeSegmentation/analysis/Results/detection_boxes/NIWO/2018/
   hand_annotations:
     RGB: /home/b.weinstein/DeepLidar/data/NIWO/training/
@@ -101,7 +104,7 @@ NIWO:
     RGB: /home/b.weinstein/DeepLidar/data/NIWO/plots/
     LIDAR: /home/b.weinstein/DeepLidar/data/NIWO/plots/
 MLBS:
-  h5: /orange/ewhite/b.weinstein/training_h5s/blending/MLBS/
+  h5: /orange/ewhite/b.weinstein/training_h5s/noblending/MLBS/
   training_csvs: /home/b.weinstein/TreeSegmentation/analysis/Results/detection_boxes/MLBS/2018/
   hand_annotations:
     RGB: /home/b.weinstein/DeepLidar/data/MLBS/training/
