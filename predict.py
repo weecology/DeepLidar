@@ -18,18 +18,12 @@ import argparse
 import glob
 
 #DeepForest
-from DeepForest import onthefly_generator, config, Lidar
-from DeepForest.preprocess import compute_windows, retrieve_window
-from DeepForest import postprocessing, utils
-import pandas as pd
-from PIL import Image
+from DeepForest.evalmAP import _get_detections
 
 #Set training or training
 mode_parser     = argparse.ArgumentParser(description='Prediction of a new image')
 mode_parser.add_argument('--model', help='path to training model' )
 mode_parser.add_argument('--image', help='image or directory of images to predict' )
-mode_parser.add_argument('--score_threshold', default=0.25)
-mode_parser.add_argument('--nms_threshold', default=0.1)
 mode_parser.add_argument('--output_dir', default="snapshots/images/")
 
 args=mode_parser.parse_args()
@@ -50,87 +44,4 @@ DeepForest_config = config.load_config()
 model = models.load_model(args.model, backbone_name='resnet50', convert=True, nms_threshold=args.nms_threshold)
 labels_to_names = {0: 'Tree'}
 
-if os.path.isdir(args.image):
-    images=glob.glob(os.path.join(args.image,"*.tif"))
-else:
-    images=args.image
 
-for image_path in images:
-    print(image_path)
-
-    # load image
-    image = read_image_bgr(image_path)
-    
-    # copy to draw on
-    draw = image.copy()
-    
-    # preprocess image for network
-    image = preprocess_image(image)
-    image, scale = resize_image(img = image, min_side = 400)
-    
-    # process image
-    start = time.time()
-    boxes, scores, labels = model.predict_on_batch(np.expand_dims(image, axis=0))
-    print("processing time: ", time.time() - start)
-    
-    # correct for image scale
-    boxes /= scale
-       
-    # visualize ld detections
-    for box, score, label in zip(boxes[0], scores[0], labels[0]):
-        # scores are sorted so we can break
-        if score < args.score_threshold:
-            break
-            
-        color = label_color(label)
-        
-        b = box.astype(int)
-        draw_box(draw, b, color=(255,0,0))
-        
-        caption = "{} {:.2f}".format(labels_to_names[label], score)
-        draw_caption(draw, b, caption)
-        
-    #only pass score threshold boxes
-    quality_boxes = []
-    for box, score, label in zip(boxes[0], scores[0], labels[0]):
-        quality_boxes.append(box)
-        # scores are sorted so we can break
-        if score < args.score_threshold:
-            break
-    
-    #drape boxes
-    #get image name and load point cloud
-    image_name = os.path.splitext(os.path.basename(image_path))[0] 
-    point_cloud_filename= os.path.join(DeepForest_config["lidar_path"] + image_name) + ".laz"
-    pc = Lidar.load_lidar(point_cloud_filename)
-    pc = postprocessing.drape_boxes(boxes=quality_boxes, pc=pc)
-    
-    #Skip if point density is too low    
-    if pc:
-        #Get new bounding boxes
-        new_boxes = postprocessing.cloud_to_box(pc)    
-        #expends 3dim
-        new_boxes = np.expand_dims(new_boxes, 0)
-        
-        # visualize detections
-        for box, score, label in zip(new_boxes[0], scores[0], labels[0]):
-            # scores are sorted so we can break
-            if score < args.score_threshold:
-                break
-                
-            color = label_color(label)
-            
-            b = box.astype(int)
-            draw_box(draw, b, color=(0,90,255))
-            
-            #caption = "{} {:.2f}".format(labels_to_names[label], score)
-            #draw_caption(draw, b, caption)    
-    
-    #Write .shp of predictions?
-    filename =  os.path.join(args.output_dir, image_name + ".tif")
-    cv2.imwrite(filename, draw)
-
-#plt.figure(figsize=(15, 15))
-#plt.axis('off')
-#plt.imshow(draw)
-#plt.show()
