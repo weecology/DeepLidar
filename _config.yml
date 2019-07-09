@@ -68,19 +68,19 @@ nms_threshold: 0.1
 
 #Data Paths
 SJER:
-  h5: /orange/ewhite/b.weinstein/training_h5s/noblending/SJER/
+  h5: /ufrc/ewhite/b.weinstein/training_h5s/noblending/SJER/
   hand_annotations:
     RGB: /home/b.weinstein/DeepLidar/data/SJER/training/
     LIDAR: /home/b.weinstein/DeepLidar/data/SJER/training/
   training_csvs: /home/b.weinstein/TreeSegmentation/analysis/Results/detection_boxes/SJER/2018/
   training:
-    RGB: /ufrc/ewhite/b.weinstein/NeonData/SJER/DP3.30010.001/2018/FullSite/D17/2018_SJER_3/L3/Camera/Mosaic/V01/
-    LIDAR: /ufrc/ewhite/b.weinstein/NeonData/SJER/DP1.30003.001/2018/FullSite/D17/2018_SJER_3/L1/DiscreteLidar/ClassifiedPointCloud/
+    RGB: /orange/ewhite/NeonData/SJER/DP3.30010.001/2018/FullSite/D17/2018_SJER_3/L3/Camera/Mosaic/V01/
+    LIDAR: /orange/ewhite/NeonData/SJER/DP1.30003.001/2018/FullSite/D17/2018_SJER_3/L1/DiscreteLidar/ClassifiedPointCloud/
   evaluation:
     RGB: /home/b.weinstein/DeepLidar/data/SJER/plots/
     LIDAR: /home/b.weinstein/DeepLidar/data/SJER/plots/
 TEAK:
-  h5: /orange/ewhite/b.weinstein/training_h5s/noblending/TEAK/
+  h5: /ufrc/ewhite/b.weinstein/training_h5s/noblending/TEAK/
   training_csvs: /home/b.weinstein/TreeSegmentation/analysis/Results/detection_boxes/TEAK/2018/
   hand_annotations:
     RGB: /home/b.weinstein/DeepLidar/data/TEAK/training/
@@ -92,7 +92,7 @@ TEAK:
     RGB: /home/b.weinstein/DeepLidar/data/TEAK/plots/
     LIDAR: /home/b.weinstein/DeepLidar/data/TEAK/plots/
 NIWO:
-  h5: /orange/ewhite/b.weinstein/training_h5s/noblending/NIWO/
+  h5: /ufrc/ewhite/b.weinstein/training_h5s/noblending/NIWO/
   training_csvs: /home/b.weinstein/TreeSegmentation/analysis/Results/detection_boxes/NIWO/2018/
   hand_annotations:
     RGB: /home/b.weinstein/DeepLidar/data/NIWO/training/
@@ -104,7 +104,7 @@ NIWO:
     RGB: /home/b.weinstein/DeepLidar/data/NIWO/plots/
     LIDAR: /home/b.weinstein/DeepLidar/data/NIWO/plots/
 MLBS:
-  h5: /orange/ewhite/b.weinstein/training_h5s/noblending/MLBS/
+  h5: /ufrc/ewhite/b.weinstein/training_h5s/noblending/MLBS/
   training_csvs: /home/b.weinstein/TreeSegmentation/analysis/Results/detection_boxes/MLBS/2018/
   hand_annotations:
     RGB: /home/b.weinstein/DeepLidar/data/MLBS/training/
