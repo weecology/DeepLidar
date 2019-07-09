@@ -50,7 +50,7 @@ def run(tile_csv=None, tile_xml = None, mode="train", DeepForest_config=None, si
         windows = preprocess.create_windows(data, DeepForest_config, base_dir)   
         
         #Check lidar  for point density
-        check_lidar = True
+        check_lidar = False
         name = "training"
         
         #Destination dir
@@ -69,7 +69,7 @@ def run(tile_csv=None, tile_xml = None, mode="train", DeepForest_config=None, si
         windows = preprocess.create_windows(data, DeepForest_config, base_dir) 
 
         #Don't check lidar for density, annotations are made directly on RGB
-        check_lidar = True
+        check_lidar = False
         name = "hand_annotations"
         
         #destination dir
