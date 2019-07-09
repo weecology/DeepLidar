@@ -305,7 +305,7 @@ def evaluate(
     model,
     iou_threshold=0.5,
     score_threshold=0.05,
-    max_detections=100,
+    max_detections=200,
     save_path=None,
     experiment=None
 ):

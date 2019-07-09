@@ -197,31 +197,6 @@ class OnTheFlyGenerator(Generator):
         utm_ymin = self.utm_bounds.top - y - (self.DeepForest_config["patch_size"] * self.rgb_res)
         
         return (utm_xmin, utm_xmax, utm_ymin, utm_ymax)
-    
-    def crop_CHM(self):
-        index = self.row["window"]
-        crop = self.CHM[self.windows[index].indices()]  
-        return crop
-    
-    def fetch_lidar_filename(self):           
-        lidar_path = self.DeepForest_config[self.row["site"]][self.name]["LIDAR"]        
-        lidar_filepath = Lidar.fetch_lidar_filename(self.row, lidar_path)
-        
-        if lidar_filepath:
-            return lidar_filepath
-        else:
-            return None
-
-    def load_lidar_tile(self, normalize = True):
-        '''Load a point cloud into memory from file
-        '''
-        self.lidar_filepath=self.fetch_lidar_filename()
-        if self.lidar_filepath == None:
-            print("Lidar file {} cannot be found".format(self.row["tile"]))
-            return None
-        
-        self.lidar_tile=Lidar.load_lidar(self.lidar_filepath, normalize)
-        return self.lidar_tile
 
     def load_rgb_tile(self):
         ''''
@@ -234,17 +209,6 @@ class OnTheFlyGenerator(Generator):
         
         return self.numpy_image
     
-    def bind_array(self, image, CHM):
-        """ Bind RGB and LIDAR arrays
-        """
-        four_channel_image=Lidar.bind_array(image, CHM) 
-        return four_channel_image
-    
-    def crop_CHM(self):
-        index = self.row["window"]
-        crop = self.CHM[self.windows[index].indices()]  
-        return crop
-    
     def load_new_crop(self):
         ''''Read a new pair of RGB and LIDAR crop
         '''
@@ -256,14 +220,7 @@ class OnTheFlyGenerator(Generator):
     
         #BGR order
         self.image = image[:,:,::-1]
-        
-        #Hillshade CHM
-        #crop CHM
-        self.CHM_crop = self.crop_CHM()
-        
-        #blend image if possible
-        self.image = Lidar.blend_image(self.image, self.CHM_crop)
-        
+
         return self.image
         
     def load_image(self, image_index):
@@ -280,11 +237,6 @@ class OnTheFlyGenerator(Generator):
                 
             #Load RGB
             self.load_rgb_tile()
-            
-            #Load Lidar and compute CHM
-            self.load_lidar_tile()
-            
-            self.CHM = Lidar.compute_chm(self.lidar_tile)
 
         #Load a new crop from self
         three_channel_image = self.load_new_crop()
