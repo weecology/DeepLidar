@@ -13,7 +13,7 @@ min_coverage: 30
 workers: 1
 use_multiprocessing: False
 max_queue_size: 20
-num_GPUs: 2
+num_GPUs: 1
 save_image_path: /orange/ewhite/b.weinstein/retinanet/
 save_snapshot_path: /orange/ewhite/b.weinstein/retinanet/
 input_channels: 3
@@ -31,32 +31,23 @@ spatial_filter: True
 #Select sites
 hand_annotation_site:
   - NIWO
-  - MLBS
-  - TEAK
-  - SJER
 pretraining_site:
-  - TEAK
-  - SJER
-  - MLBS
   - NIWO
 evaluation_site:
   - NIWO
-  - TEAK
-  - SJER
-  - MLBS
 
 #Training
 training_images: All
-weights: /orange/ewhite/b.weinstein/retinanet/20190625_094806/resnet50_05.h5
+weights: /orange/ewhite/b.weinstein/retinanet/20190708_130925/resnet50_05.h5
 imagenet_weights: True
 batch_size: 20
-epochs: 50
+epochs: 40
 backbone: resnet50
 shuffle_training: True
 score_threshold: 0.15
 
 #Evaluation
-evaluation_images: 50
+evaluation_images: 0
 shuffle_evaluation: False
 validation_percent: 5  #For hand annotation neon_MAP
 
