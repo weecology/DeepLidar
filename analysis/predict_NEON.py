@@ -5,6 +5,8 @@ import os
 import keras
 import tensorflow as tf
 import cv2
+import numpy as np
+import copy
 
 #DeepForest
 from keras_retinanet import models
@@ -13,7 +15,7 @@ from keras_retinanet import models
 sys.path.insert(0, os.path.abspath('..'))
 sys.path.append(".")
 from DeepForest.utils import generators
-from DeepForest import config
+from DeepForest import config, postprocessing
 
 #Parse args
 mode_parser     = argparse.ArgumentParser(description='Prediction of a new image')
@@ -27,7 +29,7 @@ def get_session():
     config.gpu_options.allow_growth = True
     return tf.Session(config=config)
 
-def draw_box(image, box, color, thickness=2):
+def draw_box(image, box, color, thickness=1):
     """ Draws a box on an image with a given color.
 
     # Arguments
@@ -39,7 +41,7 @@ def draw_box(image, box, color, thickness=2):
     b = np.array(box).astype(int)
     cv2.rectangle(image, (b[0], b[1]), (b[2], b[3]), color, thickness, cv2.LINE_AA)
     
-def draw_detections(image, boxes, scores, labels, color=None, label_to_name=None, score_threshold=0.5):
+def draw_detections(image, boxes, scores, labels, color=None, label_to_name=None, score_threshold=0.15):
     """ Draws detections in an image.
 
     # Arguments
@@ -54,8 +56,7 @@ def draw_detections(image, boxes, scores, labels, color=None, label_to_name=None
     selection = np.where(scores > score_threshold)[0]
 
     for i in selection:
-        c = color if color is not None else label_color(labels[i])
-        draw_box(image, boxes[i, :], color=c)
+        draw_box(image, boxes[i, :], color=[0,0,0])
 
 def _get_detections(generator, model, score_threshold=0.05, max_detections=300, save_path=None, experiment=None, postprocess= True):
     """ Get the detections from the model using the generator.
@@ -78,7 +79,7 @@ def _get_detections(generator, model, score_threshold=0.05, max_detections=300, 
     for i in range(generator.size()):
         raw_image = generator.load_image(i)
         plot_image = generator.retrieve_window()
-        plot_image = plot_image[:,:,::-1]
+        plot_image = copy.deepcopy(plot_image[:,:,::-1])
 
         #Format name and save
         image_name = generator.image_names[i]        
@@ -173,7 +174,7 @@ def _get_detections(generator, model, score_threshold=0.05, max_detections=300, 
             fname=os.path.splitext(row["tile"])[0] + "_" + str(row["window"])
         
             #Write RGB
-            cv2.imwrite(os.path.join(save_path, '{}.png'.format(fname)), plot_rgb)
+            cv2.imwrite(os.path.join(save_path, '{}.png'.format(fname)), plot_image)
             
             if experiment:
                 experiment.log_image(os.path.join(save_path, '{}.png'.format(fname)),name=fname)      
@@ -185,19 +186,24 @@ def _get_detections(generator, model, score_threshold=0.05, max_detections=300, 
     return all_detections
 
 # set the modified tf session as backend in keras
-#keras.backend.tensorflow_backend.set_session(get_session())
+keras.backend.tensorflow_backend.set_session(get_session())
 
 #load config
 DeepForest_config = config.load_config("../")
 
-# load retinanet model
-#model = models.load_model(args.model, backbone_name='resnet50', convert=True, nms_threshold=DeepForest_config["nms_threshold"])
-model="test"
+trained_models = {
+    "NIWO":"../snapshots/resnet50_05.h5"
+}
 
-#Make a new dir to hold images
-dirname = datetime.now().strftime("%Y%m%d_%H%M%S")
-save_image_path=os.path.join("..",DeepForest_config["save_image_path"], dirname)
-os.mkdir(save_image_path)        
-
-NEON_generator = generators.create_NEON_generator(DeepForest_config["batch_size"], DeepForest_config, name="evaluation")
-all_detections = _get_detections(NEON_generator, model, score_threshold=DeepForest_config["score_threshold"], max_detections=100, save_path=save_image_path, experiment=None)
+for trained_model in trained_models:
+    # load retinanet model
+    model_path = trained_models[trained_model]
+    model = models.load_model(model_path, backbone_name='resnet50', convert=True, nms_threshold=DeepForest_config["nms_threshold"])
+    
+    #Make a new dir to hold images
+    dirname = datetime.now().strftime("%Y%m%d_%H%M%S")+ trained_model
+    save_image_path=os.path.join("..","snapshots", dirname)
+    os.mkdir(save_image_path)        
+    
+    NEON_generator = generators.create_NEON_generator(DeepForest_config["batch_size"], DeepForest_config, name="evaluation")
+    all_detections = _get_detections(NEON_generator, model, score_threshold=DeepForest_config["score_threshold"], max_detections=300, save_path=save_image_path, experiment=None)

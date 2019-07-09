@@ -86,30 +86,33 @@ if __name__ == '__main__':
 
     DeepForest_config = load_config("..")
     
-    trained_models = {"SJER":"/orange/ewhite/b.weinstein/retinanet/20190605_010354/resnet50_30.h5",
-                      "TEAK":"/orange/ewhite/b.weinstein/retinanet/20190605_085411/resnet50_30.h5",
-                          "NIWO":"/orange/ewhite/b.weinstein/retinanet/20190606_120905/resnet50_50.h5",
-                          "MLBS":"/orange/ewhite/b.weinstein/retinanet/20190624_122646/resnet50_40.h5",
+    trained_models = {"SJER":["/orange/ewhite/b.weinstein/retinanet/20190605_010354/resnet50_30.h5"],
+                      "TEAK":["/orange/ewhite/b.weinstein/retinanet/20190605_085411/resnet50_30.h5"],
+                          "NIWO":["/orange/ewhite/b.weinstein/retinanet/20190606_120905/resnet50_50.h5"],
+                          "MLBS":["/orange/ewhite/b.weinstein/retinanet/20190624_122646/resnet50_40.h5"],
                           }
     results = []    
     for training_site in trained_models:
-        trained_model = trained_models[training_site]
+        trained_model_list = trained_models[training_site]
         DeepForest_config["evaluation_site"] = [training_site]
-        for score_threshold in np.arange(0, 1, 0.1):
-            #pass an args object instead of using command line        
-            args = [
-                "--batch-size", str(DeepForest_config['batch_size']),
-                '--score-threshold', str(score_threshold),
-                '--suppression-threshold','0.15', 
-                '--save-path', 'snapshots/images/', 
-                '--model', trained_model, 
-                '--convert-model'
-            ]
-               
-            #Run eval
-            recall, precision = main(DeepForest_config, args)
-            results.append({"Site":training_site,"Threshold": score_threshold, "Recall": recall, "Precision": precision})
         
+        #Loop through trained models per site to create confidence intervals
+        for trained_model in trained_model_list:
+            for score_threshold in np.arange(0, 1, 0.1):
+                #pass an args object instead of using command line        
+                args = [
+                    "--batch-size", str(DeepForest_config['batch_size']),
+                    '--score-threshold', str(score_threshold),
+                    '--suppression-threshold','0.15', 
+                    '--save-path', 'snapshots/images/', 
+                    '--model', trained_model, 
+                    '--convert-model'
+                ]
+                   
+                #Run eval
+                recall, precision = main(DeepForest_config, args)
+                results.append({"Site":training_site,"Model":trained_model, "Threshold": score_threshold, "Recall": recall, "Precision": precision})
+            
     results = pd.DataFrame(results)
         
     #model name

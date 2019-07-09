@@ -34,7 +34,7 @@ hand_annotation_site:
 pretraining_site:
   - MLBS
 evaluation_site:
-  - MLBS
+  - NIWO
 
 #Training
 training_images: All
