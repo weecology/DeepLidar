@@ -62,8 +62,8 @@ SJER:
     LIDAR: /home/b.weinstein/DeepLidar/data/SJER/training/
   training_csvs: /home/b.weinstein/TreeSegmentation/analysis/Results/detection_boxes/SJER/2018/
   training:
-    RGB: /ufrc/ewhite/b.weinstein/NeonData/SJER/DP3.30010.001/2018/FullSite/D17/2018_SJER_3/L3/Camera/Mosaic/V01/
-    LIDAR: /ufrc/ewhite/b.weinstein/NeonData/SJER/DP1.30003.001/2018/FullSite/D17/2018_SJER_3/L1/DiscreteLidar/ClassifiedPointCloud/
+    RGB: /orange/ewhite/NeonData/SJER/DP3.30010.001/2018/FullSite/D17/2018_SJER_3/L3/Camera/Mosaic/V01/
+    LIDAR: /orange/ewhite/NeonData/SJER/DP1.30003.001/2018/FullSite/D17/2018_SJER_3/L1/DiscreteLidar/ClassifiedPointCloud/
   evaluation:
     RGB: /home/b.weinstein/DeepLidar/data/SJER/plots/
     LIDAR: /home/b.weinstein/DeepLidar/data/SJER/plots/
