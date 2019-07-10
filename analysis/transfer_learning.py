@@ -11,13 +11,14 @@ import pandas as pd
 import copy
 
 #insert path 
+sys.path.insert(0, os.path.abspath('..'))
 from DeepForest.config import load_config
 from DeepForest.utils.generators import load_retraining_data
 from train import main as training_main
 from eval import main as eval_main
 
 #load config - clean
-original_DeepForest_config = load_config()       
+original_DeepForest_config = load_config("..")       
 
 #The following models have been pretrained on all other sites except for the name in the site key
 pretraining_models = {
@@ -97,5 +98,5 @@ for pretraining_site in pretraining_models:
     
 results = pd.DataFrame(results)
 
-results.to_csv("analysis/site_grid" + ".csv")        
+results.to_csv("transfer_learning" + ".csv")        
         
