@@ -25,4 +25,4 @@ cd /home/b.weinstein/DeepLidar/analysis
 
 python transfer_learning.py
 
-cat site_grid.csv
+cat transfer_learning.csv
