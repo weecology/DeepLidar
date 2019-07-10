@@ -191,9 +191,11 @@ keras.backend.tensorflow_backend.set_session(get_session())
 #load config
 DeepForest_config = config.load_config("../")
 
-trained_models = {
-    "NIWO":"../snapshots/resnet50_05.h5"
-}
+trained_models = {"SJER":"/orange/ewhite/b.weinstein/retinanet/20190710_100237/resnet50_40.h5",
+                  "TEAK":"/orange/ewhite/b.weinstein/retinanet/20190709_171539/resnet50_40.h5",
+                      "NIWO":"/orange/ewhite/b.weinstein/retinanet/20190709_135128/resnet50_40.h5",
+                      "MLBS":"/orange/ewhite/b.weinstein/retinanet/20190710_122307/resnet50_40.h5"}
+                      #"All":"/orange/ewhite/b.weinstein/retinanet/20190710_123339/resnet50_40.h5"}
 
 for trained_model in trained_models:
     # load retinanet model
