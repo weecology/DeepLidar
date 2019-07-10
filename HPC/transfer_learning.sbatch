@@ -21,9 +21,8 @@ export PATH=${PATH}:/home/b.weinstein/miniconda/envs/DeepLidar/bin/
 export PYTHONPATH=${PYTHONPATH}:/home/b.weinstein/miniconda/envs/DeepLidar/lib/python3.6/site-packages/
 echo $PYTHONPATH
     
-cd /home/b.weinstein/DeepLidar
-which python
+cd /home/b.weinstein/DeepLidar/analysis
 
-python cross_site_training_grid.py
+python transfer_learning.py
 
-cat analysis/site_grid.csv
+cat transfer_learning.csv

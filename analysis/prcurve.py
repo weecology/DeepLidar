@@ -86,11 +86,44 @@ if __name__ == '__main__':
 
     DeepForest_config = load_config("..")
     
-    trained_models = {"SJER":["/orange/ewhite/b.weinstein/retinanet/20190605_010354/resnet50_30.h5"],
-                      "TEAK":["/orange/ewhite/b.weinstein/retinanet/20190605_085411/resnet50_30.h5"],
-                          "NIWO":["/orange/ewhite/b.weinstein/retinanet/20190606_120905/resnet50_50.h5"],
-                          "MLBS":["/orange/ewhite/b.weinstein/retinanet/20190624_122646/resnet50_40.h5"],
-                          }
+    NIWO_list = [
+        "/orange/ewhite/b.weinstein/retinanet/20190709_122336/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190709_130254/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190709_135128/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190709_143051/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190709_150638/resnet50_40.h5"
+    ]
+        
+    TEAK_list = [
+        "/orange/ewhite/b.weinstein/retinanet/20190709_161527/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190709_171539/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190709_175910/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190709_191727/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190709_200228/resnet50_40.h5"
+    ]
+
+    SJER_list = [
+        "/orange/ewhite/b.weinstein/retinanet/20190709_223205/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190710_100237/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190710_100252/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190710_100329/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190710_100347/resnet50_40.h5"
+    ]
+
+    MLBS_list = [
+        "/orange/ewhite/b.weinstein/retinanet/20190710_122300/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190710_122307/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190710_122310/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190710_122313/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190710_122316/resnet50_40.h5"
+    ]
+    
+    trained_models = {
+        "NIWO": NIWO_list,
+        "SJER": SJER_list,
+        "TEAK": TEAK_list,
+        "MLBS": MLBS_list}
+    
     results = []    
     for training_site in trained_models:
         trained_model_list = trained_models[training_site]
