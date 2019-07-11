@@ -71,7 +71,7 @@ for pretraining_site in pretraining_models:
             print(DeepForest_config[x]["h5"])
         
         args = [
-            "--epochs", str(DeepForest_config['epochs']),
+            "--epochs", str(2),
             "--batch-size", str(DeepForest_config['batch_size']),
             "--backbone", str(DeepForest_config["backbone"]),
             "--score-threshold", str(DeepForest_config["score_threshold"]),
@@ -86,7 +86,7 @@ for pretraining_site in pretraining_models:
         #Run eval
         #Always use all hand annotations
         experiment = Experiment(api_key="ypQZhYfs3nSyKzOfz13iuJpj2", project_name='deeplidar', log_code=False)
-        experiment.log_parameter("mode","evaluation_grid")
+        experiment.log_parameter("mode","ablation_evaluation")
         experiment.log_parameters(DeepForest_config)            
             
         args = [
@@ -98,7 +98,7 @@ for pretraining_site in pretraining_models:
             '--convert-model'
         ]
                    
-        recall, precision  = eval_main(data = data, DeepForest_config = DeepForest_config, experiment = experiment, args = args)
+        recall, precision  = eval_main(DeepForest_config = DeepForest_config, experiment = experiment, args = args)
         results.append({"Proportion":proportion_data,"Evaluation Site" : pretraining_site, "Recall": recall,"Precision": precision})
         
 results = pd.DataFrame(results)
