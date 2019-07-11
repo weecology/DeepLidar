@@ -121,7 +121,7 @@ if __name__ == '__main__':
             # load the model just once
             keras.backend.tensorflow_backend.set_session(get_session())
             print('Loading model, this may take a second...')
-            model = models.load_model(trained_model, backbone_name="resnet50", convert=False, nms_threshold=DeepForest_config["nms_threshold"])
+            model = models.load_model(trained_model, backbone_name="resnet50", convert=True, nms_threshold=DeepForest_config["nms_threshold"])
             
             for score_threshold in np.arange(0, 1, 0.1):
                 print("model {}, site {}, threshold {}".format(trained_model,training_site,score_threshold))

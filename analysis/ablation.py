@@ -45,7 +45,7 @@ for pretraining_site in pretraining_models:
         DeepForest_config["evaluation_site"] = [pretraining_site]
         
         experiment = Experiment(api_key="ypQZhYfs3nSyKzOfz13iuJpj2", project_name='deeplidar', log_code=False)
-        experiment.log_parameter("mode","training_grid")   
+        experiment.log_parameter("mode","ablation")   
         experiment.log_parameters(DeepForest_config)    
         DeepForest_config["evaluation_images"] =0         
         
