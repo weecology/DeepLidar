@@ -24,19 +24,11 @@ from DeepForest import preprocess
 from DeepForest.utils.generators import create_NEON_generator
 from eval import parse_args, get_session
 
-def main(DeepForest_config, args=None):
+def main(DeepForest_config, model=None, args=None):
     # parse arguments
     if args is None:
         args = sys.argv[1:]
     args = parse_args(args)
-
-    # make sure keras is the minimum required version
-    check_keras_version()
-
-    # optionally choose specific GPU
-    if args.gpu:
-        os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
-    keras.backend.tensorflow_backend.set_session(get_session())
 
     #Add seperate dir
     #save time for logging
@@ -51,13 +43,7 @@ def main(DeepForest_config, args=None):
     
     #create the NEON mAP generator 
     NEON_generator = create_NEON_generator(args.batch_size, DeepForest_config)
-    
-    # load the model
-    print('Loading model, this may take a second...')
-    model = models.load_model(args.model, backbone_name=args.backbone, convert=args.convert_model, nms_threshold=DeepForest_config["nms_threshold"])
-
-    #print(model.summary())
-        
+            
     #NEON plot mAP
     recall, precision = evaluate_pr(
         NEON_generator,
@@ -131,7 +117,18 @@ if __name__ == '__main__':
         
         #Loop through trained models per site to create confidence intervals
         for trained_model in trained_model_list:
+            
+            # load the model just once
+            # optionally choose specific GPU
+            if args.gpu:
+                os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
+            keras.backend.tensorflow_backend.set_session(get_session())
+            
+            print('Loading model, this may take a second...')
+            model = models.load_model(trained_model, backbone_name=args.backbone, convert=args.convert_model, nms_threshold=DeepForest_config["nms_threshold"])
+            
             for score_threshold in np.arange(0, 1, 0.1):
+                print("model {}, site {}, threshold {}".format(trained_model,training_site,score_threshold))
                 #pass an args object instead of using command line        
                 args = [
                     "--batch-size", str(DeepForest_config['batch_size']),
@@ -143,7 +140,7 @@ if __name__ == '__main__':
                 ]
                    
                 #Run eval
-                recall, precision = main(DeepForest_config, args)
+                recall, precision = main(DeepForest_config, model=model, args=args)
                 results.append({"Site":training_site,"Model":trained_model, "Threshold": score_threshold, "Recall": recall, "Precision": precision})
             
     results = pd.DataFrame(results)
