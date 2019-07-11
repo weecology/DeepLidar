@@ -4,6 +4,7 @@ For example, retrain on each epoch of pretraining data
 """
 from comet_ml import Experiment
 import keras
+import tensorflow as tf
 import sys
 import os
 from datetime import datetime
@@ -20,6 +21,12 @@ from DeepForest.utils.generators import load_retraining_data
 from train import main as training_main
 from prcurve import main as eval_main
 
+def get_session():
+    """ Construct a modified tf session.
+    """
+    config = tf.ConfigProto()
+    config.gpu_options.allow_growth = True
+    return tf.Session(config=config)
 
 #load config - clean
 original_DeepForest_config = load_config("..")       
