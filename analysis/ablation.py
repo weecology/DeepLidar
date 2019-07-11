@@ -44,7 +44,7 @@ results = []
 for pretraining_site in pretraining_models:
     
     #For each site run a portion of the training data
-    for proportion_data in [0.2,0.4,0.6,0.8,0.1]:
+    for proportion_data in [0.2,0.4,0.6,0.8,1]:
         pretrain_model_path = pretraining_models[pretraining_site]
         print("Running pretraining for  {}".format(pretraining_site))
         
@@ -82,7 +82,7 @@ for pretraining_site in pretraining_models:
             print(DeepForest_config[x]["h5"])
         
         args = [
-            "--epochs", str(2),
+            "--epochs", str(30),
             "--batch-size", str(DeepForest_config['batch_size']),
             "--backbone", str(DeepForest_config["backbone"]),
             "--score-threshold", str(DeepForest_config["score_threshold"]),
