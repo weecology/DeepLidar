@@ -30,15 +30,24 @@ spatial_filter: True
 
 #Select sites
 hand_annotation_site:
+  - MLBS
   - NIWO
+  - TEAK
+  - SJER
 pretraining_site:
+  - MLBS
   - NIWO
+  - TEAK
+  - SJER
 evaluation_site:
+  - MLBS
   - NIWO
+  - TEAK
+  - SJER
 
 #Training
 training_images: All
-weights: /orange/ewhite/b.weinstein/retinanet/20190708_130925/resnet50_05.h5
+weights: /orange/ewhite/b.weinstein/retinanet/20190708_125526/resnet50_05.h5
 imagenet_weights: True
 batch_size: 20
 epochs: 40
