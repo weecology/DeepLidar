@@ -98,7 +98,7 @@ for pretraining_site in pretraining_models:
             '--convert-model'
         ]
                    
-        recall, precision  = eval_main(DeepForest_config = DeepForest_config, experiment = experiment, args = args)
+        recall, precision  = eval_main(DeepForest_config = DeepForest_config, args = args)
         results.append({"Proportion":proportion_data,"Evaluation Site" : pretraining_site, "Recall": recall,"Precision": precision})
         
 results = pd.DataFrame(results)

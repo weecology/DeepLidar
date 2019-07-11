@@ -8,8 +8,8 @@
 #SBATCH --cpus-per-task=2            # Number of cores per MPI rank
 #SBATCH --mem-per-cpu=10GB
 #SBATCH --time=72:00:00       #Time limit hrs:min:sec
-#SBATCH --output=/home/b.weinstein/logs/DeepLidar.out   # Standard output and error log
-#SBATCH --error=/home/b.weinstein/logs/DeepLidar.err
+#SBATCH --output=/home/b.weinstein/logs/prcurve.out   # Standard output and error log
+#SBATCH --error=/home/b.weinstein/logs/prcurve.err
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu:tesla:1
 
