@@ -3,6 +3,7 @@ Train a series of models based on a set of sites.
 For example, retrain on each epoch of pretraining data
 """
 from comet_ml import Experiment
+import keras
 import sys
 import os
 from datetime import datetime
@@ -10,12 +11,15 @@ import glob
 import pandas as pd 
 import copy
 
+from keras_retinanet import models
+
 #insert path 
 sys.path.insert(0, os.path.abspath('..'))
 from DeepForest.config import load_config
 from DeepForest.utils.generators import load_retraining_data
 from train import main as training_main
 from prcurve import main as eval_main
+
 
 #load config - clean
 original_DeepForest_config = load_config("..")       
