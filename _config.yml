@@ -47,7 +47,8 @@ evaluation_site:
 
 #Training
 training_images: All
-weights: /orange/ewhite/b.weinstein/retinanet/20190708_125526/resnet50_05.h5
+training_proportion: 1
+weights: None
 imagenet_weights: True
 batch_size: 20
 epochs: 40

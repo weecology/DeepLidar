@@ -231,12 +231,19 @@ def split_training(data, DeepForest_config, experiment):
                 eval_tile = data.tile.unique()[1]
                 evaluation = data[data["tile"] == eval_tile]
                 training = data[~(data["tile"] == eval_tile)]
-            
+    
+    #If selecting training samples as a proportion
+    if not DeepForest_config["training_proportion"]==1:
+            DeepForest_config["training_images"] = int(training.shape[0] * DeepForest_config["training_proportion"])
+            print("Superceding number of training images {} based on training proportion {}".format(DeepForest_config["training_images"],DeepForest_config["training_proportion"]))
+            if experiment:
+                experiment.log_parameter("final_training_images",DeepForest_config["training_images"])
+    
     #Select n Training samples
     if not DeepForest_config["training_images"]=="All":
         num_training_images = DeepForest_config["training_images"]
         
-        if num_training_images > len(training):
+        if num_training_images > training.shape[0]:
             raise ValueError("Number of training samples greater than available windows")
             
         #Optional shuffle

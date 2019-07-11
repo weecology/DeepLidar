@@ -24,7 +24,7 @@ original_DeepForest_config = load_config("..")
 pretraining_models = {
     "SJER":"/orange/ewhite/b.weinstein/retinanet/20190708_232226/resnet50_05.h5",
     "TEAK": "/orange/ewhite/b.weinstein/retinanet/20190709_035026/resnet50_05.h5",
-    "NIWO":"/orange/ewhite/b.weinstein/retinanet//resnet50_05.h5",
+    "NIWO":"/orange/ewhite/b.weinstein/retinanet/20190709_114400/resnet50_05.h5",
     "MLBS": "/orange/ewhite/b.weinstein/retinanet/20190708_214248/resnet50_05.h5"
 }
 
