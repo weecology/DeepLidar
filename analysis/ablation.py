@@ -15,7 +15,7 @@ sys.path.insert(0, os.path.abspath('..'))
 from DeepForest.config import load_config
 from DeepForest.utils.generators import load_retraining_data
 from train import main as training_main
-from eval import main as eval_main
+from prcurve import main as eval_main
 
 #load config - clean
 original_DeepForest_config = load_config("..")       
@@ -98,8 +98,8 @@ for pretraining_site in pretraining_models:
             '--convert-model'
         ]
                    
-        mAP = eval_main(data = data, DeepForest_config = DeepForest_config, experiment = experiment, args = args)
-        results.append({"Evaluation Site" : pretraining_site, "mAP": mAP})
+        recall, precision  = eval_main(data = data, DeepForest_config = DeepForest_config, experiment = experiment, args = args)
+        results.append({"Proportion":proportion_data,"Evaluation Site" : pretraining_site, "Recall": recall,"Precision": precision})
         
 results = pd.DataFrame(results)
 
