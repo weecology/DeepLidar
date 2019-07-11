@@ -119,11 +119,7 @@ if __name__ == '__main__':
         for trained_model in trained_model_list:
             
             # load the model just once
-            # optionally choose specific GPU
-            if args.gpu:
-                os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
             keras.backend.tensorflow_backend.set_session(get_session())
-            
             print('Loading model, this may take a second...')
             model = models.load_model(trained_model, backbone_name=args.backbone, convert=args.convert_model, nms_threshold=DeepForest_config["nms_threshold"])
             
