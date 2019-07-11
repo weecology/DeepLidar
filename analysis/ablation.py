@@ -81,7 +81,7 @@ for pretraining_site in pretraining_models:
         ]
     
         #Run training, and pass comet experiment class
-        model = training_main(args=args, data=data, DeepForest_config=DeepForest_config, experiment=experiment)  
+        model_path = training_main(args=args, data=data, DeepForest_config=DeepForest_config, experiment=experiment)  
         
         #Run eval
         #Always use all hand annotations
@@ -94,11 +94,16 @@ for pretraining_site in pretraining_models:
             '--score-threshold', str(DeepForest_config['score_threshold']),
             '--suppression-threshold', '0.1', 
             '--save-path', 'snapshots/images/', 
-            '--model', model, 
+            '--model', model_path, 
             '--convert-model'
         ]
-                   
-        recall, precision  = eval_main(DeepForest_config = DeepForest_config, args = args)
+             
+        # load the model just once
+        keras.backend.tensorflow_backend.set_session(get_session())
+        print('Loading model, this may take a second...')
+        model = models.load_model(model_path, backbone_name="resnet50", convert=True, nms_threshold=DeepForest_config["nms_threshold"])
+
+        recall, precision  = eval_main(DeepForest_config = DeepForest_config, args = args, model=model)
         results.append({"Proportion":proportion_data,"Evaluation Site" : pretraining_site, "Recall": recall,"Precision": precision})
         
 results = pd.DataFrame(results)
