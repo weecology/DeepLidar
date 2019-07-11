@@ -129,7 +129,7 @@ def spatial_filter(train, DeepForest_config):
     annotations, windows = NEON_annotations(DeepForest_config)      
     
     #load plot data
-    field_data = pd.read_csv("data/field_data.csv")
+    field_data = pd.read_csv(DeepForest_config["field_data_path"])
     
     #unique site windows
     plotID = windows.tile.values
