@@ -33,11 +33,11 @@ spatial_filter: True
 
 #Select sites
 hand_annotation_site:
-  - SJER
+  - NIWO
 pretraining_site:
-  - SJER
+  - NIWO
 evaluation_site:
-  - SJER
+  - NIWO
 
 #Training
 training_images: All
@@ -50,7 +50,7 @@ shuffle_training: True
 score_threshold: 0.15
 
 #Evaluation
-evaluation_images: 50
+evaluation_images: 0
 shuffle_evaluation: False
 validation_percent: 5  #For hand annotation neon_MAP
 
