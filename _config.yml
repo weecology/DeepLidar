@@ -33,11 +33,11 @@ spatial_filter: True
 
 #Select sites
 hand_annotation_site:
-  - NIWO
+  - TEAK
 pretraining_site:
-  - NIWO
+  - TEAK
 evaluation_site:
-  - NIWO
+  - TEAK
 
 #Training
 training_images: All
