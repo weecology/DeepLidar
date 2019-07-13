@@ -38,7 +38,7 @@ def load_retraining_data(DeepForest_config):
                 annotation_xmls = os.path.splitext(os.path.basename(tilenames[index]))[0] + ".xml"
                 full_xml_path = os.path.join(annotation_dir, annotation_xmls )
                 
-                print("Generating h5 for hand annotated data from tile {}".format(tilename))                
+                print("Generating h5 for hand annotated data from tile {}".format(path))                
                 Generate.run(tile_xml = full_xml_path, mode="retrain", site = site, DeepForest_config=DeepForest_config)
         
     #combine data across sites        
@@ -149,6 +149,7 @@ def spatial_filter(train, DeepForest_config):
         geo_index = "{}_{}".format(easting,northing)
         
         #lookup matching tiles by site and remove
+        print("plot {} intersects with {} annotations".format(plot_name,train.tile.str.contains(geo_index))) 
         train = train[~train.tile.str.contains(geo_index)]
     
     print("Train shape after spatial filtering {}".format(train.shape))

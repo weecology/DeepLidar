@@ -31,11 +31,11 @@ field_data_path: /home/b.weinstein/DeepLidar/data/field_data.csv
 
 #Select sites
 hand_annotation_site:
-  - MLBS
+  - SJER
 pretraining_site:
-  - MLBS
+  - SJER
 evaluation_site:
-  - NIWO
+  - SJER
 
 #Training
 training_images: All
@@ -57,7 +57,7 @@ nms_threshold: 0.1
 
 #Data Paths
 SJER:
-  h5: /Users/Ben/Downloads/fourchannel/SJER/
+  h5: /Users/Ben/Downloads/blending/SJER/
   hand_annotations:
     RGB: /Users/Ben/Documents/DeepLidar/data/SJER/training/
     LIDAR: /Users/Ben/Documents/DeepLidar/data/SJER/training/
