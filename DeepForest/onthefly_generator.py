@@ -216,7 +216,7 @@ class OnTheFlyGenerator(Generator):
         '''Load a point cloud into memory from file
         '''
         self.lidar_filepath=self.fetch_lidar_filename()
-        if self.lidar_filepath == None:
+        if self.lidar_filepath is None:
             print("Lidar file {} cannot be found".format(self.row["tile"]))
             return None
         
