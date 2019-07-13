@@ -149,7 +149,7 @@ def spatial_filter(train, DeepForest_config):
         geo_index = "{}_{}".format(easting,northing)
         
         #lookup matching tiles by site and remove
-        print("plot {} intersects with {} annotations".format(plot_name,train.tile.str.contains(geo_index))) 
+        print("plot {} intersects with {} annotations".format(plot_name,sum(train.tile.str.contains(geo_index))))
         train = train[~train.tile.str.contains(geo_index)]
     
     print("Train shape after spatial filtering {}".format(train.shape))
