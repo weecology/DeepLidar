@@ -33,13 +33,13 @@ spatial_filter: True
 
 #Select sites
 hand_annotation_site:
-  - TEAK
-pretraining_site:
-  - MLBS
-  - SJER
   - NIWO
-evaluation_site:
+pretraining_site:
   - TEAK
+  - SJER
+  - MLBS
+evaluation_site:
+  - NIWO
 
 #Training
 training_images: All
