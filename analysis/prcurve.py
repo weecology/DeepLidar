@@ -89,19 +89,17 @@ if __name__ == '__main__':
     ]
 
     SJER_list = [
-        "/orange/ewhite/b.weinstein/retinanet/20190709_223205/resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190710_100237/resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190710_100252/resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190710_100329/resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190710_100347/resnet50_40.h5"
+        "/orange/ewhite/b.weinstein/retinanet/20190713_170215/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190713_170212/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190713_170210/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190713_170030/resnet50_40.h5"
     ]
 
     MLBS_list = [
-        "/orange/ewhite/b.weinstein/retinanet/20190710_122300/resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190710_122307/resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190710_122310/resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190710_122313/resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190710_122316/resnet50_40.h5"
+        "/orange/ewhite/b.weinstein/retinanet/20190712_223104/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190712_223059/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190712_223056/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190712_220250/resnet50_40.h5"
     ]
     
     trained_models = {
