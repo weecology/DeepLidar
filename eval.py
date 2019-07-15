@@ -128,21 +128,7 @@ def main(data, DeepForest_config, experiment, args=None):
     #sites = DeepForest_config["evaluation_site"]
     
     ##create the NEON mAP generator 
-    NEON_generator = create_NEON_generator(args.batch_size, DeepForest_config)
-    #NEON_recall_generator = create_NEON_generator(args.batch_size, DeepForest_config)
-
-    #recall = neonRecall(
-        #sites,
-        #NEON_recall_generator,
-        #model,            
-        #score_threshold=args.score_threshold,
-        #save_path=args.save_path + dirname,
-        #max_detections=args.max_detections
-    #)
-    
-    #print("Recall is {:0.3f}".format(recall))
-    
-    #experiment.log_metric("Recall", recall)               
+    NEON_generator = create_NEON_generator(args.batch_size, DeepForest_config)       
         
     #NEON plot mAP
     average_precisions = evaluate(

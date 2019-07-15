@@ -30,27 +30,19 @@ rgb_res: 0.1
 preprocess:
   zero_area: True
 spatial_filter: True
+field_data_path: /home/b.weinstein/DeepLidar/data/field_data.csv
 
 #Select sites
 hand_annotation_site:
   - SJER
-  - TEAK
-  - MLBS
-  - NIWO
 pretraining_site:
   - SJER
-  - TEAK
-  - NIWO
-  - MLBS
 evaluation_site:
   - SJER
-  - NIWO
-  - MLBS
-  - TEAK
-
 #Training
 training_images: All
-weights: /orange/ewhite/b.weinstein/retinanet/20190714_193428/resnet50_02.h5
+training_proportion: 1
+weights: /orange/ewhite/b.weinstein/retinanet/20190711_121755/resnet50_05.h5
 imagenet_weights: True
 batch_size: 20
 epochs: 40
