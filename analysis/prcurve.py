@@ -79,7 +79,7 @@ if __name__ == '__main__':
     ]
 
     SJER_list = [
-        "/orange/ewhite/b.weinstein/retinanet/20190715_122147/resnet50_05.h5"
+        "/orange/ewhite/b.weinstein/retinanet/20190715_122147/resnet50_30.h5"
     ]
 
     MLBS_list = [
