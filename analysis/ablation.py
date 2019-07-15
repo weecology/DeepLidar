@@ -33,7 +33,7 @@ original_DeepForest_config = load_config("..")
 
 #The following models have been pretrained on all other sites except for the name in the site key
 pretraining_models = {
-    "SJER": "/orange/ewhite/b.weinstein/retinanet/20190715_122147/resnet50_30.h5",
+    "SJER": "/orange/ewhite/b.weinstein/retinanet/20190715_133239/resnet50_30.h5",
     "TEAK": "/orange/ewhite/b.weinstein/retinanet/20190713_230957/resnet50_40.h5",
     "NIWO":"/orange/ewhite/b.weinstein/retinanet/20190712_055958/resnet50_40.h5",
     "MLBS":  "/orange/ewhite/b.weinstein/retinanet/20190712_035528/resnet50_40.h5"
