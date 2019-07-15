@@ -11,19 +11,29 @@ sys.path.append(parent_path)
 
 #Load modules
 from DeepForest import config
-from DeepForest.onthefly_generator import OnTheFlyGenerator
 from DeepForest.preprocess import NEON_annotations, load_csvs, split_training
-from DeepForest import Generate
-from DeepForest.h5_generator import H5Generator
-from DeepForest.utils import image_utils
-from DeepForest.h5_generator import H5Generator
+from DeepForest.utils import generators
 
 DeepForest_config = config.load_config(dir="..")
+
+def test_load_retraining_data(DeepForest_config):
+        data = generators.load_retraining_data(DeepForest_config)
+        train, test = split_training(data, DeepForest_config, experiment=None)                
+        print("Train shape {}".format(train.shape))
+        
+def test_load_retraining_data_ablation(DeepForest_config):
+        DeepForest_config["training_proportion"]=0.5
+        data = generators.load_retraining_data(DeepForest_config)
+        train, test = split_training(data, DeepForest_config, experiment=None)        
+        print("Train shape {}".format(train.shape))
+
+test_load_retraining_data(DeepForest_config)
+test_load_retraining_data_ablation(DeepForest_config)
 
 test_csv_list  =["/Users/Ben/Downloads/fourchannel/TEAK/hand_annotations/2018_TEAK_3_315000_4094000_image_crop.csv"]
 def test_load_csvs(test_csv_list):
         df = load_csvs(csv_list = test_csv_list)
         assert df.shape[0] > 0, "data is empty"
         
-test_load_csvs(test_csv_list)
+#test_load_csvs(test_csv_list)
 
