@@ -104,11 +104,11 @@ if __name__ == '__main__':
     sys.path.insert(0, os.path.abspath('..'))
     
     #Model list
-    trained_models = {"SJER":"/orange/ewhite/b.weinstein/retinanet/20190713_170210/resnet50_10.h5",
-                          "TEAK":"/orange/ewhite/b.weinstein/retinanet/20190709_171539/resnet50_40.h5",
-                          "NIWO":"/orange/ewhite/b.weinstein/retinanet/20190709_135128/resnet50_40.h5",
-                          "MLBS":"/orange/ewhite/b.weinstein/retinanet/20190712_223104/resnet50_40.h5",
-                          "All":"/orange/ewhite/b.weinstein/retinanet/20190713_170534/resnet50_20.h5"}
+    trained_models = {"SJER":"/orange/ewhite/b.weinstein/retinanet/20190715_122147/resnet50_05.h5",
+                          "TEAK":"/orange/ewhite/b.weinstein/retinanet/20190713_230957/resnet50_40.h5",
+                          "NIWO":"/orange/ewhite/b.weinstein/retinanet/20190712_055958/resnet50_40.h5",
+                          "MLBS":"/orange/ewhite/b.weinstein/retinanet/20190712_035528/resnet50_40.h5",
+                          "All":"/orange/ewhite/b.weinstein/retinanet/20190715_123358/resnet50_10.h5"}
     
     import pandas as pd
     import numpy as np
