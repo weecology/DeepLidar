@@ -34,20 +34,13 @@ field_data_path: /home/b.weinstein/DeepLidar/data/field_data.csv
 
 #Select sites
 hand_annotation_site:
-  - SJER
   - NIWO
-  - TEAK
-  - MLBS
 pretraining_site:
   - SJER
   - NIWO
   - TEAK
-  - MLBS
 evaluation_site:
-  - SJER
   - NIWO
-  - TEAK
-  - MLBS
 
 #Training
 training_images: All
@@ -56,7 +49,6 @@ weights: /orange/ewhite/b.weinstein/retinanet/20190708_125526/resnet50_05.h5
 imagenet_weights: True
 batch_size: 20
 epochs: 40
->>>>>>> master
 backbone: resnet50
 shuffle_training: True
 score_threshold: 0.15

@@ -33,10 +33,10 @@ original_DeepForest_config = load_config("..")
 
 #The following models have been pretrained on all other sites except for the name in the site key
 pretraining_models = {
-    "SJER":"/orange/ewhite/b.weinstein/retinanet/20190713_170210/resnet50_10.h5",
-    "TEAK": "/orange/ewhite/b.weinstein/retinanet/20190709_035026/resnet50_05.h5",
-    "NIWO":"/orange/ewhite/b.weinstein/retinanet/20190709_114400/resnet50_05.h5",
-    "MLBS": "/orange/ewhite/b.weinstein/retinanet/20190712_223104/resnet50_05.h5"
+    "SJER":"",
+    "TEAK": "/orange/ewhite/b.weinstein/retinanet/20190713_230957/resnet50_40.h5",
+    "NIWO":"/orange/ewhite/b.weinstein/retinanet/20190712_055958/resnet50_40.h5",
+    "MLBS":  "/orange/ewhite/b.weinstein/retinanet/20190712_035528/resnet50_40.h5"
 }
 
 #For each site, match the hand annotations with the pretraining model

@@ -1,6 +1,4 @@
 #!/usr/bin/env python
-
-
 import argparse
 import os
 import sys
@@ -72,40 +70,20 @@ if __name__ == '__main__':
 
     DeepForest_config = load_config("..")
     
-<<<<<<< HEAD
-    trained_models = {"SJER":["/orange/ewhite/b.weinstein/retinanet/20190711_180928/resnet50_10.h5"],
-                          "NIWO":["/orange/ewhite/b.weinstein/retinanet/20190712_055958/resnet50_40.h5"],
-                          "MLBS":["/orange/ewhite/b.weinstein/retinanet/20190712_035528/resnet50_40.h5"],
-                          }
-=======
     NIWO_list = [
-        "/orange/ewhite/b.weinstein/retinanet/20190709_122336/resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190709_130254/resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190709_135128/resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190709_143051/resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190709_150638/resnet50_40.h5"
+        "/orange/ewhite/b.weinstein/retinanet/20190712_055958/resnet50_40.h5"
     ]
         
     TEAK_list = [
-        "/orange/ewhite/b.weinstein/retinanet/20190709_161527/resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190709_171539/resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190709_175910/resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190709_191727/resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190709_200228/resnet50_40.h5"
+        "/orange/ewhite/b.weinstein/retinanet/20190713_230957/resnet50_40.h5"
     ]
 
     SJER_list = [
-        "/orange/ewhite/b.weinstein/retinanet/20190713_170215/resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190713_170212/resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190713_170210/resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190713_170030/resnet50_40.h5"
+        ""
     ]
 
     MLBS_list = [
-        "/orange/ewhite/b.weinstein/retinanet/20190712_223104/resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190712_223059/resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190712_223056/resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190712_220250/resnet50_40.h5"
+        "/orange/ewhite/b.weinstein/retinanet/20190712_035528/resnet50_40.h5"
     ]
     
     trained_models = {
@@ -114,7 +92,6 @@ if __name__ == '__main__':
         "TEAK": TEAK_list,
         "MLBS": MLBS_list}
     
->>>>>>> master
     results = []    
     for training_site in trained_models:
         trained_model_list = trained_models[training_site]
