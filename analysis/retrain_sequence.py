@@ -24,8 +24,8 @@ original_DeepForest_config = load_config("..")
 
 #find models
 models = glob.glob("/orange/ewhite/b.weinstein/retinanet/20190713_233909/*.h5")
-DeepForest_config["evaluation_site"] = ["SJER","MLBS","NIWO","TEAK"]	
-DeepForest_config["hand_annotation_site"] = ["SJER","MLBS","NIWO","TEAK"]	
+original_DeepForest_config["evaluation_site"] = ["SJER","MLBS","NIWO","TEAK"]	
+original_DeepForest_config["hand_annotation_site"] = ["SJER","MLBS","NIWO","TEAK"]	
 
 #For each model, match the hand annotations with the pretraining model
 models.sort()
