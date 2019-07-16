@@ -94,6 +94,8 @@ for pretraining_site in pretraining_models:
         #Run training, and pass comet experiment class
         model_path = training_main(args=args, data=data, DeepForest_config=DeepForest_config, experiment=experiment)  
         
+        num_trees = experiment.get_parameter("Number of Training Trees")
+        
         #Run eval
         #Always use all hand annotations
         experiment = Experiment(api_key="ypQZhYfs3nSyKzOfz13iuJpj2", project_name='deeplidar', log_code=False)
@@ -115,7 +117,7 @@ for pretraining_site in pretraining_models:
         model = models.load_model(model_path, backbone_name="resnet50", convert=True, nms_threshold=DeepForest_config["nms_threshold"])
 
         recall, precision  = eval_main(DeepForest_config = DeepForest_config, args = args, model=model)
-        results.append({"Number of Trees": experiment.get_parameter("Number of Training Trees"), "Proportion":proportion_data,"Evaluation Site" : pretraining_site, "Recall": recall,"Precision": precision})
+        results.append({"Number of Trees": num_trees, "Proportion":proportion_data,"Evaluation Site" : pretraining_site, "Recall": recall,"Precision": precision})
         
 results = pd.DataFrame(results)
 
