@@ -39,10 +39,13 @@ pretraining_site:
   - SJER
 evaluation_site:
   - SJER
+  - TEAK
+  - NIWO
+  - MLBS
 #Training
 training_images: All
 training_proportion: 1
-weights: /orange/ewhite/b.weinstein/retinanet/20190711_121755/resnet50_05.h5
+weights: None
 imagenet_weights: True
 batch_size: 20
 epochs: 40
