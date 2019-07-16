@@ -44,7 +44,7 @@ results = []
 for pretraining_site in pretraining_models:
     
     #For each site run a portion of the training data
-    for proportion_data in [0.2,0.4,0.6,0.8,1]:
+    for proportion_data in [0.05,0.25,0.5,0.75,1]:
         pretrain_model_path = pretraining_models[pretraining_site]
         print("Running pretraining for  {}".format(pretraining_site))
         
@@ -115,7 +115,7 @@ for pretraining_site in pretraining_models:
         model = models.load_model(model_path, backbone_name="resnet50", convert=True, nms_threshold=DeepForest_config["nms_threshold"])
 
         recall, precision  = eval_main(DeepForest_config = DeepForest_config, args = args, model=model)
-        results.append({"Proportion":proportion_data,"Evaluation Site" : pretraining_site, "Recall": recall,"Precision": precision})
+        results.append({"Number of Trees": experiment.get_parameter("Number of Training Trees"), "Proportion":proportion_data,"Evaluation Site" : pretraining_site, "Recall": recall,"Precision": precision})
         
 results = pd.DataFrame(results)
 
