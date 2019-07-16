@@ -20,8 +20,8 @@ ml tensorflow
 export PATH=${PATH}:/home/b.weinstein/miniconda/envs/DeepLidar/bin/
 export PYTHONPATH=${PYTHONPATH}:/home/b.weinstein/miniconda/envs/DeepLidar/lib/python3.6/site-packages/
     
-cd /home/b.weinstein/DeepLidar
+cd /home/b.weinstein/DeepLidar/analysis
 
 python retrain_sequence.py
 
-cat analysis/pretraining_size.csv
+cat pretraining_size.csv
