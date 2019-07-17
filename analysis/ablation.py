@@ -96,6 +96,7 @@ for pretraining_site in pretraining_models:
                 )
                 
                 #create callback, a bit annoying to keep the retinanet machinery intact
+                callbacks = []
                 checkpoint = keras.callbacks.ModelCheckpoint(
                     os.path.join(
                         save_snapshot_path,
