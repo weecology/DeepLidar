@@ -21,6 +21,9 @@ def load_retraining_data(DeepForest_config):
         path_to_handannotations = []
         if os.path.isdir(RGB_dir):
             tilenames = glob.glob(os.path.join(RGB_dir,"*.tif"))
+            #remove any false color tiles
+            tilenames = [x for x in tilenames if not "false_color" in x]
+
         else:
             tilenames = [os.path.splitext(os.path.basename(RGB_dir))[0]]
             

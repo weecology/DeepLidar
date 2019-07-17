@@ -1,0 +1,20 @@
+Filename: test_callbacks.py
+
+Line #    Mem usage    Increment   Line Contents
+================================================
+    44 486.8515625000 MiB 486.8515625000 MiB   @profile(precision=precision, stream=fp)
+    45                             def test_callback(model, experiment):
+    46                                 #create the NEON generator 
+    47 491.6718750000 MiB   4.8203125000 MiB       NEON_generator = create_NEON_generator(DeepForest_config["batch_size"], DeepForest_config)
+    48                                 
+    49 491.6718750000 MiB   0.0000000000 MiB       average_precisions = evalmAP.evaluate(
+    50 491.6718750000 MiB   0.0000000000 MiB           NEON_generator,
+    51 491.6718750000 MiB   0.0000000000 MiB           model,
+    52 491.6718750000 MiB   0.0000000000 MiB           iou_threshold=0.5,
+    53 491.6718750000 MiB   0.0000000000 MiB           score_threshold=0.15,
+    54 491.6718750000 MiB   0.0000000000 MiB           max_detections=300,
+    55 491.6718750000 MiB   0.0000000000 MiB           save_path="../snapshots/",
+    56 553.6210937500 MiB  61.9492187500 MiB           experiment=experiment
+    57                                 )
+
+
