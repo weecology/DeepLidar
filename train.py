@@ -275,7 +275,7 @@ def main(args=None, data=None, DeepForest_config=None, experiment=None):
 
     # create the generators
     print("Creating generators")
-    train_generator, validation_generator = create_h5_generators(args, data, DeepForest_config=DeepForest_config)
+    train_generator, validation_generator = create_h5_generators(data, DeepForest_config=DeepForest_config)
     
     #Log number of trees trained on
     if experiment:

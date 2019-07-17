@@ -80,7 +80,7 @@ for pretraining_site in pretraining_models:
             if not proportion_data == 0:
                 #Run training, and pass comet experiment class
                 #start training
-                train_generator, validation_generator = create_h5_generators(args, data, DeepForest_config=DeepForest_config)
+                train_generator, validation_generator = create_h5_generators(data, DeepForest_config=DeepForest_config)
                 
                 print('Loading model, this may take a secondkeras-retinanet.\n')
                 model            = models.load_model(pretrain_model_path, backbone_name=DeepForest_config["backbone"])
