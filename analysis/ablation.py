@@ -108,21 +108,17 @@ for pretraining_site in pretraining_models:
                     max_queue_size=DeepForest_config["max_queue_size"])
                 
                 num_trees = train_generator.total_trees
-                experiment.log_parameter("Number of Training Trees", num_trees)   
                 
-                trained_model_path = os.path.join(
-                    save_snapshot_path,
-                    '{backbone}.h5'.format(backbone=DeepForest_config["backbone"])
-                )
-                
-                model.save(trained_model_path)
-                del(training_model)
+                #Convert training model
+                eval_model = models.convert_model(training_model)
     
             else: 
                 # load the model just once
                 print('Loading model, this may take a second...')
-                trained_model_path = pretrain_model_path
+                eval_model = models.load_model(pretrain_model_path, backbone_name="resnet50", convert=True, nms_threshold=DeepForest_config["nms_threshold"])
                 num_trees = 0
+            
+            experiment.log_parameter("Number of Training Trees", num_trees)   
                 
             #Run eval
             experiment = Experiment(api_key="ypQZhYfs3nSyKzOfz13iuJpj2", project_name='deeplidar', log_code=False)
@@ -136,7 +132,6 @@ for pretraining_site in pretraining_models:
                 '--save-path', 'snapshots/images/', 
             ]
                  
-            eval_model = models.load_model(trained_model_path, backbone_name="resnet50", convert=True, nms_threshold=DeepForest_config["nms_threshold"])
             #recall, precision  = eval_main(DeepForest_config = DeepForest_config, args = args, model=eval_model)
             #results.append({"Number of Trees": num_trees, "Proportion":proportion_data,"Evaluation Site" : pretraining_site, "Recall": recall,"Precision": precision})
             
