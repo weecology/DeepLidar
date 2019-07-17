@@ -46,7 +46,7 @@ for pretraining_site in pretraining_models:
     
     #For each site run a portion of the training data
     for x in np.arange(4):
-        for proportion_data in [0.01, 0.05,0.25,0.5,0.75,1]:
+        for proportion_data in [0, 0.01, 0.05,0.25,0.5,0.75,1]:
             pretrain_model_path = pretraining_models[pretraining_site]
             print("Running pretraining for  {}".format(pretraining_site))
             
@@ -59,7 +59,6 @@ for pretraining_site in pretraining_models:
             
             experiment = Experiment(api_key="ypQZhYfs3nSyKzOfz13iuJpj2", project_name='deeplidar', log_code=False)
             experiment.log_parameter("mode","ablation")   
-            experiment.log_parameters(DeepForest_config)    
             DeepForest_config["evaluation_images"] =0         
             
             #set training images, as a function of the number of training windows
@@ -68,6 +67,8 @@ for pretraining_site in pretraining_models:
             ###Log experiments
             dirname = datetime.now().strftime("%Y%m%d_%H%M%S")        
             experiment.log_parameter("Start Time", dirname)    
+            
+            experiment.log_parameters(DeepForest_config)    
             
             ##Make a new dir and reformat args
             save_snapshot_path = DeepForest_config["save_snapshot_path"]+ dirname            
@@ -85,7 +86,7 @@ for pretraining_site in pretraining_models:
             
             args = [
                 "--epochs", str(30),
-                "--batch-size", str(DeepForest_config['batch_size']),
+                "--batch-size", str(40),
                 "--backbone", str(DeepForest_config["backbone"]),
                 "--score-threshold", str(DeepForest_config["score_threshold"]),
                 "--save-path", save_image_path,
@@ -95,11 +96,15 @@ for pretraining_site in pretraining_models:
                 "--multi-gpu", "2"
             ]
             
-            #Run training, and pass comet experiment class
-            model_path = training_main(args=args, data=data, DeepForest_config=DeepForest_config, experiment=experiment)  
-            
-            num_trees = experiment.get_parameter("Number of Training Trees")
-            
+            if not proportion_data == 0:
+                #Run training, and pass comet experiment class
+                model_path = training_main(args=args, data=data, DeepForest_config=DeepForest_config, experiment=experiment)  
+                num_trees = experiment.get_parameter("Number of Training Trees")
+                
+            else: 
+                model_path = pretrain_model_path
+                num_trees = 0
+                
             #Run eval
             #Always use all hand annotations
             experiment = Experiment(api_key="ypQZhYfs3nSyKzOfz13iuJpj2", project_name='deeplidar', log_code=False)
@@ -125,4 +130,4 @@ for pretraining_site in pretraining_models:
             
 results = pd.DataFrame(results)
 
-results.to_csv("ablation" + ".csv")        
+results.to_csv("ablation_{}".format(dirname) + ".csv")        
