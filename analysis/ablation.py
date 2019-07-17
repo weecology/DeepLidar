@@ -112,7 +112,8 @@ for pretraining_site in pretraining_models:
                     use_multiprocessing=DeepForest_config["use_multiprocessing"],
                     max_queue_size=DeepForest_config["max_queue_size"])
                 
-                num_trees = experiment.get_parameter("Number of Training Trees")
+                num_trees = train_generator.total_trees
+                
                 #return path snapshot of final epoch
                 saved_models = glob.glob(os.path.join(save_snapshot_path,"*.h5"))
                 saved_models.sort()
