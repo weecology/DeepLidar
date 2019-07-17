@@ -116,7 +116,6 @@ for pretraining_site in pretraining_models:
                     steps_per_epoch=train_generator.size()/DeepForest_config["batch_size"],
                     epochs=DeepForest_config["epochs"],
                     verbose=2,
-                    callbacks=callbacks,
                     shuffle=False,
                     workers=DeepForest_config["workers"],
                     use_multiprocessing=DeepForest_config["use_multiprocessing"],
