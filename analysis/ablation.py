@@ -56,16 +56,6 @@ for pretraining_site in pretraining_models:
     
     backbone = models.backbone(DeepForest_config["backbone"])         
     
-    model, training_model, prediction_model = create_models(
-                    backbone_retinanet=backbone.retinanet,
-                   num_classes=1,
-                   weights=pretrain_model_path,
-                   multi_gpu=DeepForest_config["num_GPUs"],
-                   freeze_backbone=False,
-                   nms_threshold=DeepForest_config["nms_threshold"],
-                   input_channels=DeepForest_config["input_channels"]
-                )
-    
     #For each site run a portion of the training data
     for x in np.arange(5):
         for proportion_data in [0, 0.01, 0.05,0.25,0.5,0.75,1]:
@@ -95,22 +85,18 @@ for pretraining_site in pretraining_models:
                 #start training
                 train_generator, validation_generator = create_h5_generators(data, DeepForest_config=DeepForest_config)     
                 
+                model, training_model, prediction_model = create_models(
+                    backbone_retinanet=backbone.retinanet,
+                                num_classes=1,
+                               weights=pretrain_model_path,
+                               multi_gpu=DeepForest_config["num_GPUs"],
+                               freeze_backbone=False,
+                               nms_threshold=DeepForest_config["nms_threshold"],
+                               input_channels=DeepForest_config["input_channels"]
+                )
+                
                 #create callback, a bit annoying to keep the retinanet machinery intact
                 #ensure directory created first; otherwise h5py will error after epoch.
-                callbacks = []
-                checkpoint = keras.callbacks.ModelCheckpoint(
-                    os.path.join(
-                        save_snapshot_path,
-                        '{backbone}_{{epoch:02d}}.h5'.format(backbone=DeepForest_config["backbone"])
-                    ),
-                    verbose=1,
-                    save_best_only=True,
-                    monitor="NEON_map",
-                    mode='max'
-                )
-                checkpoint = RedirectModel(checkpoint, model)
-                callbacks.append(checkpoint)
-                
                 history = training_model.fit_generator(
                     generator=train_generator,
                     steps_per_epoch=train_generator.size()/DeepForest_config["batch_size"],
@@ -123,10 +109,13 @@ for pretraining_site in pretraining_models:
                     max_queue_size=DeepForest_config["max_queue_size"])
                 
                 num_trees = train_generator.total_trees
-                #return path snapshot of final epoch
-                #saved_models = glob.glob(os.path.join(save_snapshot_path,"*.h5"))
-                #saved_models.sort()
-                #trained_model_path = saved_models[-1]      
+                
+                trained_model_path = os.path.join(
+                    save_snapshot_path,
+                    '{backbone}_{{epoch:02d}}.h5'.format(backbone=DeepForest_config["backbone"])
+                )
+                
+                training_model.save(trained_model_path)
     
             #else: 
                 ## load the model just once
