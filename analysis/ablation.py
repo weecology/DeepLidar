@@ -112,10 +112,10 @@ for pretraining_site in pretraining_models:
                 
                 trained_model_path = os.path.join(
                     save_snapshot_path,
-                    '{backbone}_{{epoch:02d}}.h5'.format(backbone=DeepForest_config["backbone"])
+                    '{backbone}.h5'.format(backbone=DeepForest_config["backbone"])
                 )
                 
-                training_model.save(trained_model_path)
+                model.save(trained_model_path)
     
             else: 
                 # load the model just once
