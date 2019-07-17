@@ -45,8 +45,8 @@ results = []
 for pretraining_site in pretraining_models:
     
     #For each site run a portion of the training data
-    for x in np.arange(3):
-        for proportion_data in [0.05,0.25,0.5,0.75,1]:
+    for x in np.arange(4):
+        for proportion_data in [0.01, 0.05,0.25,0.5,0.75,1]:
             pretrain_model_path = pretraining_models[pretraining_site]
             print("Running pretraining for  {}".format(pretraining_site))
             
