@@ -108,6 +108,7 @@ for pretraining_site in pretraining_models:
                     max_queue_size=DeepForest_config["max_queue_size"])
                 
                 num_trees = train_generator.total_trees
+                experiment.log_parameter("Number of Training Trees", num_trees)   
                 
                 trained_model_path = os.path.join(
                     save_snapshot_path,
@@ -116,27 +117,27 @@ for pretraining_site in pretraining_models:
                 
                 training_model.save(trained_model_path)
     
-            #else: 
-                ## load the model just once
-                #print('Loading model, this may take a second...')
-                #trained_model_path = pretrain_model_path
-                #num_trees = 0
+            else: 
+                # load the model just once
+                print('Loading model, this may take a second...')
+                trained_model_path = pretrain_model_path
+                num_trees = 0
                 
-            ##Run eval
-            #experiment = Experiment(api_key="ypQZhYfs3nSyKzOfz13iuJpj2", project_name='deeplidar', log_code=False)
-            #experiment.log_parameter("mode","ablation_evaluation")
-            #experiment.log_parameters(DeepForest_config)            
+            #Run eval
+            experiment = Experiment(api_key="ypQZhYfs3nSyKzOfz13iuJpj2", project_name='deeplidar', log_code=False)
+            experiment.log_parameter("mode","ablation_evaluation")
+            experiment.log_parameters(DeepForest_config)            
                 
-            #args = [
-                #"--batch-size", str(DeepForest_config['batch_size']),
-                #'--score-threshold', str(DeepForest_config['score_threshold']),
-                #'--suppression-threshold', '0.1', 
-                #'--save-path', 'snapshots/images/', 
-            #]
+            args = [
+                "--batch-size", str(DeepForest_config['batch_size']),
+                '--score-threshold', str(DeepForest_config['score_threshold']),
+                '--suppression-threshold', '0.1', 
+                '--save-path', 'snapshots/images/', 
+            ]
                  
-            #training_model = models.load_model(trained_model_path, backbone_name="resnet50", convert=True, nms_threshold=DeepForest_config["nms_threshold"])
-            #recall, precision  = eval_main(DeepForest_config = DeepForest_config, args = args, model=training_model)
-            #results.append({"Number of Trees": num_trees, "Proportion":proportion_data,"Evaluation Site" : pretraining_site, "Recall": recall,"Precision": precision})
+            training_model = models.load_model(trained_model_path, backbone_name="resnet50", convert=True, nms_threshold=DeepForest_config["nms_threshold"])
+            recall, precision  = eval_main(DeepForest_config = DeepForest_config, args = args, model=training_model)
+            results.append({"Number of Trees": num_trees, "Proportion":proportion_data,"Evaluation Site" : pretraining_site, "Recall": recall,"Precision": precision})
             
 #results = pd.DataFrame(results)
 
