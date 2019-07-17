@@ -135,8 +135,8 @@ for pretraining_site in pretraining_models:
                 '--save-path', 'snapshots/images/', 
             ]
                  
-            #training_model = models.load_model(trained_model_path, backbone_name="resnet50", convert=True, nms_threshold=DeepForest_config["nms_threshold"])
-            #recall, precision  = eval_main(DeepForest_config = DeepForest_config, args = args, model=training_model)
+            eval_model = models.load_model(trained_model_path, backbone_name="resnet50", convert=True, nms_threshold=DeepForest_config["nms_threshold"])
+            #recall, precision  = eval_main(DeepForest_config = DeepForest_config, args = args, model=eval_model)
             #results.append({"Number of Trees": num_trees, "Proportion":proportion_data,"Evaluation Site" : pretraining_site, "Recall": recall,"Precision": precision})
             
 #results = pd.DataFrame(results)

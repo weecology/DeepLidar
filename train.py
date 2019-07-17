@@ -153,7 +153,7 @@ def create_callbacks(model, training_model, prediction_model, train_generator, v
             ),
             verbose=1,
             save_best_only=True,
-            monitor="NEON_map",
+            monitor="mAP",
             mode='max'
         )
         checkpoint = RedirectModel(checkpoint, model)
