@@ -172,12 +172,14 @@ class NEONmAP(keras.callbacks.Callback):
             total_instances.append(num_annotations)
             precisions.append(average_precision)
         if self.weighted_average:
-            NEON_map = sum([a * b for a, b in zip(total_instances, precisions)]) / sum(total_instances)
+            self.NEON_map = sum([a * b for a, b in zip(total_instances, precisions)]) / sum(total_instances)
         else:
-            NEON_map = sum(precisions) / sum(x > 0 for x in total_instances)
+            self.NEON_map = sum(precisions) / sum(x > 0 for x in total_instances)
         
-        print('Neon mAP: {:.3f}'.format(NEON_map))
-        self.experiment.log_metric("Neon mAP", NEON_map)          
+        logs['NEON_mAP'] = self.NEON_map
+        
+        print('Neon mAP: {:.3f}'.format(self.NEON_map))
+        self.experiment.log_metric("Neon mAP", self.NEON_map)          
         
 class shuffle_inputs(keras.callbacks.Callback):
     """Randomize order of tiles and windows

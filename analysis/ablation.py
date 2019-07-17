@@ -56,6 +56,8 @@ for pretraining_site in pretraining_models:
             ##Replace config file and experiment
             DeepForest_config["hand_annotation_site"] = [pretraining_site]
             DeepForest_config["evaluation_site"] = [pretraining_site]
+            DeepForest_config["batch_size"] = 40
+            DeepForest_config["epochs"] = 30
             
             experiment = Experiment(api_key="ypQZhYfs3nSyKzOfz13iuJpj2", project_name='deeplidar', log_code=False)
             experiment.log_parameter("mode","ablation")   
@@ -67,16 +69,7 @@ for pretraining_site in pretraining_models:
             ###Log experiments
             dirname = datetime.now().strftime("%Y%m%d_%H%M%S")        
             experiment.log_parameter("Start Time", dirname)    
-            
             experiment.log_parameters(DeepForest_config)    
-            
-            ##Make a new dir and reformat args
-            save_snapshot_path = DeepForest_config["save_snapshot_path"]+ dirname            
-            save_image_path = DeepForest_config["save_image_path"]+ dirname
-            os.mkdir(save_snapshot_path)        
-            
-            if not os.path.exists(save_image_path):
-                os.mkdir(save_image_path)        
             
             #Load retraining data
             data = load_retraining_data(DeepForest_config)
@@ -84,20 +77,26 @@ for pretraining_site in pretraining_models:
                 DeepForest_config[x]["h5"] = os.path.join(DeepForest_config[x]["h5"],"hand_annotations")
                 print(DeepForest_config[x]["h5"])
             
-            args = [
-                "--epochs", str(30),
-                "--batch-size", str(60),
-                "--backbone", str(DeepForest_config["backbone"]),
-                "--score-threshold", str(DeepForest_config["score_threshold"]),
-                "--save-path", save_image_path,
-                "--snapshot-path", save_snapshot_path,
-                "--weights", str(pretrain_model_path),
-                "--multi-gpu-force",
-                "--multi-gpu", "3"
-            ]
-            
             if not proportion_data == 0:
                 #Run training, and pass comet experiment class
+                #start training
+                train_generator, validation_generator = create_h5_generators(args, data, DeepForest_config=DeepForest_config)
+                
+                print('Loading model, this may take a secondkeras-retinanet.\n')
+                model            = models.load_model(pretrain_model_path, backbone_name=DeepForest_config["backbone"])
+                training_model   = model
+                prediction_model = retinanet_bbox(model=model, nms_threshold=DeepForest_config["nms_threshold"])
+                
+                history = training_model.fit_generator(
+                    generator=train_generator,
+                    steps_per_epoch=train_generator.size()/DeepForest_config["batch_size"],
+                    epochs=DeepForest_config["epochs"],
+                    verbose=2,
+                    shuffle=False,
+                    workers=DeepForest_config["workers"],
+                    use_multiprocessing=DeepForest_config["use_multiprocessing"],
+                    max_queue_size=DeepForest_config["max_queue_size"])
+                
                 model_path = training_main(args=args, data=data, DeepForest_config=DeepForest_config, experiment=experiment)  
                 num_trees = experiment.get_parameter("Number of Training Trees")
                 

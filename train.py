@@ -151,11 +151,10 @@ def create_callbacks(model, training_model, prediction_model, train_generator, v
                 args.snapshot_path,
                 '{backbone}_{{epoch:02d}}.h5'.format(backbone=args.backbone)
             ),
-            verbose=1
-            #,
-            #save_best_only=True,
-            #monitor="mAP",
-            #mode='max'
+            verbose=1,
+            save_best_only=True,
+            monitor="NEON_map",
+            mode='max'
         )
         checkpoint = RedirectModel(checkpoint, model)
         callbacks.append(checkpoint)
