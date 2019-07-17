@@ -14,6 +14,7 @@ import copy
 import numpy as np
 
 from keras_retinanet import models
+from keras_retinanet .models.retinanet import retinanet_bbox
 
 #insert path 
 sys.path.insert(0, os.path.abspath('..'))
