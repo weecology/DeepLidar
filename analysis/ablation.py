@@ -89,6 +89,10 @@ for pretraining_site in pretraining_models:
                 training_model   = model
                 prediction_model = retinanet_bbox(model=model, nms_threshold=DeepForest_config["nms_threshold"])
                 
+                dirname = datetime.now().strftime("%Y%m%d_%H%M%S")
+                save_snapshot_path=DeepForest_config["save_snapshot_path"] + dirname            
+                os.mkdir(save_snapshot_path)        
+                
                 history = training_model.fit_generator(
                     generator=train_generator,
                     steps_per_epoch=train_generator.size()/DeepForest_config["batch_size"],
@@ -99,9 +103,11 @@ for pretraining_site in pretraining_models:
                     use_multiprocessing=DeepForest_config["use_multiprocessing"],
                     max_queue_size=DeepForest_config["max_queue_size"])
                 
-                model_path = training_main(args=args, data=data, DeepForest_config=DeepForest_config, experiment=experiment)  
                 num_trees = experiment.get_parameter("Number of Training Trees")
-                
+                #return path snapshot of final epoch
+                saved_models = glob.glob(os.path.join(save_snapshot_path,"*.h5"))
+                saved_models.sort()
+                model_path = saved_models[-1]       
             else: 
                 model_path = pretrain_model_path
                 num_trees = 0
