@@ -11,7 +11,7 @@
 #SBATCH --output=/home/b.weinstein/logs/ablation.out   # Standard output and error log
 #SBATCH --error=/home/b.weinstein/logs/ablation.err
 #SBATCH --partition=gpu
-#SBATCH --gres=gpu:tesla:2
+#SBATCH --gres=gpu:tesla:3
 
 ml git
 ml gcc
