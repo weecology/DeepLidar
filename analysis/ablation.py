@@ -61,7 +61,7 @@ for pretraining_site in pretraining_models:
     
     model, training_model, prediction_model = create_models(
                     backbone_retinanet=backbone.retinanet,
-                   num_classes=train_generator.num_classes(),
+                   num_classes=2,
                    weights=pretrain_model_path,
                    multi_gpu=DeepForest_config["num_GPUs"],
                    freeze_backbone=False,
