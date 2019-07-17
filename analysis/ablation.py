@@ -89,9 +89,11 @@ for pretraining_site in pretraining_models:
                 "--score-threshold", str(DeepForest_config["score_threshold"]),
                 "--save-path", save_image_path,
                 "--snapshot-path", save_snapshot_path,
-                "--weights", str(pretrain_model_path)
+                "--weights", str(pretrain_model_path),
+                "--multi-gpu-force",
+                "--multi-gpu", 2
             ]
-        
+            
             #Run training, and pass comet experiment class
             model_path = training_main(args=args, data=data, DeepForest_config=DeepForest_config, experiment=experiment)  
             
