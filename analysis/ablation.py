@@ -48,6 +48,8 @@ for pretraining_site in pretraining_models:
     #For each site run a portion of the training data
     for x in np.arange(4):
         for proportion_data in [0, 0.01, 0.05,0.25,0.5,0.75,1]:
+            experiment = Experiment(api_key="ypQZhYfs3nSyKzOfz13iuJpj2", project_name='deeplidar', log_code=False)
+            
             pretrain_model_path = pretraining_models[pretraining_site]
             print("Running pretraining for  {}".format(pretraining_site))
             
@@ -61,7 +63,6 @@ for pretraining_site in pretraining_models:
             DeepForest_config["epochs"] = 30
             DeepForest_config["save_image_path"] =  None
             
-            experiment = Experiment(api_key="ypQZhYfs3nSyKzOfz13iuJpj2", project_name='deeplidar', log_code=False)
             experiment.log_parameter("mode","ablation")   
             DeepForest_config["evaluation_images"] =0         
             
@@ -85,10 +86,16 @@ for pretraining_site in pretraining_models:
                 train_generator, validation_generator = create_h5_generators(data, DeepForest_config=DeepForest_config)
                 
                 print('Loading model, this may take a secondkeras-retinanet.\n')
-                model            = models.load_model(pretrain_model_path, backbone_name=DeepForest_config["backbone"])
-                training_model   = model
-                prediction_model = retinanet_bbox(model=model, nms_threshold=DeepForest_config["nms_threshold"])
-                
+                model, training_model, prediction_model = create_models(
+                   backbone_retinanet=backbone.retinanet,
+                   num_classes=train_generator.num_classes(),
+                   weights=pretrain_model_path,
+                   multi_gpu=DeepForest_config["num_GPUs"],
+                   freeze_backbone=False,
+                   nms_threshold=DeepForest_config["nms_threshold"],
+                   input_channels=DeepForest_config["input_channels"]
+               )
+    
                 dirname = datetime.now().strftime("%Y%m%d_%H%M%S")
                 save_snapshot_path=DeepForest_config["save_snapshot_path"] + dirname            
                 os.mkdir(save_snapshot_path)        
@@ -113,7 +120,6 @@ for pretraining_site in pretraining_models:
                 num_trees = 0
                 
             #Run eval
-            #Always use all hand annotations
             experiment = Experiment(api_key="ypQZhYfs3nSyKzOfz13iuJpj2", project_name='deeplidar', log_code=False)
             experiment.log_parameter("mode","ablation_evaluation")
             experiment.log_parameters(DeepForest_config)            
