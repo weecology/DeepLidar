@@ -103,7 +103,6 @@ for pretraining_site in pretraining_models:
                     epochs=DeepForest_config["epochs"],
                     verbose=2,
                     shuffle=False,
-                    callbacks=callbacks,
                     workers=DeepForest_config["workers"],
                     use_multiprocessing=DeepForest_config["use_multiprocessing"],
                     max_queue_size=DeepForest_config["max_queue_size"])
