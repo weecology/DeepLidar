@@ -160,5 +160,5 @@ if __name__ == '__main__':
     
     #model name
     model_name = os.path.splitext(os.path.basename(model))[0]
-    
+    print(results)
     results.to_csv("cross_site.csv")
