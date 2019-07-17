@@ -44,81 +44,82 @@ results = []
 for pretraining_site in pretraining_models:
     
     #For each site run a portion of the training data
-    for proportion_data in [0.05,0.25,0.5,0.75,1]:
-        pretrain_model_path = pretraining_models[pretraining_site]
-        print("Running pretraining for  {}".format(pretraining_site))
-        
-        #load config - clean
-        DeepForest_config = copy.deepcopy(original_DeepForest_config)      
-        
-        ##Replace config file and experiment
-        DeepForest_config["hand_annotation_site"] = [pretraining_site]
-        DeepForest_config["evaluation_site"] = [pretraining_site]
-        
-        experiment = Experiment(api_key="ypQZhYfs3nSyKzOfz13iuJpj2", project_name='deeplidar', log_code=False)
-        experiment.log_parameter("mode","ablation")   
-        experiment.log_parameters(DeepForest_config)    
-        DeepForest_config["evaluation_images"] =0         
-        
-        #set training images, as a function of the number of training windows
-        DeepForest_config["training_proportion"] = proportion_data    
-        
-        ###Log experiments
-        dirname = datetime.now().strftime("%Y%m%d_%H%M%S")        
-        experiment.log_parameter("Start Time", dirname)    
-        
-        ##Make a new dir and reformat args
-        save_snapshot_path = DeepForest_config["save_snapshot_path"]+ dirname            
-        save_image_path = DeepForest_config["save_image_path"]+ dirname
-        os.mkdir(save_snapshot_path)        
-        
-        if not os.path.exists(save_image_path):
-            os.mkdir(save_image_path)        
-        
-        #Load retraining data
-        data = load_retraining_data(DeepForest_config)
-        for x in [pretraining_site]:
-            DeepForest_config[x]["h5"] = os.path.join(DeepForest_config[x]["h5"],"hand_annotations")
-            print(DeepForest_config[x]["h5"])
-        
-        args = [
-            "--epochs", str(30),
-            "--batch-size", str(DeepForest_config['batch_size']),
-            "--backbone", str(DeepForest_config["backbone"]),
-            "--score-threshold", str(DeepForest_config["score_threshold"]),
-            "--save-path", save_image_path,
-            "--snapshot-path", save_snapshot_path,
-            "--weights", str(pretrain_model_path)
-        ]
-    
-        #Run training, and pass comet experiment class
-        model_path = training_main(args=args, data=data, DeepForest_config=DeepForest_config, experiment=experiment)  
-        
-        num_trees = experiment.get_parameter("Number of Training Trees")
-        
-        #Run eval
-        #Always use all hand annotations
-        experiment = Experiment(api_key="ypQZhYfs3nSyKzOfz13iuJpj2", project_name='deeplidar', log_code=False)
-        experiment.log_parameter("mode","ablation_evaluation")
-        experiment.log_parameters(DeepForest_config)            
+    for x in np.arange(3):
+        for proportion_data in [0.05,0.25,0.5,0.75,1]:
+            pretrain_model_path = pretraining_models[pretraining_site]
+            print("Running pretraining for  {}".format(pretraining_site))
             
-        args = [
-            "--batch-size", str(DeepForest_config['batch_size']),
-            '--score-threshold', str(DeepForest_config['score_threshold']),
-            '--suppression-threshold', '0.1', 
-            '--save-path', 'snapshots/images/', 
-            '--model', model_path, 
-            '--convert-model'
-        ]
-             
-        # load the model just once
-        keras.backend.tensorflow_backend.set_session(get_session())
-        print('Loading model, this may take a second...')
-        model = models.load_model(model_path, backbone_name="resnet50", convert=True, nms_threshold=DeepForest_config["nms_threshold"])
-
-        recall, precision  = eval_main(DeepForest_config = DeepForest_config, args = args, model=model)
-        results.append({"Number of Trees": num_trees, "Proportion":proportion_data,"Evaluation Site" : pretraining_site, "Recall": recall,"Precision": precision})
+            #load config - clean
+            DeepForest_config = copy.deepcopy(original_DeepForest_config)      
+            
+            ##Replace config file and experiment
+            DeepForest_config["hand_annotation_site"] = [pretraining_site]
+            DeepForest_config["evaluation_site"] = [pretraining_site]
+            
+            experiment = Experiment(api_key="ypQZhYfs3nSyKzOfz13iuJpj2", project_name='deeplidar', log_code=False)
+            experiment.log_parameter("mode","ablation")   
+            experiment.log_parameters(DeepForest_config)    
+            DeepForest_config["evaluation_images"] =0         
+            
+            #set training images, as a function of the number of training windows
+            DeepForest_config["training_proportion"] = proportion_data    
+            
+            ###Log experiments
+            dirname = datetime.now().strftime("%Y%m%d_%H%M%S")        
+            experiment.log_parameter("Start Time", dirname)    
+            
+            ##Make a new dir and reformat args
+            save_snapshot_path = DeepForest_config["save_snapshot_path"]+ dirname            
+            save_image_path = DeepForest_config["save_image_path"]+ dirname
+            os.mkdir(save_snapshot_path)        
+            
+            if not os.path.exists(save_image_path):
+                os.mkdir(save_image_path)        
+            
+            #Load retraining data
+            data = load_retraining_data(DeepForest_config)
+            for x in [pretraining_site]:
+                DeepForest_config[x]["h5"] = os.path.join(DeepForest_config[x]["h5"],"hand_annotations")
+                print(DeepForest_config[x]["h5"])
+            
+            args = [
+                "--epochs", str(30),
+                "--batch-size", str(DeepForest_config['batch_size']),
+                "--backbone", str(DeepForest_config["backbone"]),
+                "--score-threshold", str(DeepForest_config["score_threshold"]),
+                "--save-path", save_image_path,
+                "--snapshot-path", save_snapshot_path,
+                "--weights", str(pretrain_model_path)
+            ]
         
+            #Run training, and pass comet experiment class
+            model_path = training_main(args=args, data=data, DeepForest_config=DeepForest_config, experiment=experiment)  
+            
+            num_trees = experiment.get_parameter("Number of Training Trees")
+            
+            #Run eval
+            #Always use all hand annotations
+            experiment = Experiment(api_key="ypQZhYfs3nSyKzOfz13iuJpj2", project_name='deeplidar', log_code=False)
+            experiment.log_parameter("mode","ablation_evaluation")
+            experiment.log_parameters(DeepForest_config)            
+                
+            args = [
+                "--batch-size", str(DeepForest_config['batch_size']),
+                '--score-threshold', str(DeepForest_config['score_threshold']),
+                '--suppression-threshold', '0.1', 
+                '--save-path', 'snapshots/images/', 
+                '--model', model_path, 
+                '--convert-model'
+            ]
+                 
+            # load the model just once
+            keras.backend.tensorflow_backend.set_session(get_session())
+            print('Loading model, this may take a second...')
+            model = models.load_model(model_path, backbone_name="resnet50", convert=True, nms_threshold=DeepForest_config["nms_threshold"])
+    
+            recall, precision  = eval_main(DeepForest_config = DeepForest_config, args = args, model=model)
+            results.append({"Number of Trees": num_trees, "Proportion":proportion_data,"Evaluation Site" : pretraining_site, "Recall": recall,"Precision": precision})
+            
 results = pd.DataFrame(results)
 
 results.to_csv("ablation" + ".csv")        
