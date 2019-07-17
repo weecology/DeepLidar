@@ -58,6 +58,7 @@ for pretraining_site in pretraining_models:
             DeepForest_config["evaluation_site"] = [pretraining_site]
             DeepForest_config["batch_size"] = 40
             DeepForest_config["epochs"] = 30
+            DeepForest_config["save_image_path"] =  None
             
             experiment = Experiment(api_key="ypQZhYfs3nSyKzOfz13iuJpj2", project_name='deeplidar', log_code=False)
             experiment.log_parameter("mode","ablation")   
