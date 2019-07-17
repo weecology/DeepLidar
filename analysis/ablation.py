@@ -116,6 +116,7 @@ for pretraining_site in pretraining_models:
                 )
                 
                 model.save(trained_model_path)
+                del(training_model)
     
             else: 
                 # load the model just once
