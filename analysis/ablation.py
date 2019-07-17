@@ -31,7 +31,7 @@ def get_session():
     return tf.Session(config=config)
 
 #load config - clean
-original_DeepForest_config = load_config("..")       
+DeepForest_config = load_config("..")       
 
 #The following models have been pretrained on all other sites except for the name in the site key
 pretraining_models = {
@@ -56,7 +56,9 @@ for pretraining_site in pretraining_models:
         
     #Load pretraining model
     print('Loading model, this may take a secondkeras-retinanet.\n')
-    backbone = models.backbone(DeepForest_config["backbone"])                
+    
+    backbone = models.backbone(DeepForest_config["backbone"])         
+    
     model, training_model, prediction_model = create_models(
                     backbone_retinanet=backbone.retinanet,
                    num_classes=train_generator.num_classes(),
@@ -80,8 +82,6 @@ for pretraining_site in pretraining_models:
             
             experiment.log_parameter("Start Time", dirname)    
             experiment.log_parameters(DeepForest_config)                
-            #load config - clean
-            DeepForest_config = copy.deepcopy(original_DeepForest_config)      
             
             ##Replace config file and experiment
             DeepForest_config["hand_annotation_site"] = [pretraining_site]
