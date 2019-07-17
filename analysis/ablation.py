@@ -15,6 +15,7 @@ import numpy as np
 
 from keras_retinanet import models
 from keras_retinanet .models.retinanet import retinanet_bbox
+from keras_retinanet .callbacks import RedirectModel
 
 #insert path 
 sys.path.insert(0, os.path.abspath('..'))
@@ -39,7 +40,7 @@ results = []
 for pretraining_site in pretraining_models:  
     
     pretrain_model_path = pretraining_models[pretraining_site]
-    print("Running pretraining for  {}".format(pretraining_site))
+    print("Running pretraining for {}".format(pretraining_site))
     
     #Load retraining data
     data = load_retraining_data(DeepForest_config)
