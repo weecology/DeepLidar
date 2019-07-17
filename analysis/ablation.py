@@ -18,7 +18,7 @@ from keras_retinanet import models
 #insert path 
 sys.path.insert(0, os.path.abspath('..'))
 from DeepForest.config import load_config
-from DeepForest.utils.generators import load_retraining_data
+from DeepForest.utils.generators import load_retraining_data, create_h5_generators
 from train import main as training_main
 from prcurve import main as eval_main
 
