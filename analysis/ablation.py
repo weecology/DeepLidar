@@ -92,7 +92,7 @@ for pretraining_site in pretraining_models:
                 "--snapshot-path", save_snapshot_path,
                 "--weights", str(pretrain_model_path),
                 "--multi-gpu-force",
-                "--multi-gpu", 2
+                "--multi-gpu", "2"
             ]
             
             #Run training, and pass comet experiment class
