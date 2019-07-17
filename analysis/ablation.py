@@ -1,6 +1,6 @@
 """
-Train a series of models based on a set of sites. 
-For example, retrain on each epoch of pretraining data
+Ablation study to test the effect of the % of training data on precision and recall. 
+Run several times and save the output to a pandas frame
 """
 from comet_ml import Experiment
 import keras
@@ -86,6 +86,8 @@ for pretraining_site in pretraining_models:
                 train_generator, validation_generator = create_h5_generators(data, DeepForest_config=DeepForest_config)
                 
                 print('Loading model, this may take a secondkeras-retinanet.\n')
+                
+                backbone = models.backbone(DeepForest_config["backbone"])                
                 model, training_model, prediction_model = create_models(
                    backbone_retinanet=backbone.retinanet,
                    num_classes=train_generator.num_classes(),
