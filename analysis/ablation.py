@@ -46,7 +46,7 @@ results = []
 for pretraining_site in pretraining_models:
     
     #For each site run a portion of the training data
-    for x in np.arange(4):
+    for x in np.arange(5):
         for proportion_data in [0, 0.01, 0.05,0.25,0.5,0.75,1]:
             experiment = Experiment(api_key="ypQZhYfs3nSyKzOfz13iuJpj2", project_name='deeplidar', log_code=False)
             
@@ -60,7 +60,7 @@ for pretraining_site in pretraining_models:
             DeepForest_config["hand_annotation_site"] = [pretraining_site]
             DeepForest_config["evaluation_site"] = [pretraining_site]
             DeepForest_config["batch_size"] = 40
-            DeepForest_config["epochs"] = 30
+            DeepForest_config["epochs"] = 2
             DeepForest_config["save_image_path"] =  None
             
             experiment.log_parameter("mode","ablation")   
@@ -98,6 +98,7 @@ for pretraining_site in pretraining_models:
                    input_channels=DeepForest_config["input_channels"]
                )
     
+                #make dir
                 dirname = datetime.now().strftime("%Y%m%d_%H%M%S")
                 save_snapshot_path=DeepForest_config["save_snapshot_path"] + dirname            
                 os.mkdir(save_snapshot_path)        
