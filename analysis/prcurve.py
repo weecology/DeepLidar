@@ -106,7 +106,7 @@ if __name__ == '__main__':
             model = models.load_model(trained_model, backbone_name="resnet50", convert=True, nms_threshold=DeepForest_config["nms_threshold"])
             
             for score_threshold in np.arange(0, 1, 0.1):
-                print("model {}, site {}, threshold {}".format(trained_model,training_site,score_threshold))
+                print("model {}, site {}, threshold {}".format(trained_model,training_site, score_threshold))
                 #pass an args object instead of using command line        
                 args = [
                     "--batch-size", str(DeepForest_config['batch_size']),

@@ -23,13 +23,6 @@ from DeepForest.utils.generators import load_retraining_data, create_h5_generato
 from train import create_models
 from prcurve import main as eval_main
 
-def get_session():
-    """ Construct a modified tf session.
-    """
-    config = tf.ConfigProto()
-    config.gpu_options.allow_growth = True
-    return tf.Session(config=config)
-
 #load config - clean
 DeepForest_config = load_config("..")       
 
@@ -100,23 +93,43 @@ for pretraining_site in pretraining_models:
                 #start training
                 train_generator, validation_generator = create_h5_generators(data, DeepForest_config=DeepForest_config)     
                 
+                #create callback, a bit annoying to keep the retinanet machinery intact
+                # ensure directory created first; otherwise h5py will error after epoch.
+                callbacks = []
+                checkpoint = keras.callbacks.ModelCheckpoint(
+                    os.path.join(
+                        save_snapshot_path,
+                        '{backbone}_{{epoch:02d}}.h5'.format(backbone=DeepForest_config["backbone"])
+                    ),
+                    verbose=1,
+                    save_best_only=True,
+                    monitor="NEON_map",
+                    mode='max'
+                )
+                checkpoint = RedirectModel(checkpoint, model)
+                callbacks.append(checkpoint)
+                
                 history = training_model.fit_generator(
                     generator=train_generator,
                     steps_per_epoch=train_generator.size()/DeepForest_config["batch_size"],
                     epochs=DeepForest_config["epochs"],
                     verbose=2,
+                    callbacks=callbacks,
                     shuffle=False,
                     workers=DeepForest_config["workers"],
                     use_multiprocessing=DeepForest_config["use_multiprocessing"],
                     max_queue_size=DeepForest_config["max_queue_size"])
                 
                 num_trees = train_generator.total_trees
-               
+                #return path snapshot of final epoch
+                saved_models = glob.glob(os.path.join(save_snapshot_path,"*.h5"))
+                saved_models.sort()
+                trained_model_path = saved_models[-1]      
+    
             else: 
                 # load the model just once
-                keras.backend.tensorflow_backend.set_session(get_session())
                 print('Loading model, this may take a second...')
-                training_model = models.load_model(pretrain_model_path, backbone_name="resnet50", convert=True, nms_threshold=DeepForest_config["nms_threshold"])
+                trained_model_path = pretrain_model_path
                 num_trees = 0
                 
             #Run eval
@@ -131,6 +144,7 @@ for pretraining_site in pretraining_models:
                 '--save-path', 'snapshots/images/', 
             ]
                  
+            training_model = models.load_model(trained_model_path, backbone_name="resnet50", convert=True, nms_threshold=DeepForest_config["nms_threshold"])
             recall, precision  = eval_main(DeepForest_config = DeepForest_config, args = args, model=training_model)
             results.append({"Number of Trees": num_trees, "Proportion":proportion_data,"Evaluation Site" : pretraining_site, "Recall": recall,"Precision": precision})
             
