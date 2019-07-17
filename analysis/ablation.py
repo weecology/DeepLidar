@@ -86,14 +86,14 @@ for pretraining_site in pretraining_models:
             
             args = [
                 "--epochs", str(30),
-                "--batch-size", str(40),
+                "--batch-size", str(60),
                 "--backbone", str(DeepForest_config["backbone"]),
                 "--score-threshold", str(DeepForest_config["score_threshold"]),
                 "--save-path", save_image_path,
                 "--snapshot-path", save_snapshot_path,
                 "--weights", str(pretrain_model_path),
                 "--multi-gpu-force",
-                "--multi-gpu", "2"
+                "--multi-gpu", "3"
             ]
             
             if not proportion_data == 0:
