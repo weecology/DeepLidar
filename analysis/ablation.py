@@ -43,6 +43,9 @@ for pretraining_site in pretraining_models:
     print("Running pretraining for {}".format(pretraining_site))
     
     #Load retraining data
+    DeepForest_config["hand_annotation_site"] = [pretraining_site]
+    DeepForest_config["evaluation_site"] = [pretraining_site]
+    
     data = load_retraining_data(DeepForest_config)
     for x in [pretraining_site]:
         DeepForest_config[x]["h5"] = os.path.join(DeepForest_config[x]["h5"],"hand_annotations")
@@ -66,20 +69,17 @@ for pretraining_site in pretraining_models:
     #For each site run a portion of the training data
     for x in np.arange(5):
         for proportion_data in [0, 0.01, 0.05,0.25,0.5,0.75,1]:
-            experiment = Experiment(api_key="ypQZhYfs3nSyKzOfz13iuJpj2", project_name='deeplidar', log_code=False)
             
             ###Log experiments
+            experiment = Experiment(api_key="ypQZhYfs3nSyKzOfz13iuJpj2", project_name='deeplidar', log_code=False)
+            
+            #make snapshot dir            
             dirname = datetime.now().strftime("%Y%m%d_%H%M%S")  
-            #make snapshot dir
+            experiment.log_parameter("Start Time", dirname)                
             save_snapshot_path=DeepForest_config["save_snapshot_path"] + dirname            
             os.mkdir(save_snapshot_path)   
             
-            experiment.log_parameter("Start Time", dirname)    
-            experiment.log_parameters(DeepForest_config)                
-            
             ##Replace config file and experiment
-            DeepForest_config["hand_annotation_site"] = [pretraining_site]
-            DeepForest_config["evaluation_site"] = [pretraining_site]
             DeepForest_config["batch_size"] = 40
             DeepForest_config["epochs"] = 2
             DeepForest_config["save_image_path"] =  None
@@ -89,6 +89,8 @@ for pretraining_site in pretraining_models:
             #set training images, as a function of the number of training windows
             DeepForest_config["training_proportion"] = proportion_data     
             
+            experiment.log_parameters(DeepForest_config)                
+
             if not proportion_data == 0:
                 #Run training, and pass comet experiment class
                 #start training
