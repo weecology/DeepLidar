@@ -58,7 +58,7 @@ for pretraining_site in pretraining_models:
     
     model, training_model, prediction_model = create_models(
                     backbone_retinanet=backbone.retinanet,
-                   num_classes=2,
+                   num_classes=1,
                    weights=pretrain_model_path,
                    multi_gpu=DeepForest_config["num_GPUs"],
                    freeze_backbone=False,
@@ -88,7 +88,6 @@ for pretraining_site in pretraining_models:
             
             #set training images, as a function of the number of training windows
             DeepForest_config["training_proportion"] = proportion_data     
-            
             experiment.log_parameters(DeepForest_config)                
 
             if not proportion_data == 0:
@@ -98,19 +97,19 @@ for pretraining_site in pretraining_models:
                 
                 #create callback, a bit annoying to keep the retinanet machinery intact
                 # ensure directory created first; otherwise h5py will error after epoch.
-                callbacks = []
-                checkpoint = keras.callbacks.ModelCheckpoint(
-                    os.path.join(
-                        save_snapshot_path,
-                        '{backbone}_{{epoch:02d}}.h5'.format(backbone=DeepForest_config["backbone"])
-                    ),
-                    verbose=1,
-                    save_best_only=True,
-                    monitor="NEON_map",
-                    mode='max'
-                )
-                checkpoint = RedirectModel(checkpoint, model)
-                callbacks.append(checkpoint)
+                #callbacks = []
+                #checkpoint = keras.callbacks.ModelCheckpoint(
+                    #os.path.join(
+                        #save_snapshot_path,
+                        #'{backbone}_{{epoch:02d}}.h5'.format(backbone=DeepForest_config["backbone"])
+                    #),
+                    #verbose=1,
+                    #save_best_only=True,
+                    #monitor="NEON_map",
+                    #mode='max'
+                #)
+                #checkpoint = RedirectModel(checkpoint, model)
+                #callbacks.append(checkpoint)
                 
                 history = training_model.fit_generator(
                     generator=train_generator,
@@ -129,28 +128,28 @@ for pretraining_site in pretraining_models:
                 saved_models.sort()
                 trained_model_path = saved_models[-1]      
     
-            else: 
-                # load the model just once
-                print('Loading model, this may take a second...')
-                trained_model_path = pretrain_model_path
-                num_trees = 0
+            #else: 
+                ## load the model just once
+                #print('Loading model, this may take a second...')
+                #trained_model_path = pretrain_model_path
+                #num_trees = 0
                 
-            #Run eval
-            experiment = Experiment(api_key="ypQZhYfs3nSyKzOfz13iuJpj2", project_name='deeplidar', log_code=False)
-            experiment.log_parameter("mode","ablation_evaluation")
-            experiment.log_parameters(DeepForest_config)            
+            ##Run eval
+            #experiment = Experiment(api_key="ypQZhYfs3nSyKzOfz13iuJpj2", project_name='deeplidar', log_code=False)
+            #experiment.log_parameter("mode","ablation_evaluation")
+            #experiment.log_parameters(DeepForest_config)            
                 
-            args = [
-                "--batch-size", str(DeepForest_config['batch_size']),
-                '--score-threshold', str(DeepForest_config['score_threshold']),
-                '--suppression-threshold', '0.1', 
-                '--save-path', 'snapshots/images/', 
-            ]
+            #args = [
+                #"--batch-size", str(DeepForest_config['batch_size']),
+                #'--score-threshold', str(DeepForest_config['score_threshold']),
+                #'--suppression-threshold', '0.1', 
+                #'--save-path', 'snapshots/images/', 
+            #]
                  
             #training_model = models.load_model(trained_model_path, backbone_name="resnet50", convert=True, nms_threshold=DeepForest_config["nms_threshold"])
             #recall, precision  = eval_main(DeepForest_config = DeepForest_config, args = args, model=training_model)
             #results.append({"Number of Trees": num_trees, "Proportion":proportion_data,"Evaluation Site" : pretraining_site, "Recall": recall,"Precision": precision})
             
-results = pd.DataFrame(results)
+#results = pd.DataFrame(results)
 
-results.to_csv("ablation_{}".format(dirname) + ".csv")        
+#results.to_csv("ablation_{}".format(dirname) + ".csv")        
