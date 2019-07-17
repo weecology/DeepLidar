@@ -129,8 +129,6 @@ for pretraining_site in pretraining_models:
                 '--score-threshold', str(DeepForest_config['score_threshold']),
                 '--suppression-threshold', '0.1', 
                 '--save-path', 'snapshots/images/', 
-                '--model', model_path, 
-                '--convert-model'
             ]
                  
             recall, precision  = eval_main(DeepForest_config = DeepForest_config, args = args, model=training_model)
