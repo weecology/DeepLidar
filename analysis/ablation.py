@@ -109,8 +109,8 @@ def train(pretrain_model_path, data, proportion_data, DeepForest_config):
         print('Loading model, this may take a second...')
         trained_model_path = pretrain_model_path
         num_trees = 0
+        experiment.log_parameter("Number of Training Trees", num_trees)                   
     
-    experiment.log_parameter("Number of Training Trees", num_trees)           
     return trained_model_path
 
 def evaluation(trained_model_path, results, DeepForest_config):
