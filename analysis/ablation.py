@@ -80,7 +80,7 @@ def train(pretrain_model_path, data, proportion_data, DeepForest_config):
                 '{backbone}_{{epoch:02d}}.h5'.format(backbone=DeepForest_config["backbone"])
             ),
             verbose=1,
-        period=10)
+        period=2)
         
         checkpoint = RedirectModel(checkpoint, model)
         callbacks.append(checkpoint)
