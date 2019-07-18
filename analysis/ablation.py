@@ -70,7 +70,7 @@ for pretraining_site in pretraining_models:
             os.mkdir(save_snapshot_path)   
             
             ##Replace config file and experiment
-            DeepForest_config["batch_size"] = 40
+            DeepForest_config["batch_size"] = 30
             DeepForest_config["epochs"] = 10
             DeepForest_config["save_image_path"] =  None
             experiment.log_parameter("mode","ablation")   
@@ -149,9 +149,9 @@ for pretraining_site in pretraining_models:
             ]
             
             eval_model = models.load_model(trained_model_path, backbone_name="resnet50", convert=True, nms_threshold=DeepForest_config["nms_threshold"])                 
-            #recall, precision  = eval_main(DeepForest_config = DeepForest_config, args = args, model=eval_model)
-            #results.append({"Number of Trees": num_trees, "Proportion":proportion_data,"Evaluation Site" : pretraining_site, "Recall": recall,"Precision": precision})
+            recall, precision  = eval_main(DeepForest_config = DeepForest_config, args = args, model=eval_model)
+            results.append({"Number of Trees": num_trees, "Proportion":proportion_data,"Evaluation Site" : pretraining_site, "Recall": recall,"Precision": precision})
             
-#results = pd.DataFrame(results)
+results = pd.DataFrame(results)
 
-#results.to_csv("ablation_{}".format(dirname) + ".csv")        
+results.to_csv("ablation_{}".format(dirname) + ".csv")        
