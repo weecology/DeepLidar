@@ -71,7 +71,7 @@ for pretraining_site in pretraining_models:
             
             ##Replace config file and experiment
             DeepForest_config["batch_size"] = 40
-            DeepForest_config["epochs"] = 2
+            DeepForest_config["epochs"] = 10
             DeepForest_config["save_image_path"] =  None
             experiment.log_parameter("mode","ablation")   
             DeepForest_config["evaluation_images"] =0         
@@ -102,7 +102,8 @@ for pretraining_site in pretraining_models:
                         save_snapshot_path,
                         '{backbone}_{{epoch:02d}}.h5'.format(backbone=DeepForest_config["backbone"])
                     ),
-                    verbose=1)
+                    verbose=1,
+                period=10)
                 
                 checkpoint = RedirectModel(checkpoint, model)
                 callbacks.append(checkpoint)
@@ -122,7 +123,7 @@ for pretraining_site in pretraining_models:
                 num_trees = train_generator.total_trees
                 
                 #return path snapshot of final epoch
-                saved_models = glob.glob(os.path.join(args.snapshot_path,"*.h5")).sort()
+                saved_models = glob.glob(os.path.join(save_snapshot_path,"*.h5")).sort()
                 trained_model_path = saved_models[-1]
 
             else: 
