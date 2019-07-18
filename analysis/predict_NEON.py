@@ -10,6 +10,7 @@ import copy
 
 #DeepForest
 from keras_retinanet import models
+from keras_retinanet.utils.visualization import draw_annotations
 
 #Add to path
 sys.path.insert(0, os.path.abspath('..'))
