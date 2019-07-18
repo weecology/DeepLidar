@@ -70,7 +70,7 @@ for pretraining_site in pretraining_models:
             os.mkdir(save_snapshot_path)   
             
             ##Replace config file and experiment
-            DeepForest_config["batch_size"] = 30
+            DeepForest_config["batch_size"] = 20
             DeepForest_config["epochs"] = 10
             DeepForest_config["save_image_path"] =  None
             experiment.log_parameter("mode","ablation")   
