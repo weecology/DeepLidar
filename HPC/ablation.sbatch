@@ -8,8 +8,8 @@
 #SBATCH --cpus-per-task=2            # Number of cores per MPI rank
 #SBATCH --mem-per-cpu=20GB
 #SBATCH --time=48:00:00       #Time limit hrs:min:sec
-#SBATCH --output=/home/b.weinstein/logs/ablation.out   # Standard output and error log
-#SBATCH --error=/home/b.weinstein/logs/ablation.err
+#SBATCH --output=/home/b.weinstein/logs/ablation_new.out   # Standard output and error log
+#SBATCH --error=/home/b.weinstein/logs/ablation_new.err
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu:tesla:2
 
