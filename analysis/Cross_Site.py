@@ -43,7 +43,7 @@ def parse_args(args):
     parser.add_argument('--gpu',             help='Id of the GPU to use (as reported by nvidia-smi).')
     parser.add_argument('--score-threshold', help='Threshold on score to filter detections with (defaults to 0.05).', default=0.05, type=float)
     parser.add_argument('--iou-threshold',   help='IoU Threshold to count for a positive detection (defaults to 0.5).', default=0.5, type=float)
-    parser.add_argument('--max-detections',  help='Max Detections per image (defaults to 100).', default=100, type=int)
+    parser.add_argument('--max-detections',  help='Max Detections per image (defaults to 100).', default=200, type=int)
     parser.add_argument('--suppression-threshold',  help='Permitted overlap among predictions', default=0.2, type=float)
     parser.add_argument('--save-path',       help='Path for saving images with detections (doesn\'t work for COCO).')
     parser.add_argument('--image-min-side',  help='Rescale the image so the smallest side is min_side.', type=int, default=400)
