@@ -12,7 +12,6 @@ import glob
 import pandas as pd 
 import copy
 import numpy as np
-import gc()
 
 from keras_retinanet import models
 from keras_retinanet .models.retinanet import retinanet_bbox
