@@ -57,7 +57,7 @@ for pretraining_site in pretraining_models:
     backbone = models.backbone(DeepForest_config["backbone"])         
     
     #For each site run a portion of the training data
-    for x in np.arange(5):
+    for x in np.arange(2):
         for proportion_data in [0, 0.01, 0.05,0.25,0.5,0.75,1]:
             
             ###Log experiments
