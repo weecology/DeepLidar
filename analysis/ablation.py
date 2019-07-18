@@ -123,7 +123,9 @@ for pretraining_site in pretraining_models:
                 num_trees = train_generator.total_trees
                 
                 #return path snapshot of final epoch
-                saved_models = glob.glob(os.path.join(save_snapshot_path,"*.h5")).sort()
+                saved_models = glob.glob(os.path.join(save_snapshot_path,"*.h5"))
+                saved_models.sort()
+                print(saved_models)
                 trained_model_path = saved_models[-1]
 
             else: 
