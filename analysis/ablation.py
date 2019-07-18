@@ -27,6 +27,15 @@ from prcurve import main as eval_main
 #load config - clean
 DeepForest_config = load_config("..")       
 
+def get_session():
+    """ Construct a modified tf session.
+    """
+    config = tf.ConfigProto()
+    config.gpu_options.allow_growth = True
+    return tf.Session(config=config)
+
+keras.backend.tensorflow_backend.set_session(get_session())
+
 #The following models have been pretrained on all other sites except for the name in the site key
 pretraining_models = {
     "SJER": "/orange/ewhite/b.weinstein/retinanet/20190711_121755/resnet50_05.h5",
