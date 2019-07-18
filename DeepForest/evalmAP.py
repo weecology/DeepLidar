@@ -154,7 +154,7 @@ def _get_detections(generator, model, score_threshold=0.05, max_detections=300, 
 
         if save_path is not None:
             draw_annotations(plot_rgb, generator.load_annotations(i), label_to_name=generator.label_to_name)
-            #draw_detections(plot_rgb, image_boxes, image_scores, image_labels, label_to_name=generator.label_to_name,score_threshold=score_threshold)
+            draw_detections(plot_rgb, image_boxes, image_scores, image_labels, label_to_name=generator.label_to_name,score_threshold=score_threshold)
         
             #name image
             image_name=generator.image_names[i]        
