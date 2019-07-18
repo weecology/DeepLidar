@@ -12,6 +12,7 @@ import glob
 import pandas as pd 
 import copy
 import numpy as np
+import gc()
 
 from keras_retinanet import models
 from keras_retinanet .models.retinanet import retinanet_bbox
@@ -160,7 +161,9 @@ for pretraining_site in pretraining_models:
             eval_model = models.load_model(trained_model_path, backbone_name="resnet50", convert=True, nms_threshold=DeepForest_config["nms_threshold"])                 
             recall, precision  = eval_main(DeepForest_config = DeepForest_config, args = args, model=eval_model)
             results.append({"Number of Trees": num_trees, "Proportion":proportion_data,"Evaluation Site" : pretraining_site, "Recall": recall,"Precision": precision})
-            
+            del(eval_model)
+            del(training_model)
+            gc.collect()
 results = pd.DataFrame(results)
 
 results.to_csv("ablation_{}".format(dirname) + ".csv")        
