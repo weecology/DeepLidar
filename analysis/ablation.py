@@ -111,9 +111,9 @@ def train(pretrain_model_path, data, proportion_data, DeepForest_config):
         num_trees = 0
         experiment.log_parameter("Number of Training Trees", num_trees)                   
     
-    return trained_model_path
+    return trained_model_path, num_trees
 
-def evaluation(trained_model_path, results, DeepForest_config):
+def evaluation(trained_model_path, results, DeepForest_config, num_trees):
     #Run eval
     experiment = Experiment(api_key="ypQZhYfs3nSyKzOfz13iuJpj2", project_name='deeplidar', log_code=False)
     experiment.log_parameter("mode","ablation_evaluation")
@@ -165,8 +165,8 @@ if __name__ == "__main__":
         #For each site run a portion of the training data
         for x in np.arange(2):
             for proportion_data in [0, 0.01, 0.05,0.25,0.5,0.75,1]:
-                trained_model_path = train(pretrain_model_path, data, proportion_data, DeepForest_config)
-                results = evaluation(trained_model_path, results, DeepForest_config)
+                trained_model_path, num_trees = train(pretrain_model_path, data, proportion_data, DeepForest_config)
+                results = evaluation(trained_model_path, results, DeepForest_config, num_trees)
     
     #Wrap together the results            
     results = pd.DataFrame(results)
