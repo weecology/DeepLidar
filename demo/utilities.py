@@ -32,7 +32,7 @@ def read_model(model_path, config):
         model = models.load_model(model_path, backbone_name='resnet50', convert=True, nms_threshold=config["nms_threshold"])
         return model
 
-def predict_image(model, raw_image, score_threshold = 0.15, max_detections= 100):
+def predict_image(model, raw_image, score_threshold = 0.1, max_detections= 100):
         #predict
         image        = image_utils.preprocess_image(raw_image)
         image, scale = keras_retinanet_image.resize_image(image)
