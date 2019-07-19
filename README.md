@@ -2,55 +2,45 @@
 
 Ben. G. Weinstein, Sergio Marconi, Stephanie Bohlman, Alina Zare, Ethan White
 
+# Summary
+DeepLidar is a keras retinanet implementation for predicting individual tree crowns in RGB imagery. 
+
 ## How can I train new data?
 
-DeepForest uses conda environments to manage python dependencies
+DeepLidar uses a semi-supervised framework for model training. For generating lidar-derived training data see (). I recommend using a conda environments to manage python dependencies. 
 
-Some key dependencies for model training that have some build specific installs include
-
-* OpenCV
-* Keras + Tensorflow
-* GDAL
-
-I've forked my own version of the wonderful keras retinanet implementation.
-
-https://github.com/bw4sz/keras-retinanet
+1. Create conda environment and install dependencies
 
 ```
-conda env create --name DeepForest -f=environment.yml
+conda env create --name DeepForest -f=generic_environment.yml
 ```
 
-Depending on conda env, you may need to download laszip directly see: https://stackoverflow.com/questions/49500149/laspy-cannot-find-laszip-when-is-installed-from-source-laszip-is-in-path
-
-All configurations are in the _config.yml 
-
-To install the retinanet, activate the conda env and pip install
-
-For example:
-```
-MacBook-Pro:keras-retinanet ben$ conda activate DeepLidar_dask
-(DeepLidar_dask) MacBook-Pro:keras-retinanet ben$ pip install .
-Processing /Users/ben/Documents/keras-retinanet
-```
-
-
-Generate data
+Clone the fork of the retinanet repo and install in local environment
 
 ```
-python dask_generate.py
+conda activate DeepForest
+git clone https://github.com/bw4sz/keras-retinanet
+cd keras-retinanet
+pip install .
 ```
 
-## Training
+2. Update config paths
+
+All paths are hard coded into [_config.yml](https://github.com/weecology/DeepLidar/blob/master/_config.yml)
+
+3. Train new model with new hand annotations
 
 ```
-python train.py
+python train.py --retrain
 ```
 
-## Evalution
+# How can I use pre-built models to predict new images.
 
-```
-python eval.py
-```
+Check out a demo ipython notebook: https://github.com/weecology/DeepLidar/tree/master/demo
+
+# Where are the data?
+
+The Neon Trees Benchmark dataset is soon to be published. All are welcome to use it. Currently under curation (in progress): https://github.com/weecology/NeonTreeEvaluation/
 
 ## Published articles
 
@@ -58,9 +48,3 @@ Our first article was published in *Remote Sensing* and can be found [here](http
 
 This codebase is constantly evolving and improving. To access the code at the time of publication, see Releases.
 The results of the full model can be found on our [comet page](https://www.comet.ml/bw4sz/deeplidar/2645e41bf83b47e68a313f3c933aff8a).
-
-## Data
-
-See the data repo: https://github.com/weecology/NeonTreeEvaluation
-* With the exception of the two hand annotated tiles that are too big to fit on github. See README of that repo.
-Data from [SJER](https://www.neonscience.org/field-sites/field-sites-map/SJER) were used in the first publication. We are happy to share any data, any time.
