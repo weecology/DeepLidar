@@ -5,7 +5,7 @@
 
 #Import logger.
 if __name__ == "__main__":
-    from comet_ml import Experiment
+    from comet_ml import Experiment, predictor
     
 #keras-retinanet imports
 import keras
@@ -182,6 +182,9 @@ def create_callbacks(model, training_model, prediction_model, train_generator, v
     neon_evaluation = RedirectModel(neon_evaluation, prediction_model)
     callbacks.append(neon_evaluation)  
         
+    #comet_loss predictor
+    predictor_callback = predictor(experiment, loss_name="loss", patience = 10, best_callback= None, threshold=0.1)
+   
     return callbacks
 
 
