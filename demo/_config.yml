@@ -1,0 +1,106 @@
+#Config file for DeepLidar on local OSX
+
+#Data generation - the number of workers for dask session
+num_hipergator_workers: 20
+training_csvs:
+  - SJER
+
+#LIDAR settings
+min_density: 2
+min_coverage: 30
+
+#Keras
+workers: 1
+use_multiprocessing: False
+max_queue_size: 10
+num_GPUs: 1
+save_image_path: snapshots/images/
+save_snapshot_path: snapshots/images/
+input_channels: 3
+
+#Sliding Window Size and Ovelap
+patch_size: 400
+patch_overlap: 0.05 
+rgb_res: 0.1
+
+#Preprocessing routines
+preprocess:
+  zero_area: True
+spatial_filter: True
+field_data_path: /Users/ben/Documents/DeepLidar/data/field_data.csv
+
+#Select sites
+hand_annotation_site:
+  - SJER
+pretraining_site:
+  - SJER
+evaluation_site:
+  - SJER
+
+#Training
+training_images: All
+training_proportion: 1
+weights: None
+imagenet_weights: False
+batch_size: 20
+epochs: 1
+backbone: resnet50
+shuffle_training: True
+score_threshold: 0.2
+
+#Evaluation
+evaluation_images: 0
+shuffle_evaluation: False
+validation_percent: 50 #For hand annotation neon_MAP
+#Non-max suppression, threshold for the IoU value to determine when a box should be suppressed.
+nms_threshold: 0.1
+
+#Data Paths
+SJER:
+  h5: /Users/Ben/Downloads/blending/SJER/
+  hand_annotations:
+    RGB: /Users/Ben/Documents/DeepLidar/data/SJER/training/
+    LIDAR: /Users/Ben/Documents/DeepLidar/data/SJER/training/
+  training_csvs: /Users/Ben/Documents/DeepLidar/data/SJER/training/
+  training:
+    RGB: /Users/Ben/Documents/DeepLidar/data/SJER/training/
+    LIDAR: /Users/Ben/Documents/DeepLidar/data/SJER/training/
+  evaluation:
+    RGB: /Users/Ben/Documents/DeepLidar/data/SJER/plots/
+    LIDAR: /Users/Ben/Documents/DeepLidar/data/SJER/plots/
+TEAK:
+  h5: /Users/Ben/Downloads/fourchannel/TEAK/
+  training_csvs: /Users/Ben/Documents/DeepLidar/data/TEAK/training/
+  hand_annotations:
+     RGB: /Users/Ben/Documents/DeepLidar/data/TEAK/training/
+     LIDAR: /Users/Ben/Documents/DeepLidar/data/TEAK/training/
+  training:
+    RGB: /Users/Ben/Documents/DeepLidar/data/TEAK/training/
+    LIDAR: /Users/Ben/Documents/DeepLidar/data/TEAK/training/
+  evaluation:
+    RGB: /Users/Ben/Documents/DeepLidar/data/TEAK/plots/
+    LIDAR: /Users/Ben/Documents/DeepLidar/data/TEAK/plots/
+NIWO:
+  h5: /Users/Ben/Downloads/fourchannel/NIWO/
+  hand_annotations:
+    RGB: /Users/Ben/Documents/DeepLidar/data/NIWO/training/
+    LIDAR: /Users/Ben/Documents/DeepLidar/data/NIWO/training/
+  training_csvs: /Users/Ben/Documents/DeepLidar/data/NIWO/training/
+  training:
+    RGB: /Users/Ben/Documents/DeepLidar/data/NIWO/training/
+    LIDAR: /Users/Ben/Documents/DeepLidar/data/NIWO/training/
+  evaluation:
+    RGB: /Users/Ben/Documents/DeepLidar/data/NIWO/plots/
+    LIDAR: /Users/Ben/Documents/DeepLidar/data/NIWO/plots/
+MLBS:
+  h5: /Users/Ben/Downloads/fourchannel/MLBS/
+  hand_annotations:
+    RGB: /Users/Ben/Documents/DeepLidar/data/MLBS/training/
+    LIDAR: /Users/Ben/Documents/DeepLidar/data/MLBS/training/
+  training_csvs: /Users/Ben/Documents/DeepLidar/data/MLBS/training/
+  training:
+    RGB: /Users/Ben/Documents/DeepLidar/data/MLBS/training/
+    LIDAR: /Users/Ben/Documents/DeepLidar/data/MLBS/training/
+  evaluation:
+    RGB: /Users/Ben/Documents/DeepLidar/data/MLBS/plots/
+    LIDAR: /Users/Ben/Documents/DeepLidar/data/MLBS/plots/
