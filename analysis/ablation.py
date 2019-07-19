@@ -48,8 +48,8 @@ def train(pretrain_model_path, data, proportion_data, DeepForest_config):
     os.mkdir(save_snapshot_path)   
     
     ##Replace config file and experiment
-    DeepForest_config["batch_size"] = 10
-    DeepForest_config["epochs"] = 2
+    DeepForest_config["batch_size"] = 20
+    DeepForest_config["epochs"] = 40
     DeepForest_config["save_image_path"] =  None
     experiment.log_parameter("mode","ablation")   
     DeepForest_config["evaluation_images"] = 0         
@@ -155,4 +155,6 @@ if __name__ == "__main__":
     #Wrap together the results            
     results = pd.DataFrame(results)
     
-    results.to_csv("ablation_{}".format(dirname) + ".csv")        
+    #give time stamp in case multiple running
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")      
+    results.to_csv("ablation_{}".format(timestamp) + ".csv")        
