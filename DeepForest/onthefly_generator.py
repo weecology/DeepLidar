@@ -16,8 +16,6 @@ from matplotlib import pyplot
 from PIL import Image
 from six import raise_from
 import slidingwindow as sw
-
-from DeepForest import Lidar, postprocessing
 from DeepForest.utils import image_utils
 from keras_retinanet.preprocessing.generator import Generator
 from keras_retinanet import models
@@ -56,7 +54,7 @@ class OnTheFlyGenerator(Generator):
         self.verbose = True
         
         #Switch for prediction with lidar
-        self.with_lidar = True
+        self.with_lidar = False
         
         #Tensorflow prediction session
         self.session_exists = False
@@ -202,26 +200,6 @@ class OnTheFlyGenerator(Generator):
         index = self.row["window"]
         crop = self.CHM[self.windows[index].indices()]  
         return crop
-    
-    def fetch_lidar_filename(self):           
-        lidar_path = self.DeepForest_config[self.row["site"]][self.name]["LIDAR"]        
-        lidar_filepath = Lidar.fetch_lidar_filename(self.row, lidar_path)
-        
-        if lidar_filepath:
-            return lidar_filepath
-        else:
-            return None
-
-    def load_lidar_tile(self, normalize = True):
-        '''Load a point cloud into memory from file
-        '''
-        self.lidar_filepath=self.fetch_lidar_filename()
-        if self.lidar_filepath is None:
-            print("Lidar file {} cannot be found".format(self.row["tile"]))
-            return None
-        
-        self.lidar_tile=Lidar.load_lidar(self.lidar_filepath, normalize)
-        return self.lidar_tile
 
     def load_rgb_tile(self):
         ''''
@@ -239,11 +217,6 @@ class OnTheFlyGenerator(Generator):
         """
         four_channel_image=Lidar.bind_array(image, CHM) 
         return four_channel_image
-    
-    def crop_CHM(self):
-        index = self.row["window"]
-        crop = self.CHM[self.windows[index].indices()]  
-        return crop
     
     def load_new_crop(self):
         ''''Read a new pair of RGB and LIDAR crop

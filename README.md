@@ -6,7 +6,7 @@ Ben. G. Weinstein
 
 DeepForest uses conda environments to manage python dependencies
 
-Some key dependencies that have some build specific installs include
+Some key dependencies for model training that have some build specific installs include
 
 * OpenCV
 * Keras + Tensorflow

@@ -13,15 +13,9 @@ from keras_retinanet import models
 from keras_retinanet.utils.visualization import draw_annotations
 
 #Add to path
-sys.path.insert(0, os.path.abspath('..'))
-sys.path.append(".")
+sys.path.append("../")
 from DeepForest.utils import generators
 from DeepForest import config, postprocessing
-
-#Parse args
-mode_parser     = argparse.ArgumentParser(description='Prediction of a new image')
-mode_parser.add_argument('--model', help='path to training model',default=None)
-mode_parser.add_argument('--output_dir', default="snapshots/images/")
 
 args=mode_parser.parse_args()
 
@@ -80,12 +74,7 @@ def _get_detections(generator, model, score_threshold=0.05, max_detections=300, 
     for i in range(generator.size()):
         raw_image = generator.load_image(i)
         plot_image = generator.retrieve_window()
-        plot_image = copy.deepcopy(plot_image[:,:,::-1])
-
-        #Format name and save
-        image_name = generator.image_names[i]        
-        row = generator.image_data[image_name]             
-        lfname = os.path.splitext(row["tile"])[0] + "_" + str(row["window"]) +"raw_image"              
+        plot_image = copy.deepcopy(plot_image[:,:,::-1])          
         
         #Skip if missing a component data source
         if raw_image is False:
@@ -124,50 +113,10 @@ def _get_detections(generator, model, score_threshold=0.05, max_detections=300, 
         image_name = generator.image_names[i]        
         row = generator.image_data[image_name]             
         fname = os.path.splitext(row["tile"])[0] + "_" + str(row["window"])
-        
-        #drape boxes if they exist
-        if len(image_boxes) > 0:
-            #get lidar cloud if a new tile, or if not the same tile as previous image.
-            if generator.with_lidar:
-                if i == 0:
-                    generator.load_lidar_tile()
-                elif not generator.image_data[i]["tile"] == generator.image_data[i-1]["tile"]:
-                    generator.load_lidar_tile()
-            
-            #The tile could be the full tile, so let's check just the 400 pixel crop we are interested    
-            #Not the best structure, but the on-the-fly generator always has 0 bounds
-            if hasattr(generator, 'hf'):
-                bounds = generator.hf["utm_coords"][generator.row["window"]]    
-            else:
-                bounds=[]
-            
-            if generator.with_lidar:
-                #Load tile
-                if not generator.row["tile"] == generator.previous_image_path:
-                    generator.load_lidar_tile()
-                #density = Lidar.check_density(generator.lidar_tile, bounds=bounds)
                                 
-                if postprocess:
-                    #find window utm coordinates
-                    #print("Bounds for image {}, window {}, are {}".format(generator.row["tile"], generator.row["window"], bounds))
-                    pc = postprocessing.drape_boxes(boxes=image_boxes, pc = generator.lidar_tile, bounds=bounds)     
-                    
-                    #Get new bounding boxes
-                    image_boxes = postprocessing.cloud_to_box(pc, bounds)    
-                    image_scores = image_scores[:image_boxes.shape[0]]
-                    image_labels = image_labels[:image_boxes.shape[0]] 
-                    if len(image_boxes)>0:
-                        image_detections = np.concatenate([image_boxes, np.expand_dims(image_scores, axis=1), np.expand_dims(image_labels, axis=1)], axis=1)
-                    else:
-                        pass
-                    #TODO what to do if there are no rows?
-                else:
-                    pass
-                    #print("Point density of {:.2f} is too low, skipping image {}".format(density, generator.row["tile"]))        
-
         if save_path is not None:
             draw_annotations(plot_image, generator.load_annotations(i), label_to_name=generator.label_to_name)
-            #draw_detections(plot_image, image_boxes, image_scores, image_labels, label_to_name=generator.label_to_name,score_threshold=score_threshold)
+            draw_detections(plot_image, image_boxes, image_scores, image_labels, label_to_name=generator.label_to_name,score_threshold=score_threshold)
         
             #name image
             image_name=generator.image_names[i]        

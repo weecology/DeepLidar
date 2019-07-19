@@ -128,30 +128,6 @@ def _get_detections(generator, model, score_threshold=0.05, max_detections=300, 
             else:
                 bounds=[]
             
-            if generator.with_lidar:
-                #Load tile
-                if not generator.row["tile"] == generator.previous_image_path:
-                    generator.load_lidar_tile()
-                #density = Lidar.check_density(generator.lidar_tile, bounds=bounds)
-                                
-                if postprocess:
-                    #find window utm coordinates
-                    #print("Bounds for image {}, window {}, are {}".format(generator.row["tile"], generator.row["window"], bounds))
-                    pc = postprocessing.drape_boxes(boxes=image_boxes, pc = generator.lidar_tile, bounds=bounds)     
-                    
-                    #Get new bounding boxes
-                    image_boxes = postprocessing.cloud_to_box(pc, bounds)    
-                    image_scores = image_scores[:image_boxes.shape[0]]
-                    image_labels = image_labels[:image_boxes.shape[0]] 
-                    if len(image_boxes)>0:
-                        image_detections = np.concatenate([image_boxes, np.expand_dims(image_scores, axis=1), np.expand_dims(image_labels, axis=1)], axis=1)
-                    else:
-                        pass
-                    #TODO what to do if there are no rows?
-                else:
-                    pass
-                    #print("Point density of {:.2f} is too low, skipping image {}".format(density, generator.row["tile"]))        
-
         if save_path is not None:
             draw_annotations(plot_rgb, generator.load_annotations(i), label_to_name=generator.label_to_name)
             draw_detections(plot_rgb, image_boxes, image_scores, image_labels, label_to_name=generator.label_to_name,score_threshold=score_threshold)
