@@ -1,8 +1,8 @@
-# Combining LIDAR and RGB airborne imagery for individual tree-crown detection
+# Geographic Generalization in Airborne RGB Deep Learning Tree Detection
 
-Ben. G. Weinstein
+Ben. G. Weinstein, Sergio Marconi, Stephanie Bohlman, Alina Zare, Ethan White
 
-## Dependencies
+## How can I train new data?
 
 DeepForest uses conda environments to manage python dependencies
 
