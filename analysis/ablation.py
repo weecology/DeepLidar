@@ -12,6 +12,7 @@ import glob
 import pandas as pd 
 import copy
 import numpy as np
+import gc
 
 from keras_retinanet import models
 from keras_retinanet .models.retinanet import retinanet_bbox
@@ -47,7 +48,7 @@ def train(pretrain_model_path, data, proportion_data, DeepForest_config):
     os.mkdir(save_snapshot_path)   
     
     ##Replace config file and experiment
-    DeepForest_config["batch_size"] = 20
+    DeepForest_config["batch_size"] = 10
     DeepForest_config["epochs"] = 2
     DeepForest_config["save_image_path"] =  None
     experiment.log_parameter("mode","ablation")   
@@ -95,6 +96,7 @@ def train(pretrain_model_path, data, proportion_data, DeepForest_config):
     return prediction_model, num_trees
 
 def evaluation(prediction_model, results, DeepForest_config, num_trees):
+    print("Evaluation")
     #Run eval
     experiment = Experiment(api_key="ypQZhYfs3nSyKzOfz13iuJpj2", project_name='deeplidar', log_code=False)
     experiment.log_parameter("mode","ablation_evaluation")
@@ -147,6 +149,8 @@ if __name__ == "__main__":
             for proportion_data in [0, 0.01, 0.05,0.25,0.5,0.75,1]:
                 prediction_model, num_trees = train(pretrain_model_path, data, proportion_data, DeepForest_config)
                 results = evaluation(prediction_model, results, DeepForest_config, num_trees)
+                del(prediction_model)
+                gc.collect()
     
     #Wrap together the results            
     results = pd.DataFrame(results)
