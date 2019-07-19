@@ -183,7 +183,7 @@ def create_callbacks(model, training_model, prediction_model, train_generator, v
     callbacks.append(neon_evaluation)  
         
     #comet_loss predictor
-    predictor_callback = predictor(experiment, loss_name="loss", patience = 10, best_callback= None, threshold=0.1)
+    predictor_callback = predictor.Predictor(experiment, loss_name="loss", patience = 10, best_callback= None, threshold=0.1)
    
     return callbacks
 
