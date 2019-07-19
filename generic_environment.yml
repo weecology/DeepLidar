@@ -1,0 +1,24 @@
+name: DeepLidar
+channels:
+  - anaconda
+  - defaults
+dependencies:
+  - numpy
+  - dask
+  - pandas
+  - h5py
+  - keras
+  - tensorflow
+  - jupyter
+  - matplotlib
+  - pytest
+  - scikit-image
+  - scipy
+  - pip:
+    - laspy
+    - opencv-python
+    - rasterio
+    - rtree
+    - shapely
+    - slidingwindow
+    - snakeviz
