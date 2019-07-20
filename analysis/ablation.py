@@ -59,7 +59,7 @@ def train(pretrain_model_path, data, proportion_data, DeepForest_config):
     os.mkdir(save_snapshot_path)   
     
     ##Replace config file and experiment
-    DeepForest_config["batch_size"] = 20
+    DeepForest_config["batch_size"] = 10
     DeepForest_config["epochs"] = 40
     DeepForest_config["save_image_path"] =  None
     experiment.log_parameter("mode","ablation")   
@@ -74,7 +74,7 @@ def train(pretrain_model_path, data, proportion_data, DeepForest_config):
         backbone_retinanet=backbone.retinanet,
                     num_classes=1,
                    weights=pretrain_model_path,
-                   multi_gpu=1,
+                   multi_gpu=2,
                    freeze_backbone=False,
                    nms_threshold=DeepForest_config["nms_threshold"],
                    input_channels=DeepForest_config["input_channels"]
