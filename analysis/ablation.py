@@ -59,7 +59,7 @@ def train(pretrain_model_path, proportion_data, DeepForest_config):
     os.mkdir(save_snapshot_path)   
     
     ##Replace config file and experiment
-    DeepForest_config["batch_size"] = 20
+    DeepForest_config["batch_size"] = 40
     DeepForest_config["epochs"] = 40
     DeepForest_config["save_image_path"] =  None
     experiment.log_parameter("mode","ablation")   
@@ -153,7 +153,7 @@ if __name__ == "__main__":
         backbone = models.backbone(DeepForest_config["backbone"])         
         
         #For each site run a portion of the training data
-        for x in np.arange(1):
+        for x in np.arange(2):
             for proportion_data in [0, 0.01, 0.05,0.25,0.5,0.75,1]:
                 reset_keras()
                 prediction_model, num_trees = train(pretrain_model_path, proportion_data, DeepForest_config)
