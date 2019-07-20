@@ -117,7 +117,7 @@ def evaluation(prediction_model, results, DeepForest_config, num_trees):
 if __name__ == "__main__":
     #The following models have been pretrained on all other sites except for the name in the site key
     pretraining_models = {
-        #"SJER": "/orange/ewhite/b.weinstein/retinanet//resnet50_05.h5",
+        "SJER": "/orange/ewhite/b.weinstein/retinanet/20190719_120547/resnet50_05.h5",
         "TEAK": "/orange/ewhite/b.weinstein/retinanet/20190713_102002/resnet50_04.h5"
         #"NIWO":"/orange/ewhite/b.weinstein/retinanet//resnet50_05.h5",
         #"MLBS":  "/orange/ewhite/b.weinstein/retinanet//resnet50_05.h5"
@@ -145,7 +145,7 @@ if __name__ == "__main__":
         backbone = models.backbone(DeepForest_config["backbone"])         
         
         #For each site run a portion of the training data
-        for x in np.arange(2):
+        for x in np.arange(3):
             for proportion_data in [0, 0.01, 0.05,0.25,0.5,0.75,1]:
                 prediction_model, num_trees = train(pretrain_model_path, data, proportion_data, DeepForest_config)
                 results = evaluation(prediction_model, results, DeepForest_config, num_trees)
