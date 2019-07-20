@@ -37,7 +37,7 @@ def reset_keras():
     sess = get_session()
 
     try:
-        del prediction_model
+        del prediction_model 
     except:
         pass
 
@@ -74,7 +74,7 @@ def train(pretrain_model_path, data, proportion_data, DeepForest_config):
         backbone_retinanet=backbone.retinanet,
                     num_classes=1,
                    weights=pretrain_model_path,
-                   multi_gpu=2,
+                   multi_gpu=1,
                    freeze_backbone=False,
                    nms_threshold=DeepForest_config["nms_threshold"],
                    input_channels=DeepForest_config["input_channels"]
