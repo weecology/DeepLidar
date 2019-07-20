@@ -48,7 +48,7 @@ def reset_keras():
     config.gpu_options.allow_growth = True
     keras.backend.tensorflow_backend.set_session(get_session())
 
-def train(pretrain_model_path, data, proportion_data, DeepForest_config):
+def train(pretrain_model_path, proportion_data, DeepForest_config):
     ###Log experiments
     experiment = Experiment(api_key="ypQZhYfs3nSyKzOfz13iuJpj2", project_name='deeplidar', log_code=False)
     
@@ -84,6 +84,12 @@ def train(pretrain_model_path, data, proportion_data, DeepForest_config):
     if not proportion_data == 0:
         #Run training, and pass comet experiment class
         #start training
+        
+        data = load_retraining_data(DeepForest_config)
+        for x in [pretraining_site]:
+            DeepForest_config[x]["h5"] = os.path.join(DeepForest_config[x]["h5"],"hand_annotations")
+            print(DeepForest_config[x]["h5"])
+            
         train_generator, validation_generator = create_h5_generators(data, DeepForest_config=DeepForest_config)     
         
         #ensure directory created first; otherwise h5py will error after epoch.
@@ -141,15 +147,9 @@ if __name__ == "__main__":
         DeepForest_config["hand_annotation_site"] = [pretraining_site]
         DeepForest_config["evaluation_site"] = [pretraining_site]
         DeepForest_config["shuffle_training"] = True
-        
-        data = load_retraining_data(DeepForest_config)
-        for x in [pretraining_site]:
-            DeepForest_config[x]["h5"] = os.path.join(DeepForest_config[x]["h5"],"hand_annotations")
-            print(DeepForest_config[x]["h5"])
-            
+             
         #Load pretraining model
         print('Loading model, this may take a secondkeras-retinanet.\n')
-        
         backbone = models.backbone(DeepForest_config["backbone"])         
         
         #For each site run a portion of the training data
