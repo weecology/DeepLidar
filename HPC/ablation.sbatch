@@ -24,5 +24,3 @@ echo $PYTHONPATH
 cd /home/b.weinstein/DeepLidar/analysis
 
 python ablation.py
-
-cat ablation.csv

@@ -17,6 +17,7 @@ import gc
 from keras_retinanet import models
 from keras_retinanet .models.retinanet import retinanet_bbox
 from keras_retinanet .callbacks import RedirectModel
+from keras.backend.tensorflow_backend import clear_session, get_session
 
 #insert path 
 sys.path.insert(0, os.path.abspath('..'))
@@ -28,14 +29,24 @@ from prcurve import main as eval_main
 #load config - clean
 DeepForest_config = load_config("..")       
 
-def get_session():
-    """ Construct a modified tf session.
-    """
+#Keras session cleaner for training in a loop
+def reset_keras():
+    sess = get_session()
+    clear_session()
+    sess.close()
+    sess = get_session()
+
+    try:
+        del prediction_model
+    except:
+        pass
+
+    print(gc.collect()) # if it's done something you should see a number being outputted
+
+    # use the same config as you used to create the session
     config = tf.ConfigProto()
     config.gpu_options.allow_growth = True
-    return tf.Session(config=config)
-
-keras.backend.tensorflow_backend.set_session(get_session())
+    keras.backend.tensorflow_backend.set_session(get_session())
 
 def train(pretrain_model_path, data, proportion_data, DeepForest_config):
     ###Log experiments
@@ -63,7 +74,7 @@ def train(pretrain_model_path, data, proportion_data, DeepForest_config):
         backbone_retinanet=backbone.retinanet,
                     num_classes=1,
                    weights=pretrain_model_path,
-                   multi_gpu=DeepForest_config["num_GPUs"],
+                   multi_gpu=2,
                    freeze_backbone=False,
                    nms_threshold=DeepForest_config["nms_threshold"],
                    input_channels=DeepForest_config["input_channels"]
@@ -96,11 +107,7 @@ def train(pretrain_model_path, data, proportion_data, DeepForest_config):
     return prediction_model, num_trees
 
 def evaluation(prediction_model, results, DeepForest_config, num_trees):
-    print("Evaluation")
-    #Run eval
-    experiment = Experiment(api_key="ypQZhYfs3nSyKzOfz13iuJpj2", project_name='deeplidar', log_code=False)
-    experiment.log_parameter("mode","ablation_evaluation")
-    experiment.log_parameters(DeepForest_config)            
+    print("Evaluation")        
         
     args = [
         "--batch-size", str(DeepForest_config['batch_size']),
@@ -148,14 +155,14 @@ if __name__ == "__main__":
         #For each site run a portion of the training data
         for x in np.arange(2):
             for proportion_data in [0, 0.01, 0.05,0.25,0.5,0.75,1]:
+                reset_keras()
                 prediction_model, num_trees = train(pretrain_model_path, data, proportion_data, DeepForest_config)
                 results = evaluation(prediction_model, results, DeepForest_config, num_trees)
-                del(prediction_model)
-                gc.collect()
     
     #Wrap together the results            
     results = pd.DataFrame(results)
     
     #give time stamp in case multiple running
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")      
-    results.to_csv("ablation_{}".format(timestamp) + ".csv")        
+    results.to_csv("ablation_{}".format(timestamp) + ".csv")
+    print(results)
