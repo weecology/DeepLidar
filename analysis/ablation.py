@@ -124,10 +124,10 @@ def evaluation(prediction_model, results, DeepForest_config, num_trees):
 if __name__ == "__main__":
     #The following models have been pretrained on all other sites except for the name in the site key
     pretraining_models = {
-        "SJER": "/orange/ewhite/b.weinstein/retinanet/20190719_120547/resnet50_05.h5",
-        "TEAK": "/orange/ewhite/b.weinstein/retinanet/20190713_102002/resnet50_04.h5",
-        "NIWO":"/orange/ewhite/b.weinstein/retinanet/20190719_121121/resnet50_05.h5",
-        "MLBS":  "/orange/ewhite/b.weinstein/retinanet/20190719_120823/resnet50_05.h5"
+        #"SJER": "/orange/ewhite/b.weinstein/retinanet/20190719_120547/resnet50_05.h5",
+        #"TEAK": "/orange/ewhite/b.weinstein/retinanet/20190713_102002/resnet50_04.h5",
+        "NIWO":"/orange/ewhite/b.weinstein/retinanet/20190719_121121/resnet50_05.h5"
+        #"MLBS":  "/orange/ewhite/b.weinstein/retinanet/20190719_120823/resnet50_05.h5"
     }
     
     #For each site, match the hand annotations with the pretraining model

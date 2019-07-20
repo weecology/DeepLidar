@@ -251,7 +251,7 @@ def split_training(data, DeepForest_config, experiment):
             training = training.sample(frac=1)
             
         #Select subset of training windows
-        training=training.iloc[0:num_training_images]
+        training = training.iloc[0:num_training_images]
         
         #Ensure training is sorted by image
         training.sort_values(by="tile", inplace=True)    
