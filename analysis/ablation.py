@@ -133,6 +133,7 @@ if __name__ == "__main__":
         #Load retraining data
         DeepForest_config["hand_annotation_site"] = [pretraining_site]
         DeepForest_config["evaluation_site"] = [pretraining_site]
+        DeepForest_config["shuffle_training"] = True
         
         data = load_retraining_data(DeepForest_config)
         for x in [pretraining_site]:
@@ -145,7 +146,7 @@ if __name__ == "__main__":
         backbone = models.backbone(DeepForest_config["backbone"])         
         
         #For each site run a portion of the training data
-        for x in np.arange(3):
+        for x in np.arange(4):
             for proportion_data in [0, 0.01, 0.05,0.25,0.5,0.75,1]:
                 prediction_model, num_trees = train(pretrain_model_path, data, proportion_data, DeepForest_config)
                 results = evaluation(prediction_model, results, DeepForest_config, num_trees)
