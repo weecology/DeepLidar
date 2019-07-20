@@ -59,7 +59,7 @@ def train(pretrain_model_path, proportion_data, DeepForest_config):
     os.mkdir(save_snapshot_path)   
     
     ##Replace config file and experiment
-    DeepForest_config["batch_size"] = 10
+    DeepForest_config["batch_size"] = 20
     DeepForest_config["epochs"] = 40
     DeepForest_config["save_image_path"] =  None
     experiment.log_parameter("mode","ablation")   
@@ -130,10 +130,10 @@ def evaluation(prediction_model, results, DeepForest_config, num_trees):
 if __name__ == "__main__":
     #The following models have been pretrained on all other sites except for the name in the site key
     pretraining_models = {
-        #"SJER": "/orange/ewhite/b.weinstein/retinanet/20190719_120547/resnet50_05.h5",
-        #"TEAK": "/orange/ewhite/b.weinstein/retinanet/20190713_102002/resnet50_04.h5",
-        "NIWO":"/orange/ewhite/b.weinstein/retinanet/20190719_121121/resnet50_05.h5"
-        #"MLBS":  "/orange/ewhite/b.weinstein/retinanet/20190719_120823/resnet50_05.h5"
+        "SJER": "/orange/ewhite/b.weinstein/retinanet/20190719_120547/resnet50_05.h5",
+        "TEAK": "/orange/ewhite/b.weinstein/retinanet/20190713_102002/resnet50_04.h5",
+        "NIWO":"/orange/ewhite/b.weinstein/retinanet/20190719_121121/resnet50_05.h5",
+        "MLBS":  "/orange/ewhite/b.weinstein/retinanet/20190719_120823/resnet50_05.h5"
     }
     
     #For each site, match the hand annotations with the pretraining model
@@ -156,7 +156,7 @@ if __name__ == "__main__":
         for x in np.arange(1):
             for proportion_data in [0, 0.01, 0.05,0.25,0.5,0.75,1]:
                 reset_keras()
-                prediction_model, num_trees = train(pretrain_model_path, data, proportion_data, DeepForest_config)
+                prediction_model, num_trees = train(pretrain_model_path, proportion_data, DeepForest_config)
                 results = evaluation(prediction_model, results, DeepForest_config, num_trees)
     
     #Wrap together the results            
