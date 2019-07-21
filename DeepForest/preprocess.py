@@ -234,8 +234,11 @@ def split_training(data, DeepForest_config, experiment):
     
     #If selecting training samples as a proportion
     if not DeepForest_config["training_proportion"]==1:
-            DeepForest_config["training_images"] = int(training.shape[0] * DeepForest_config["training_proportion"])
-            print("Superceding number of training images. There were {} originally, reduced to {} based on training proportion {}".format(training.shape[0], DeepForest_config["training_images"],DeepForest_config["training_proportion"]))
+            DeepForest_config["training_images"] = round(training.shape[0] * DeepForest_config["training_proportion"])
+            if DeepForest_config["training_images"] == 0:
+                raise  ValueError("Training proportion leads to no images remaining")
+            else:
+                print("Superceding number of training images. There were {} originally, reduced to {} based on training proportion {}".format(training.shape[0], DeepForest_config["training_images"],DeepForest_config["training_proportion"]))
             if experiment:
                 experiment.log_parameter("final_training_images",DeepForest_config["training_images"])
     

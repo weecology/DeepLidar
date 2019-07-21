@@ -36,6 +36,7 @@ def test_split_training(DeepForest_config):
     
 #Test full proportion
 test_split_training(DeepForest_config)
+test_split_training(DeepForest_config)
 
 #Test tiny proportion
 DeepForest_config["shuffle_training"]=False
