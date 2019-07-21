@@ -85,10 +85,6 @@ def train(pretrain_model_path, proportion_data, DeepForest_config):
         #start training
         
         data = load_retraining_data(DeepForest_config)
-        for x in [pretraining_site]:
-            DeepForest_config[x]["h5"] = os.path.join(DeepForest_config[x]["h5"],"hand_annotations")
-            print(DeepForest_config[x]["h5"])
-            
         train_generator, validation_generator = create_h5_generators(data, DeepForest_config=DeepForest_config)     
         
         #ensure directory created first; otherwise h5py will error after epoch.
@@ -151,6 +147,11 @@ if __name__ == "__main__":
         print('Loading model, this may take a secondkeras-retinanet.\n')
         backbone = models.backbone(DeepForest_config["backbone"])         
         
+        #retrain model paths
+        for x in [pretraining_site]:
+            DeepForest_config[x]["h5"] = os.path.join(DeepForest_config[x]["h5"],"hand_annotations")
+            print(DeepForest_config[x]["h5"])
+            
         #For each site run a portion of the training data
         for x in np.arange(2):
             for proportion_data in [0, 0.01, 0.05,0.25,0.5,0.75,1]:
