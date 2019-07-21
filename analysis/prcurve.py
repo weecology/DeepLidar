@@ -31,10 +31,11 @@ def main(DeepForest_config, model=None, args=None):
     #Add seperate dir
     #save time for logging
     dirname = datetime.now().strftime("%Y%m%d_%H%M%S")
+    save_path =  args.save_path + dirname
     
     # make save path if it doesn't exist
-    if args.save_path is not None and not os.path.exists(args.save_path + dirname):
-        os.makedirs(args.save_path + dirname)
+    if save_path is not None and not os.path.exists(save_path):
+        os.makedirs(save_path)
         
     #Evaluation metrics
     site=DeepForest_config["evaluation_site"]
@@ -49,7 +50,7 @@ def main(DeepForest_config, model=None, args=None):
         iou_threshold=args.iou_threshold,
         score_threshold=args.score_threshold,
         max_detections=args.max_detections,
-        save_path=args.save_path + dirname,
+        save_path=save_path,
         experiment=None
     )
     
