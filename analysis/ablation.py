@@ -61,7 +61,6 @@ def train(pretrain_model_path, proportion_data, DeepForest_config):
     ##Replace config file and experiment
     DeepForest_config["batch_size"] = 40
     DeepForest_config["epochs"] = 40
-    DeepForest_config["save_image_path"] =  None
     experiment.log_parameter("mode","ablation")   
     DeepForest_config["evaluation_images"] = 0         
     
@@ -119,7 +118,7 @@ def evaluation(prediction_model, results, DeepForest_config, num_trees):
         "--batch-size", str(DeepForest_config['batch_size']),
         '--score-threshold', str(DeepForest_config['score_threshold']),
         '--suppression-threshold', '0.1', 
-        '--save-path', 'snapshots/images/', 
+        '--save-path', None 
     ]
     
     recall, precision  = eval_main(DeepForest_config = DeepForest_config, args = args, model=prediction_model)
