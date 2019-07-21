@@ -33,12 +33,12 @@ def main(DeepForest_config, model=None, args=None):
     dirname = datetime.now().strftime("%Y%m%d_%H%M%S")
     if args.save_path:
         save_path =  args.save_path + dirname
-    else:
-        save_path = None
-        
         # make save path if it doesn't exist
         if not os.path.exists(save_path):
             os.makedirs(save_path)
+    else:
+        save_path = None
+
         
     #Evaluation metrics
     site=DeepForest_config["evaluation_site"]
