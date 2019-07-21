@@ -23,8 +23,6 @@ def test_load_xml():
 
 #test_load_xml()
 
-DeepForest_config["evaluation_site"]=["NIWO"]
-DeepForest_config["training_proportion"]=1
 
 def test_split_training(DeepForest_config):
     data = generators.load_retraining_data(DeepForest_config)   
@@ -35,12 +33,15 @@ def test_split_training(DeepForest_config):
     print(train.shape)
     
 #Test full proportion
+DeepForest_config["hand_annotation_site"]=["NIWO"]
+DeepForest_config["training_proportion"]=1
+
 test_split_training(DeepForest_config)
 test_split_training(DeepForest_config)
 
 #Test tiny proportion
-DeepForest_config["shuffle_training"]=False
-DeepForest_config["training_proportion"]=0.01
+DeepForest_config["shuffle_training"] = False
+DeepForest_config["training_proportion"] = 0.01
 test_split_training(DeepForest_config)
 
 #Shuffle training
