@@ -31,7 +31,8 @@ def main(DeepForest_config, model=None, args=None):
     #Add seperate dir
     #save time for logging
     dirname = datetime.now().strftime("%Y%m%d_%H%M%S")
-    save_path =  args.save_path + dirname
+    if args.save_path:
+        save_path =  args.save_path + dirname
     
     # make save path if it doesn't exist
     if save_path is not None and not os.path.exists(save_path):
