@@ -34,16 +34,16 @@ field_data_path: /home/b.weinstein/DeepLidar/data/field_data.csv
 
 #Select sites
 hand_annotation_site:
-  - NIWO
+  - MLBS
 pretraining_site:
-  - NIWO
+  - MLBS
 evaluation_site:
-  - NIWO
+  - MLBS
 
 #Training
 training_images: All
-training_proportion: 0.05
-weights: /orange/ewhite/b.weinstein/retinanet/20190719_121121/resnet50_05.h5
+training_proportion: 1
+weights: /orange/ewhite/b.weinstein/retinanet/20190719_120823/resnet50_05.h5
 imagenet_weights: True
 batch_size: 40
 epochs: 40
