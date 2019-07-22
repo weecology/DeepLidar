@@ -75,10 +75,10 @@ if __name__ == '__main__':
     DeepForest_config = load_config("..")
     DeepForest_config["evaluation_site"] = ["OSBS"]
     
-    trained_models = {"SJER":"/orange/ewhite/b.weinstein/retinanet/20190715_133239/resnet50_30.h5",
-                      "TEAK":"/orange/ewhite/b.weinstein/retinanet/20190713_230957/resnet50_40.h5",
-                      "NIWO":"/orange/ewhite/b.weinstein/retinanet/20190712_055958/resnet50_40.h5",
-                          "MLBS":"/orange/ewhite/b.weinstein/retinanet/20190712_035528/resnet50_40.h5",
+    trained_models = {#"SJER":"/orange/ewhite/b.weinstein/retinanet/20190715_133239/resnet50_30.h5",
+                      #"TEAK":"/orange/ewhite/b.weinstein/retinanet/20190713_230957/resnet50_40.h5",
+                      #"NIWO":"/orange/ewhite/b.weinstein/retinanet/20190712_055958/resnet50_40.h5",
+                          #"MLBS":"/orange/ewhite/b.weinstein/retinanet/20190712_035528/resnet50_40.h5",
                           "All":"/orange/ewhite/b.weinstein/retinanet/20190715_123358/resnet50_40.h5"}
     
     results = []    
