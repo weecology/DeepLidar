@@ -109,7 +109,6 @@ MLBS:
     RGB: /home/b.weinstein/DeepLidar/data/MLBS/plots/
     LIDAR: /home/b.weinstein/DeepLidar/data/MLBS/plots/
 OSBS:
-  h5: /ufrc/ewhite/b.weinstein/training_h5s/noblending/MLBS/
   evaluation:
-    RGB: /home/b.weinstein/DeepLidar/data/MLBS/plots/
-    LIDAR: /home/b.weinstein/DeepLidar/data/MLBS/plots/
+    RGB: /home/b.weinstein/DeepLidar/data/OSBS/plots/
+    LIDAR: /home/b.weinstein/DeepLidar/data/OSBS/plots/
