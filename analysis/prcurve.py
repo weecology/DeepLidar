@@ -75,19 +75,35 @@ if __name__ == '__main__':
     DeepForest_config = load_config("..")
     
     NIWO_list = [
-        "/orange/ewhite/b.weinstein/retinanet/20190712_055958/resnet50_40.h5"
+        "/orange/ewhite/b.weinstein/retinanet/20190712_055958/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190722_140520/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190722_141108/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190722_143508/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190722_145609/resnet50_40.h5"
     ]
         
     TEAK_list = [
-        "/orange/ewhite/b.weinstein/retinanet/20190713_230957/resnet50_40.h5"
+        "/orange/ewhite/b.weinstein/retinanet/20190713_230957/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190722_125907/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190722_130041/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190722_131707/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190722_132610/resnet50_40.h5" 
     ]
 
     SJER_list = [
-        "/orange/ewhite/b.weinstein/retinanet/20190715_133239/resnet50_30.h5"
+        "/orange/ewhite/b.weinstein/retinanet/20190715_133239/resnet50_30.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190722_133945/resnet50_30.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190722_134545/resnet50_30.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190722_134844/resnet50_30.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190722_135144/resnet50_30.h5"
     ]
 
     MLBS_list = [
-        "/orange/ewhite/b.weinstein/retinanet/20190712_035528/resnet50_40.h5"
+        "/orange/ewhite/b.weinstein/retinanet/20190712_035528/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet//resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet//resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet//resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet//resnet50_40.h5"
     ]
     
     trained_models = {
