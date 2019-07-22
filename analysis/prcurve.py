@@ -100,10 +100,10 @@ if __name__ == '__main__':
 
     MLBS_list = [
         "/orange/ewhite/b.weinstein/retinanet/20190712_035528/resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet//resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet//resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet//resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet//resnet50_40.h5"
+        "/orange/ewhite/b.weinstein/retinanet/20190722_155909/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190722_155609/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190722_155009/resnet50_40.h5",
+        "/orange/ewhite/b.weinstein/retinanet/20190722_154409/resnet50_40.h5"
     ]
     
     trained_models = {
