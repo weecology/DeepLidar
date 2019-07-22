@@ -34,19 +34,19 @@ field_data_path: /home/b.weinstein/DeepLidar/data/field_data.csv
 
 #Select sites
 hand_annotation_site:
-  - TEAK
+  - NIWO
 pretraining_site:
-  - TEAK
+  - NIWO
 evaluation_site:
-  - TEAK
+  - NIWO
 
 #Training
 training_images: All
-training_proportion: 1
-weights: /orange/ewhite/b.weinstein/retinanet/20190713_102002/resnet50_04.h5
+training_proportion: 0.05
+weights: /orange/ewhite/b.weinstein/retinanet/20190719_121121/resnet50_05.h5
 imagenet_weights: True
 batch_size: 40
-epochs: 5
+epochs: 40
 backbone: resnet50
 shuffle_training: True
 score_threshold: 0.15
