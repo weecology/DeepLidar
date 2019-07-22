@@ -32,7 +32,8 @@ def main(DeepForest_config, model=None, args=None):
     #save time for logging
     dirname = datetime.now().strftime("%Y%m%d_%H%M%S")
     save_path =  DeepForest_config["save_image_path"] + dirname
-
+    print("save path is {}".format(save_path))
+    
     #Evaluation metrics
     site = DeepForest_config["evaluation_site"]
     
@@ -93,7 +94,6 @@ if __name__ == '__main__':
                     "--batch-size", str(DeepForest_config['batch_size']),
                     '--score-threshold', str(score_threshold),
                     '--suppression-threshold','0.15', 
-                    '--save-path', save_path, 
                     '--model', trained_model, 
                     '--convert-model'
                 ]
