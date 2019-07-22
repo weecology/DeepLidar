@@ -73,49 +73,17 @@ if __name__ == '__main__':
     from DeepForest.config import load_config
 
     DeepForest_config = load_config("..")
+    DeepForest_config["evaluation_site"] = ["OSBS"]
     
-    NIWO_list = [
-        "/orange/ewhite/b.weinstein/retinanet/20190712_055958/resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190722_140520/resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190722_141108/resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190722_143508/resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190722_145609/resnet50_40.h5"
-    ]
-        
-    TEAK_list = [
-        "/orange/ewhite/b.weinstein/retinanet/20190713_230957/resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190722_125907/resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190722_130041/resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190722_131707/resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190722_132610/resnet50_40.h5" 
-    ]
-
-    SJER_list = [
-        "/orange/ewhite/b.weinstein/retinanet/20190715_133239/resnet50_30.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190722_133945/resnet50_30.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190722_134545/resnet50_30.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190722_134844/resnet50_30.h5",
-        "/orange/ewhite/b.weinstein/retinanet/20190722_135144/resnet50_30.h5"
-    ]
-
-    MLBS_list = [
-        "/orange/ewhite/b.weinstein/retinanet/20190712_035528/resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet//resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet//resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet//resnet50_40.h5",
-        "/orange/ewhite/b.weinstein/retinanet//resnet50_40.h5"
-    ]
-    
-    trained_models = {
-        "NIWO": NIWO_list,
-        "SJER": SJER_list,
-        "TEAK": TEAK_list,
-        "MLBS": MLBS_list}
+    trained_models = {"SJER":"/orange/ewhite/b.weinstein/retinanet/20190715_133239/resnet50_30.h5",
+                      "TEAK":"/orange/ewhite/b.weinstein/retinanet/20190713_230957/resnet50_40.h5",
+                      "NIWO":"/orange/ewhite/b.weinstein/retinanet/20190712_055958/resnet50_40.h5",
+                          "MLBS":"/orange/ewhite/b.weinstein/retinanet/20190712_035528/resnet50_40.h5",
+                          "All":"/orange/ewhite/b.weinstein/retinanet/20190715_123358/resnet50_40.h5"}
     
     results = []    
     for training_site in trained_models:
         trained_model_list = trained_models[training_site]
-        DeepForest_config["evaluation_site"] = [training_site]
         
         #Loop through trained models per site to create confidence intervals
         for trained_model in trained_model_list:
@@ -144,4 +112,4 @@ if __name__ == '__main__':
     results = pd.DataFrame(results)
         
     #model name
-    results.to_csv("prcurve_data" + ".csv")
+    results.to_csv("OSBS" + ".csv")
