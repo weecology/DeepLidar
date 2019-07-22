@@ -1,0 +1,11 @@
+,Model,Precision,Recall,Site,Threshold
+0,/orange/ewhite/b.weinstein/retinanet/20190715_123358/resnet50_40.h5,0.4296577946768061,0.6932515337423313,All,0.0
+1,/orange/ewhite/b.weinstein/retinanet/20190715_123358/resnet50_40.h5,0.5587248322147651,0.6809815950920245,All,0.1
+2,/orange/ewhite/b.weinstein/retinanet/20190715_123358/resnet50_40.h5,0.7085308056872038,0.6114519427402862,All,0.2
+3,/orange/ewhite/b.weinstein/retinanet/20190715_123358/resnet50_40.h5,0.7617647058823529,0.5296523517382413,All,0.30000000000000004
+4,/orange/ewhite/b.weinstein/retinanet/20190715_123358/resnet50_40.h5,0.8018433179723502,0.3558282208588957,All,0.4
+5,/orange/ewhite/b.weinstein/retinanet/20190715_123358/resnet50_40.h5,0.8311688311688312,0.130879345603272,All,0.5
+6,/orange/ewhite/b.weinstein/retinanet/20190715_123358/resnet50_40.h5,0.8888888888888888,0.016359918200409,All,0.6000000000000001
+7,/orange/ewhite/b.weinstein/retinanet/20190715_123358/resnet50_40.h5,0.0,0.0,All,0.7000000000000001
+8,/orange/ewhite/b.weinstein/retinanet/20190715_123358/resnet50_40.h5,0.0,0.0,All,0.8
+9,/orange/ewhite/b.weinstein/retinanet/20190715_123358/resnet50_40.h5,0.0,0.0,All,0.9
