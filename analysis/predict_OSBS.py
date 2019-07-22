@@ -32,6 +32,7 @@ def main(DeepForest_config, model=None, args=None):
     #save time for logging
     dirname = datetime.now().strftime("%Y%m%d_%H%M%S")
     save_path =  DeepForest_config["save_image_path"] + dirname
+    os.makedirs(save_path)    
     print("save path is {}".format(save_path))
     
     #Evaluation metrics
