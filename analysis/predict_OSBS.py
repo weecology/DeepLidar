@@ -31,17 +31,10 @@ def main(DeepForest_config, model=None, args=None):
     #Add seperate dir
     #save time for logging
     dirname = datetime.now().strftime("%Y%m%d_%H%M%S")
-    if args.save_path:
-        save_path =  args.save_path + dirname
-        # make save path if it doesn't exist
-        if not os.path.exists(save_path):
-            os.makedirs(save_path)
-    else:
-        save_path = None
+    save_path =  DeepForest_config["save_image_path"] + dirname
 
-        
     #Evaluation metrics
-    site=DeepForest_config["evaluation_site"]
+    site = DeepForest_config["evaluation_site"]
     
     #create the NEON mAP generator 
     NEON_generator = create_NEON_generator(args.batch_size, DeepForest_config)
@@ -100,7 +93,7 @@ if __name__ == '__main__':
                     "--batch-size", str(DeepForest_config['batch_size']),
                     '--score-threshold', str(score_threshold),
                     '--suppression-threshold','0.15', 
-                    '--save-path', 'snapshots/images/', 
+                    '--save-path', save_path, 
                     '--model', trained_model, 
                     '--convert-model'
                 ]
