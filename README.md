@@ -42,6 +42,8 @@ Check out a demo ipython notebook: https://github.com/weecology/DeepLidar/tree/m
 
 The Neon Trees Benchmark dataset is soon to be published. All are welcome to use it. Currently under curation (in progress): https://github.com/weecology/NeonTreeEvaluation/
 
+For a static version of the dataset that reflects annotations at the time of submission, see dropbox link [here](https://www.dropbox.com/s/yjrhs8b7ocbw6ji/static.zip?dl=0)
+
 ## Published articles
 
 Our first article was published in *Remote Sensing* and can be found [here](https://www.mdpi.com/2072-4292/11/11/1309). 
