@@ -1,5 +1,4 @@
 import glob
-import subprocess
 import socket
 import os
 import sys

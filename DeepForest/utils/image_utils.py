@@ -25,14 +25,13 @@ from DeepForest.preprocess import compute_windows, retrieve_window, NEON_annotat
 from DeepForest import postprocessing
 
 #Utility functions
-
 def proportion_NA(chm):
     """Returns the proportion (%) of cells that are nan in a canopy raster array"""
     proportionNA = np.count_nonzero(np.isnan(chm))/chm.size
     return proportionNA * 100
 
 def equalize(img):
-    
+    """Equalize color array for RGB image"""
     img = img.astype(np.uint8)
     
     # CLAHE (Contrast Limited Adaptive Histogram Equalization)
@@ -60,6 +59,7 @@ def normalize(image):
     return image
 
 def preprocess(image):
+    """Preprocess an image for retinanet"""
     
     #equalize histogram
     image = equalize(image)
@@ -70,6 +70,7 @@ def preprocess(image):
     return image
     
 def image_is_blank(image):
+    """Proportion of image which is zero"""
     
     is_zero=image.sum(2)==0
     is_zero=is_zero.sum()/is_zero.size
