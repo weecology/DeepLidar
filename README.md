@@ -1,3 +1,6 @@
+The model used in this research has been re-written in PyTorch and is now maintained as part of the [DeepForest package]([url](https://github.com/weecology/deepforest)).
+Given the speed of development in deep learning and computer vision packages this code is now unlikely to run without the specific package versions from 2019.
+
 # Geographic Generalization in Airborne RGB Deep Learning Tree Detection
 
 Ben. G. Weinstein, Sergio Marconi, Stephanie Bohlman, Alina Zare, Ethan White
